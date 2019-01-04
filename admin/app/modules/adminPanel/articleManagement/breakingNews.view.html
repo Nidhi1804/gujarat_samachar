@@ -1,0 +1,56 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa icon-puzzle"></i> Breaking News List
+        </div>
+        <div class="tools"> </div>
+        <div class="actions">
+            <div class="btn-group">
+                <a ui-sref="root.addArticle" class="btn btn-circle default" type="button">Create Article</a>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div id="ajax_data" ng-if="vm.breakingNewsLoaded">
+            <div class="table-scrollable">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Headline</th>
+                            <th>Reporter Name</th>
+                            <th>Schedule Time</th>
+                            <th>Last Modified Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sortable-row">
+                        <tr ng-if="vm.breakingNewsList.length == 0">
+                            <td class="text-center" colspan="5">No data found.</td>
+                        </tr>
+                        <tr ng-repeat="breakingNews in vm.breakingNewsList ">
+                            <td>
+                                <img width="80" ng-src="{{breakingNews.baseUrl}}/{{breakingNews.articleImage}} ">
+                            </td>
+                            <td class="black_text " ng-bind-template="{{breakingNews.heading}} "></td>
+                            <td nowrap="nowrap" ng-bind-template="{{breakingNews.userInfo[0].firstName}} {{breakingNews.userInfo[0].lastName}} "></td>
+                            <td nowrap="nowrap" ng-bind-template="{{ breakingNews.publishScheduleTime | date :
+                        'yyyy-MM-dd H:mm' }} "></td>
+                            <td nowrap="nowrap" ng-bind-template="{{ breakingNews.lastModifiedAt | date :
+                        'yyyy-MM-dd H:mm' }} "></td>
+                            <td nowrap="nowrap" align="left">
+                                <!-- Edit Article -->
+                                <a ui-sref="root.editArticle({articleId : breakingNews._id}) " uib-tooltip="Edit " title="Edit
+                                 " class="btn btn-icon-only blue "><i class="fa fa-edit "></i>
+							</a>
+                                <!-- Delete Single Article -->
+                                <confirm-modal name="article " type="delete" id="{{breakingNews._id}} " on-confirm="vm.deleteSingleArticle(breakingNews._id)"
+                                /></confirm-modal>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

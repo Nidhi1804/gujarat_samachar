@@ -1,0 +1,40 @@
+<mobile-adv mobile-ad-data="vm.mobileAd" sort="Above Slide Show List Box"></mobile-adv>
+<div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="mainFullBlock">
+        <div class="gCardTitle">
+            <h4>More Slide Show</h4>
+        </div>
+        <div class="gCard">
+            <div class="mainFullBlock">
+                <p ng-if="vm.lastModifyDate !== undefined">Last Update :{{vm.lastModifyDate |date:"dd MMMM, yyyy"}}</p>
+                <gs-loading show-loader="!vm.slideShowsLoaded">
+                    <div class="row no-gutters">
+                        <div class="col-md-12 col-sm-12 col-xs-12" ng-if="vm.slideShows.length == 0">
+                            <h3 class="text-center">No Slide Show found.</h3>
+                        </div>
+                    </div>
+                    <div class="row" dir-paginate="(key, slides) in vm.slideShows | itemsPerPage : vm.documentsPerPage" total-items="{{vm.totalCount}}"
+                        current-page="vm.pagination.current">
+                        <div class="col-md-4 slide-show-slider" class="categoryBlock" ng-repeat="slideShow in slides" total-items="{{vm.totalCount}}"
+                            current-page="vm.pagination.current">
+                            <div class=" galleryBlock ">
+                                <a ui-sref='root.mainSidebar.slideShowDetails({Id : slideShow.Id, url: slideShow.url})' title="{{slideShow.slideShowName}}">
+                                    <figure> <img src="{{slideShow.baseUrl}}/{{slideShow.slideShowImages[0].image}}" alt=" " err-src="{{errorImagePath}}"> </figure>
+                                    <p>{{slideShow.slideShowName | limitTo:70}}<span ng-if="slideShow.slideShowName.length > 70">...</span></p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </gs-loading>
+            </div>
+            <div class="row ">
+                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                    <dir-pagination-controls max-size='6' boundary-links="true" on-page-change="vm.pageChanged({date:vm.slideShow.date,pageIndex:newPageNumber})"></dir-pagination-controls>
+                </div>
+            </div>
+            <!-- Bottom Advertise Start-->
+            <div page-type="slide-show" bottom-advertise></div>
+            <!-- Bottom Advertise End -->
+        </div>
+    </div>
+</div>

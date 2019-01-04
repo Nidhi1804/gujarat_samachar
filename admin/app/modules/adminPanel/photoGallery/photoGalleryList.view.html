@@ -1,0 +1,101 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa icon-camera"></i> Manage Photo Gallery
+		</div>
+		<div class="tools"> </div>
+		<div class="actions">
+			<div class="btn-group">
+				<a ui-sref="root.addPhotoGallery" class="btn btn-circle default" type="button">Add Photo Gallery</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<form ng-submit="vm.searchSlideShow()">
+			<div class="row">
+				<!-- Search By Title -->
+				<div class="col-md-3">
+					<input type="text" placeholder="Search" class="form-control" ng-model="vm.searchText" name="searchText">
+				</div>
+				<div class="col-md-6">
+					<button title="Search" ng-click="vm.searchPhotoGallery()" id="search" class="btn blue" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+					<button title="Reset" ng-click="vm.resetFilter()" id="search" class="btn red" type="button">
+	                    <i class="fa fa-refresh"></i>
+	                </button>
+					<!-- Delete Selected slide Show -->
+					<confirm-modal name="{{(vm.deleteIdList.length === 1 || vm.deleteIdList.length === 0) ? 'photo gallery' : 'photo galleries'}}" type="delete selected" id="{{vm.deleteIdList}}" on-confirm="vm.deleteSelectedPhotoGalleries(id)"
+					/></confirm-modal>
+				</div>
+			</div>
+		</form>
+		<div id="ajax_data" ng-if="!vm.showLoader">
+			<div class="table-scrollable">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th> # </th>
+							<th>
+								<label class="checkbox-inline"> 
+									<input 
+										icheck 
+										type="checkbox" 
+										ng-change="vm.checkAllBox()"
+										ng-model="vm.selectAll" required="">
+								</label>
+							</th>
+							<th> Photo Gallery Name </th>
+							<th> Action </th>
+						</tr>
+					</thead>
+					<tbody id="sortable-row">
+						<tr ng-if="vm.photoGalleryList.length == 0">
+							<td class="text-center" colspan="5">No data found.</td>
+						</tr>
+						<tr dir-paginate="photoGallery in vm.photoGalleryList | itemsPerPage : vm.itemsPerPage" total-items="vm.totalItems" current-page="vm.pagination.current">
+							<td>
+								{{ (vm.itemsPerPage * (vm.pagination.current-1)) + $index+1}}
+							</td>
+							<td>
+								<label class="checkbox-inline">
+									<input 
+										icheck 
+										type="checkbox"
+										value="{{photoGallery._id}}"
+										ng-model="photoGallery.isChecked"
+										ng-change="vm.toggleCheckBox(photoGallery._id, photoGallery.isChecked)"
+										required="">
+								</label>
+							</td>
+							<td nowrap="nowrap" ng-bind-template="{{photoGallery.title}}"></td>
+							
+							<td nowrap="nowrap" align="left">
+								<!-- Active slide Show confirm  -->
+								<confirm-modal ng-if="!photoGallery.isActive" name="photo gallery" type="activate" id="{{photoGallery._id}}" on-confirm="vm.changeStatus(id, status)"
+								/></confirm-modal>
+
+								<!-- Inactive slide Show confirm  -->
+								<confirm-modal ng-if="photoGallery.isActive" name="photo gallery" type="Inactive" id="{{photoGallery._id}}" on-confirm="vm.changeStatus(id, status)"
+								/></confirm-modal>
+
+								<!-- Edit slide Show -->
+								<a uib-tooltip="Edit" ui-sref="root.editPhotoGallery({photoGalleryId : photoGallery._id})" title="Edit" class="btn btn-icon-only blue">
+									<i class="fa fa-edit"></i>
+								</a>
+
+								<!-- Delete slide Show -->
+								<confirm-modal name="photo gallery" type="delete" id="{{photoGallery._id}}" on-confirm="vm.deleteSinglePhotoGallery(id)" /></confirm-modal>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<dir-pagination-controls max-size='5' on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

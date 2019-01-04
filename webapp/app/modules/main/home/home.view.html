@@ -1,0 +1,218 @@
+<div ng-if="!isMobile">
+  <!-- Breaking News Section start -->
+  <div class="partial-view col-md-12" ui-view="breakingNews"></div>
+    <!-- Breaking News Section end -->
+    <div class="content">
+      <div class="col-md-8 col-sm-8 col-xs-12" ng-class="{'' : vm.topStorySliderLoaded}">
+        <story-box></story-box>
+
+        <!-- advertisement start -->
+        <div class="main-news-adv" ng-if="vm.middleAd1">
+          <div class="advertisementSection">
+            <!-- If Ad Type Google Code -->
+            <div ng-if="(vm.middleAd1.fileType == 'Google Code')" google-ad html="vm.middleAd1.description"></div>
+            <!-- If Ad Type Image -->
+            <div ng-if="vm.middleAd1.fileType == 'Image'">
+              <img ng-if="!vm.middleAd1.adLink" ng-src="{{vm.middleAd1.imageUrl}}" />
+              <a href="{{vm.middleAd1.adLink}}" target="_blank" ng-if="vm.middleAd1.adLink">
+                <img ng-src="{{vm.middleAd1.imageUrl}}"/>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- advertisement end -->
+        <!-- Articles By City - Multi-news-section start -->
+        <div class="partial-view" ui-view="articlesByCity" ng-if="!stopLoadingData"></div>
+        <!-- Articles By City - Multi-news-section end -->
+
+        <!-- advertisement start -->
+        <div class="main-news-adv" ng-if="vm.middleAd2 && !stopLoadingData">
+          <div class="advertisementSection">
+            <!-- If Ad Type Google Code -->
+            <div ng-if="(vm.middleAd2.fileType == 'Google Code')" google-ad html="vm.middleAd2.description"></div>
+            <!-- If Ad Type Image -->
+            <div ng-if="vm.middleAd2.fileType == 'Image'">
+              <img ng-if="!vm.middleAd2.adLink" ng-src="{{vm.middleAd2.imageUrl}}" />
+              <a href="{{vm.middleAd2.adLink}}" target="_blank" ng-if="vm.middleAd2.adLink">
+                <img ng-src="{{vm.middleAd2.imageUrl}}"/>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- advertisement end -->
+
+        <!-- Articles By category - section start -->
+        <div class="partial-view" ui-view="articlesByCategory" ng-if="!stopLoadingData"></div>
+        <!-- Articles By category - section end -->
+        
+        <!-- advertisement start -->      
+        <div class="row" ng-if="vm.middleAd4 && !stopLoadingData">    
+          <!-- Advertise Bottom End -->    
+          <div class="col-xs-12 col-md-12 col-sm-12" >
+              <div class="advertisementSection mt1">
+                  <!-- If Ad Type Google Code -->
+                  <div ng-if="(vm.middleAd4.fileType == 'Google Code')" google-ad html="vm.middleAd4.description"></div>
+
+                  <!-- If Ad Type Image -->
+                  <div ng-if="(vm.middleAd4.fileType == 'Image')">
+                    <img ng-if="!vm.middleAd4.adLink" ng-src="{{vm.middleAd4.imageUrl}}"/>
+                    <a href="{{vm.middleAd4.adLink}}" target="_blank" ng-if="vm.middleAd4.adLink">
+                      <img ng-src="{{vm.middleAd4.imageUrl}}"/>
+                    </a>
+                  </div>
+              </div>
+          </div>
+          <!-- Advertise Bottom End -->
+        </div>
+        <!-- advertisement end -->
+       
+        <gallery-box ng-if="!stopLoadingData"></gallery-box>
+        <!-- news-gallery section end -->
+       
+        <!-- Bottom Advertise Start-->
+        <div page-type="{{vm.pageType}}" bottom-advertise ng-if="!stopLoadingData"></div>
+        <!-- Bottom Advertise End -->
+      </div>
+    </div>
+  </div>
+</div>
+<div ng-if="isMobile">
+  <section>
+      <div id="content">
+        <div class="container">
+          <div class="row">
+            <div class="content">
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="partial-view" ui-view="breakingNews"></div>
+                  <mobile-adv class="mt0" page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Story Box"></mobile-adv>
+                  <story-box></story-box>
+                  <!-- <div class="advertisementSection mb1">
+                    <div google-ad html="vm.adRightTop.description1">
+                      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                      <ins class="adsbygoogle"
+                           style="display:inline-block;width:320px;height:100px"
+                           data-ad-client="ca-pub-8096200923666860"
+                           data-ad-slot="2467086332"></ins>
+                      <script>
+                      (adsbygoogle = window.adsbygoogle || []).push({});
+                      </script>
+                    </div>
+                  </div> -->
+                  <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Top Read News Box"></mobile-adv>
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                  <right-side-news articles-loaded="vm.topReadNewsSliderLoaded" title="Top Read News" data="vm.topReadNews"></right-side-news>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content" class="mgr-top32">
+        <div class="container">
+          <div class="row">
+            <div class="content">
+              <div class="row" ng-if="!stopLoadingData">
+                <div class="col-sm-8">
+                  <!-- Articles By City - Multi-news-section start -->
+                  <!-- <div class="advertisementSection mb1">
+                    <div google-ad html="vm.adRightTop.description1">
+                      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:300px;height:250px"
+                             data-ad-client="ca-pub-8096200923666860"
+                             data-ad-slot="9647056783">
+                        </ins>
+                      <script>
+                      (adsbygoogle = window.adsbygoogle || []).push({});
+                      </script>
+                    </div>
+                  </div> -->
+                  <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above City News Box"></mobile-adv>
+                  <div class="partial-view" ui-view="articlesByCity" ng-if="!stopLoadingData"></div>
+                  <!-- Articles By City - Multi-news-section end -->
+
+                  <!-- Articles By category - section start -->
+                  <div class="partial-view" ui-view="articlesByCategory" ng-if="!stopLoadingData"></div>
+                  <!-- Articles By category - section end -->
+                </div>
+                <div class="col-sm-4" ng-if="!stopLoadingData">
+                  <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Recent News Box"></mobile-adv>
+                  <right-side-news articles-loaded="vm.racentPostLoaded" title="Recent News" data="vm.recentPost"></right-side-news>
+                  <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above GS Plus Box"></mobile-adv>
+                  <right-side-news articles-loaded="vm.magazineListLoaded" title="GS Plus" data="vm.sideBarMagazineList"></right-side-news>
+                  <!-- Recent Post section end -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content" class="gallery mgr-top32">
+        <div class="container">
+          <div class="content">
+            <div class="row" ng-if="!stopLoadingData">
+              <div class="col-sm-8">
+                  <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Gallery Box"></mobile-adv>
+                  <gallery-box ng-if="!stopLoadingData"></gallery-box>
+              </div>
+              <div class="col-sm-4">
+                <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Magazine Box"></mobile-adv>
+                <magazine-box ng-if="!stopLoadingData"></magazine-box>
+                <!-- Magazine section End -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+</div>
+
+
+<!-- Schema For Home Page -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://gujaratsamachar.com/",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://gujaratsamachar.com/tags/{tagName}/1",
+        "query-input": "required name=tagName"
+    }
+}
+</script>
+<script type="application/ld+json">
+/* For Logo Markup */
+{
+    "@context": "https://schema.org/",
+    "@type": "Organization",
+    "url": "https://gujaratsamachar.com/",
+    "logo": "https://gujaratsamachar.com/assets/images/logo.png"
+}
+</script>
+<script type="application/ld+json">
+/* For Custom Name in Search Results */
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Gujarat Samachar",
+    "alternateName": "Gujarat Samachar : World's Leading Gujarati Newspaper",
+    "url": "https://gujaratsamachar.com/"
+}
+</script>
+<script type="application/ld+json">
+/* For Social Profile Links */
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Gujarat Samachar",
+    "url": "https://gujaratsamachar.com/",
+    "sameAs": [
+        "https://www.facebook.com/Gujarat.Samachar.News/",
+        "https://twitter.com/gujratsamachar"
+    ]
+}
+</script>

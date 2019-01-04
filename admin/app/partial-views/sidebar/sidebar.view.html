@@ -1,0 +1,19 @@
+<div class="page-sidebar navbar-collapse collapse">
+	<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+		<li class="nav-item" ui-sref-active="active" ng-repeat="item in vm.menuList">
+			<a href="javascript:;" ui-sref="{{item.state}}" class="nav-link nav-toggle">
+				<i class="{{item.iconClass}}"></i>
+				<span class="title">{{item.name}}</span>
+				<span ng-class="{ 'arrow' : item.submenu.length > 0}"></span>
+			</a>
+			<ul class="sub-menu" ng-if="item.submenu.length > 0">
+				<li class="nav-item" ng-repeat="subitem in item.submenu">
+					<a ui-sref="{{subitem.state}}" ui-sref-opts="{reload:true}" class="nav-link ">
+						<span class="title">{{subitem.name}}</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<!-- END SIDEBAR MENU -->
+</div>

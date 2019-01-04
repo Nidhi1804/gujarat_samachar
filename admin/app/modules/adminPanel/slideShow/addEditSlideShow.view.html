@@ -1,0 +1,232 @@
+<div class="portlet box blue gallery-image-block">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa icon-camera"></i>{{vm.typeTitle}} Slide Show
+		</div>
+		<div class="actions">
+			<div class="btn-group">
+				<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form class="form-horizontal" name="vm.addSlideShowForm" novalidate="novalidate" role="form" ng-if="vm.isSectionLoaded">
+			<div class="form-body">
+				<div class="row">
+					<!-- <div class="col-md-6">
+						Main Category
+						<div class="form-group">
+							<label for="single-prepend-text" class="control-label col-md-4">Category<span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<select ng-model="vm.parentId" class="chosen-select form-control" data-placeholder-text-single="'Select Category'" chosen
+								 required ng-change="vm.getSubCategory(vm.parentId, true)" name="category" ng-options="category._id as category.name for category in vm.mainCategoryList">
+									<option><option>
+								</select>
+								<span ng-if="vm.addSlideShowForm.$invalid && vm.addSlideShowForm.$submitted">
+									<span class="text-danger" ng-if="vm.addSlideShowForm.category.$error.required"> Please select at least one category
+								</span>
+							</div>
+						</div>
+					</div>
+					List of sub-categories
+					<div class="col-md-6" ng-repeat="category in vm.subCategoryList" ng-include="'subCategoryRenderer.html'" ng-if="category.list.length > 0"></div> -->
+					<div class="col-md-6">
+						<!-- slide Show zName -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Slide Show Name <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Slide Show Name" class="form-control" name="slideShowName" ng-model="vm.slideShow.slideShowName"
+								 required="">
+								<span ng-if="vm.addSlideShowForm.$invalid && vm.addSlideShowForm.$submitted">
+									<span class="text-danger" ng-if="vm.addSlideShowForm.slideShowName.$error.required">Slide Show name is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!-- Meta Title (English) -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Meta Title (English)<span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Meta Title" class="form-control" ng-model="vm.slideShow.metaTitle" name="metaTitle" required="">
+								<span ng-if="vm.addSlideShowForm.$invalid && vm.addSlideShowForm.$submitted">
+									<span class="text-danger" ng-if="vm.addSlideShowForm.metaTitle.$error.required">Meta title is required.</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- Meta Descriptions -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Meta Descriptions</label>
+							<div class="col-md-8">
+								<textarea class="form-control" rows="1" ng-model="vm.slideShow.metaDescriptions" name="metaDescriptions"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!-- Meta tag -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Meta tag</label>
+							<div class="col-md-8">
+								<meta-tag-component metakeywords="vm.slideShow.metaTag" placeholder="Add a meta tag"></meta-tag-component>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label col-md-4">Publish</label>
+							<div class="col-md-8">
+								<input ng-model="vm.slideShow.publishSlideShow" type="checkbox" class="make-switch" data-size="small" bs-switch>
+							</div>
+						</div>
+						<div class="form-group show-hide-animation" ng-show="!vm.slideShow.publishSlideShow" id="schedule_date_div">
+							<label class="control-label col-md-4">Schedule Time <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="datetime" class="form-control" date-time format="YYYY-MM-DD HH:mm" ng-model="vm.slideShow.publishScheduleTime"
+								 view="date" auto-close="true" readonly="readonly" name="publishScheduleTime" ng-required="!vm.slideShow.publishSlideShow"><br/>
+								<span ng-if="vm.addSlideShowForm.$invalid && vm.addSlideShowForm.$submitted">
+									<span class="text-danger" ng-if="vm.addSlideShowForm.publishScheduleTime.$error.required">Schedule Time is required.
+										</span>
+								</span>
+							</div>
+						</div>
+					</div>				
+					<div class="col-md-6">
+						<!-- Meta Keywords -->
+						<div class="form-group">
+							<label class="control-label col-md-4">
+								Meta Keywords
+							</label>
+							<div class="col-md-8">
+								<meta-tag-component metakeywords="vm.slideShow.metaKeywords" placeholder="Add a keywords"></meta-tag-component>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Gallery Images -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet light form-fit bordered">
+							<div class="portlet-title">
+								<div class="caption">
+									<span class="caption-subject font-green bold uppercase">Slide Show Images</span>
+								</div>
+							</div>
+							<div class="portlet-body form" ng-include="'slideShowImageList.html'"></div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="form-actions right">
+
+					<a class="btn default" ui-sref="root.slideShowList({pageId:1})">Cancel</a>
+					<!-- Add New slideShow -->
+					<button ng-disabled="vm.disable" ng-if="!vm.slideShowId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveSlideShow('Add',true)">
+						<i class="fa fa-check"></i>Save & Add New 
+					</button>
+					<button ng-disabled="vm.disable" ng-if="!vm.slideShowId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveSlideShow('Add',false)">
+						<i class="fa fa-check"></i>Save
+					</button>
+					<!-- Edit slide Show -->
+					<button ng-disabled="vm.disable" ng-if="vm.slideShowId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveSlideShow('Update',true)">
+						<i class="fa fa-check"></i>Update & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="vm.slideShowId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveSlideShow('Update',false)">
+						<i class="fa fa-check"></i>Update
+					</button>
+
+				</div>
+			</div>
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>
+
+<!-- Sub Category View -->
+<script type="text/ng-template" id="subCategoryRenderer.html">
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="subCategory">{{ category.label }}</label>
+		<div class="col-md-8">
+			<select ng-model="vm.models[$index]" class="chosen-select form-control" data-placeholder-text-single="'Select Category'"
+			 chosen id="subCategory" name="subCategory" ng-change="vm.getSubCategory(vm.models[$index], false, $index)" ng-options="cat._id as cat.name for cat in category.list">
+				<option value="">Select sub category</option>
+			</select>
+		</div>
+	</div>
+</script>
+
+<!-- slide Show Image list views -->
+<script type="text/ng-template" id="slideShowImageList.html">
+	<div class="form-body">
+		<!-- BEGIN FORM-->
+		<div class="form-group" ng-repeat="(key, slideShow) in vm.slideShow.slideShowImages">
+			<div class="row">
+				<label class="control-label col-md-3">Image Title<span class="required" aria-required="true">*</span></label>
+				<div class="col-md-4">
+					<input type="text" placeholder="Image Title" class="form-control" name="image_{{key}}" ng-model="slideShow.title" required="">
+					<span ng-if="vm.addSlideShowForm.$invalid && vm.addSlideShowForm.$submitted">
+					<span class="text-danger" ng-if="vm.addSlideShowForm['image_'+$index].$error.required">Image title is required.
+					</span>
+					</span>
+				</div>
+				<div class="col-md-2">
+					<div class="action-block">
+						<label for="file-upload" class="upload-label nopad custom-upload-label" ng-click="vm.openAddModal($index)">
+								<i class="fa fa-upload" aria-hidden="true"  uib-tooltip="Upload Image"></i>
+							</label>
+						<button ng-if="vm.slideShow.slideShowImages.length >1" uib-tooltip="Delete" class="btn btn-icon-only red" ng-click="vm.removeSlideShowItem(key)">
+							<i class="fa fa-trash"></i>
+						</button>
+						<button class="btn btn-primary" ng-if="vm.typeTitle === 'Edit' && slideShow.image!=='' && slideshow.image !== null && (slideShow.isGalleryImage=== false || slideShow.isGalleryImage === undefined)"
+						 value="145" id="add_photo_slideShow" ng-click="vm.addImagePhotoGallery(slideShow)" type="button" uib-tooltip="Add To Photo Gallery"><i class="fa fa-picture-o"></i></button>
+						<button class="btn btn red" ng-if="vm.typeTitle === 'Edit' && slideShow.image!=='' && slideshow.image !== null && slideShow.isGalleryImage=== true "
+						 value="145" id="add_photo_slideShow" class="btn-primary" ng-click="vm.removeImagePhotoGallery(slideShow)" type="button"
+						 uib-tooltip="Remove From Photo Gallery"><i class="fa fa-picture-o"></i></button>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="action-block">
+						<!-- slide Show image thumbnail -->
+						<div class="gallery-img-thumb" style="width:122px" ng-if="slideShow.image">
+							<img class="img-responsive" ng-src="slide_show/{{slideShow.image}}" />
+						</div>
+						<!-- Image validation error -->
+						<span class="text-danger" ng-if="!slideShow.image && vm.addSlideShowForm.$submitted">
+							Please upload gallery image.
+						</span>
+
+						<div ng-if="vm.user.profiSlideShowImagesleImage && vm.uploader.queue.length == 0" style="width:122px">
+							<img class="img-responsive" ng-src="{{vm.baseUrl}}/{{vm.user.profileImage}}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-md-3">Image Description<span class="required" aria-required="true">*</span></label>
+				<div class="col-md-8">
+					<textarea rows="2" type="text" placeholder="Image Description" class="form-control" name="image_desc_{{key}}" ng-model="slideShow.description" required=""></textarea>
+					<span ng-if="vm.addSlideShowForm.$invalid && vm.addSlideShowForm.$submitted">
+					<span class="text-danger" ng-if="vm.addSlideShowForm['image_desc_'+$index].$error.required">Image description is required.
+					</span>
+					</span>
+				</div>
+
+				<hr class="col-md-10 col-md-push-1"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-10 col-md-push-2">
+				<div class="btn-group">
+					<button value="145" id="add_photo_slideShow" class="btn btn-primary default" ng-click="vm.addPhoto()" type="button">Add Photo</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

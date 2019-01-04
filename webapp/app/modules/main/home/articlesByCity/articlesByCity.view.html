@@ -1,0 +1,55 @@
+<div class="mainContentSection mgr-top32">
+    <div class="categorie-news city-news">
+      <div class="city-news-title">
+        <h3 class="city-title">City News</h3>
+        <div class="select-city">
+          <!-- <i class="fa fa-caret-down" aria-hidden="true"></i>
+          <select class="custom-select" ng-options="val.name for val in vm.cities" ng-model="vm.currentCity" ng-change="getArticleByCity(vm.currentCity)"></select> -->
+          <i class="submenu-caret"></i>
+          <ul>
+            <li class="onHover"><a class="current_city" href="#">{{vm.currentCity.name}}</a>
+              <ul class="sub-city">
+                 <li ng-repeat="val in vm.cities"><a href="#" ng-click="getArticleByCity(val)">{{val.name}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <gs-loading show-loader="!vm.articlesLoaded">
+        <div class="single-categorie-news">
+          <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12" ng-if="(vm.stories.length == 0)">
+                  <h3 class="text-center">No article found.</h3>
+              </div>
+            <div class="col-md-6 col-sm-12" ng-if="(vm.stories.length > 0)">
+              <a ui-sref="root.mainSidebar.articleDetails({articleId:vm.selectedStory.articleId, categorySlug: vm.selectedStory.categorySlug ,articleUrl: vm.selectedStory.articleUrl })">
+                <div class="cityNewsTitle">
+                  <h4>{{vm.selectedStory.heading}}</h4>
+                </div>
+                <div class="categorie-news-pic">
+                    <img src="{{vm.selectedStory.baseUrl}}/{{vm.selectedStory.articleImage}}" alt="" title="{{vm.selectedStory.heading}}" err-src="{{errorImagePath}}"/>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="categorie-news-list">
+                <ul>
+                  <li ng-repeat="(key, story) in vm.stories" ng-if="($index <= 4)  && vm.selectedStory.articleUrl != story.articleUrl">
+                    <a href="javascript:void(0)" ui-sref="root.mainSidebar.articleDetails({articleId:story.articleId, categorySlug: story.categorySlug ,articleUrl: story.articleUrl })" title="{{story.heading}}">
+                      <div class="categorie-pic v-center">
+                        <img src="{{vm.thumbImageUrl}}/{{story.articleImage}}" alt="" err-src="{{errorImagePath}}">
+                      </div>
+                      <div class="categorie-news-disc v-center">
+                        <h3>{{story.heading}}</h3>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+                <a ng-if="(vm.stories.length > 5)" ui-sref="root.mainSidebar.articleList({ Id : vm.currentCity.Id, slug: vm.currentCity.slug, pageIndex : 1, date:'', listType:'city'})" class="news_read_more">Read More...</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </gs-loading>
+    </div>
+</div>

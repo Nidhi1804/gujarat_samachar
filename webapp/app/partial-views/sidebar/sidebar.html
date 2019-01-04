@@ -1,0 +1,87 @@
+<div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <!-- advertisement start -->
+    <div class="advertisementSection mb1 top-adv" ng-if="vm.adRightTop && !isMobile">
+      <!-- Advertise Right 1 Start -->
+      <!-- If Ad Type Google Code -->
+      <div ng-if="vm.adRightTop.fileType == 'Google Code'" google-ad html="vm.adRightTop.description"></div>
+
+      <!-- If Ad Type Image -->
+      <div ng-if="vm.adRightTop.fileType == 'Image'">
+        <img ng-if="!vm.adRightTop.adLink" ng-src="{{vm.adRightTop.imageUrl}}" />
+        <a href="{{vm.adRightTop.adLink}}" target="_blank" ng-if="vm.adRightTop.adLink">
+            <img ng-src="{{vm.adRightTop.imageUrl}}"/>
+          </a>
+      </div>
+      <!-- Advertise Right 1 -->
+    </div>
+    <!-- advertisement end -->
+    <mobile-adv mobile-ad-data="vm.mobileAd" sort="Above Top Read News Box" ng-if="isMobile"></mobile-adv>
+    <!-- Top Read News gallery start -->
+    <div class="pillSection postSection" ui-view="topReadNews" ng-if="vm.currentState !== 'root.mainSidebar.articleDetails'"></div>    
+    <!-- Top Read News gallery End -->
+     
+    <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Releted News Box" ng-if="isMobile"></mobile-adv>
+    <!-- Related News start -->
+    <div class="pillSection postSection" ui-view="relatedNews" ng-if="vm.currentState == 'root.mainSidebar.articleDetails'"></div>
+    <!-- Related News end -->
+
+    <!-- Opinion Poll start -->
+    <!-- <div id="mainContentRight" ng-if="!stopLoadingData" ng-class="{'mgr-top32':$state.current.name != 'root.mainSidebar.topReadNewsList'}">
+      <div class="rightNews">
+        <div class="opinion-poll">
+          <h3 class="newsTitle">Opinion Poll</h3>
+          <div id="u-PollWidget" class="main-box1 management-box management-box74 flikrlazy" style="border:none;">
+            <div data-owo-type="widget" data-owo-code="47355ce0-aa42-425e-85c6-eecb2e68c0b0" data-owo-mode="smart3" ></div>
+            <script src="https://1worldonline.com/poller-constructor.js" type="text/javascript" data-cfasync="false"></script>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Opinion Poll End -->
+
+    <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Recent News Box" ng-if="isMobile"></mobile-adv>
+    <!-- Recent Post section start -->
+    <div class="pillSection postSection" ng-class="{'mgr-top32' : vm.relatedNews.length > 0}" ng-if="!stopLoadingData">
+      <ui-view name="recentPost"></ui-view>
+    </div>
+    
+    <!-- advertisement start Right 2-->
+      <div class="advertisementSection" ng-if="vm.adRightMiddle  && !isMobile && !stopLoadingData">
+        <!-- If Ad Type Google Code -->
+        <div ng-if="vm.adRightMiddle.fileType == 'Google Code'" google-ad html="vm.adRightMiddle.description"></div>
+
+        <!-- If Ad Type Image -->
+        <div ng-if="vm.adRightMiddle.fileType == 'Image'">
+          <img ng-if="!vm.adRightMiddle.adLink" ng-src="{{vm.adRightMiddle.imageUrl}}" />
+          <a href="{{vm.adRightMiddle.adLink}}" target="_blank" ng-if="vm.adRightMiddle.adLink">
+            <img ng-src="{{vm.adRightMiddle.imageUrl}}"/>
+          </a>
+        </div>
+      </div>
+    <!-- advertisement end  Right 2-->
+    
+    <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above GS Plus Box" ng-if="isMobile"></mobile-adv>
+    <div class="pillSection postSection mgr-top32" ng-if="!stopLoadingData" ui-view="magazine"></div>
+
+
+    <mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Magazine Box" ng-if="isMobile"></mobile-adv>
+    <!-- Recent Post section end -->
+    <magazine-box ng-if="!stopLoadingData"></magazine-box>
+    <!-- Magazine section End -->
+
+    <!-- advertisement start -->
+    <div class="mt1 advertisementSection" ng-if="vm.adRightBottom && !stopLoadingData && !isMobile">
+      <!-- If Ad Type Google Code -->
+      <div ng-if="vm.adRightBottom.fileType == 'Google Code'" google-ad html="vm.adRightBottom.description"></div>
+
+      <!-- If Ad Type Image -->
+      <div ng-if="vm.adRightBottom.fileType == 'Image'">
+        <img ng-if="!vm.adRightBottom.adLink" ng-src="{{vm.adRightBottom.imageUrl}}" />
+        <a href="{{vm.adRightBottom.adLink}}" target="_blank" ng-if="vm.adRightBottom.adLink">
+          <img ng-src="{{vm.adRightBottom.imageUrl}}"/>
+        </a>
+      </div>
+    </div>
+    <!-- advertisement end -->
+  </div>

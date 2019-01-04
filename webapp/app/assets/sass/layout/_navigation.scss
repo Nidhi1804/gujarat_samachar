@@ -1,0 +1,71 @@
+.navigation-section{
+	@extend .full-width--block;
+	.horizontal-collapse {
+		height: 70px;
+	}
+	.navbar{
+		min-height: 36px;
+		@include rem(margin, 0 0 16px 0);		
+	}
+	.navbar-collapse.in{
+		overflow-y: hidden;
+	}
+	.navbar-default{
+		border: none;
+		background-color: $red;
+		border-radius: 0
+	}
+	.navbar-collapse{
+		@include rem(padding, 0 5px);
+	}
+	.navbar-default .navbar-nav>li>a{
+		@include rem(font-size, 16px);
+		@extend .bold-font-stack;
+		color: $white;
+		@include rem(padding, 9px 5px);
+		@include breakpoint(xx-large) {
+			@include rem(font-size, 12px);
+		}
+		@include breakpoint(large) {
+			letter-spacing: -0.4px;
+			@include rem(padding, 9px 3px);
+			@include rem(font-size, 12px);
+			line-height: 20px;
+		}
+		@include breakpoint(small) {
+			letter-spacing: 0.4px;
+			@include rem(padding, 8px 6px);
+			@include rem(font-size, 16px);
+		}
+		&:hover,&:focus,&:active{
+			background-color: $black-option-1;
+		}
+
+	}
+	.navbar-brand{
+		display: none;
+		@include breakpoint(small) {
+			display: block;
+			img{
+				max-width: 180px;
+			}
+		}
+	}
+	.navbar-toggle{
+		border-radius: 0;
+		border-color: $white;
+	}
+	.navbar-default .navbar-toggle .icon-bar{
+		background-color: $white;
+	}
+	.navbar-nav{
+		@include breakpoint(small) {
+			@include rem(margin, 7.5px 0);
+		}
+	}
+	.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
+		@include breakpoint(small) {
+			background-color: $black-option-1;
+		}
+	}
+}

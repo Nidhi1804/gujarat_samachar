@@ -1,0 +1,99 @@
+<!-- footer start -->
+<footer>
+      <div id="footer">
+        <div class="footer">
+            <div class="col-md-8 col-sm-12">
+              <div class="row">
+                <div class="footer-links">
+                  <div class="link-categories">
+                    <h3 class="categories-title">Categories</h3>
+                    <ul>
+                      <li ng-repeat="(key, category) in ::vm.mainCategories" ng-switch on="category.name" ng-if="::(category.name !== 'Magazines')">
+                          <a ui-sref="root.mainSidebar.home" ng-switch-when="Home">{{::category.name}}</a>
+                        <a ui-sref="root.mainSidebar.articleList({ Id : category.Id, slug: category.slug, pageIndex : 1, date:'', listType:'category'})" ng-if="category.name !== 'Home'">{{category.name}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="link-categories">
+                    <h3 class="categories-title">Editorial</h3>
+                    <ul>
+                      <li ng-repeat="(key, category) in ::vm.vaividhyaLinks track by $index">
+                        <a ui-sref="root.mainSidebar.articleList({ Id : category.Id, slug: category.slug, pageIndex : 1, date:'', listType:'category'})" ng-if="category.name !== 'Home'">{{category.name}}</a>
+                        </li>
+                    </ul>
+                  </div>
+                  <div class="link-categories">
+                    <h3 class="categories-title">Magazines</h3>
+                    <ul>
+                        <li ng-repeat="(key, magazine) in ::vm.magazines"><a ui-sref="root.mainSidebar.articleByMagazine({slug:magazine.slug,pageIndex : 1, date:''})">{{::magazine.name}} </a></li>
+                    </ul>
+                  </div>
+                  <div class="link-categories">
+                    <h3 class="categories-title">City News</h3>
+                    <ul>
+                        <li ng-repeat="(key, city) in ::vm.cities track by $index"><a ui-sref="root.mainSidebar.articleList({Id : city.Id, slug: city.slug, pageIndex : 1, date:'', listType: 'city'})"> {{::city.name}} </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="row">
+                <div class="footer-right">
+                  <div class="email-subscriber">
+                    <span>Join <b>90,561 Subscribers</b> and get a new article every Day.</span>
+                    <form id="subscribeForm" name="subscribeForm" novalidate="">
+                      <label>
+                        <input autocomplete="off" type="email" name="email" placeholder="Enter your Email ID" ng-model="vm.emailId" required="" >
+                        <button type="submit" ng-click="vm.doSubscribe(subscribeForm.$valid)">Subscribe</button>
+                        <!-- <span class="text-danger" ng-if="subscribeForm.email.$error.email">Valid email is required.
+                        </span> -->
+                        <span ng-if="subscribeForm.$invalid  && subscribeForm.$submitted">
+                          <span class="text-danger" ng-if="subscribeForm.email.$error.required">Email is required.
+                          </span>
+                          <span class="text-danger" ng-if="subscribeForm.email.$error.email">Valid email is required.
+                          </span>
+                        </span>
+                        <span id="successMsg">You have Subscribe successfully!</span>
+                        <span id="errorMsg">You have Already Subscribe!</span>
+                      </label>
+                    </form>
+                  </div>
+                  <div class="footer-logo">
+                    <a href="#"><img src="/assets/images/footer-logo.png" alt=""></a>
+                  </div>
+                  <div class="footer-social">
+                    <ul>
+                      <li><a target="_blank" href="https://www.facebook.com/gujarat.samachar.news"><i class="fa fa-facebook"></i></a></li>
+                      <li><a target="_blank" href="https://plus.google.com/+GujaratSamacharAhmedabad/posts"><i class="fa fa-google-plus"></i></a></li>
+                      <li><a target="_blank" href="https://instagram.com/gujratsamachar/"><i class="fa fa-instagram"></i></a></li>
+                      <li><a target="_blank" href="https://www.linkedin.com/company/gujaratsamachar/"><i class="fa fa-linkedin"></i></a></li>
+                      <li><a target="_blank" href="http://twitter.com/gujratsamachar"><i class="fa fa-twitter"></i></a></li>
+                      <li><a target="_blank" href="https://www.youtube.com/GujaratSamacharVideo"><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+                  </div>
+                  <div class="footer-menu">
+                    <ul>
+                      <li><a ui-sref="root.staticPage({pageType:'about-us'})">About Us</a></li>
+                      <li><a ui-sref="root.staticPage({pageType:'contact-us'})">Contact Us</a></li>
+                      <li><a ui-sref="root.sitemap">Sitemap</a></li>
+                      <li><a ui-sref="root.mainSidebar.rss">RSS</a></li>
+                      <li><a ui-sref="root.staticPage({pageType:'terms-condition-with-us'})">Terms and Conditions</a></li>
+                      <li><a ui-sref="root.staticPage({pageType:'advertise-with-us'})">Advertise with us</a></li>
+                      <li><a href="mailto:feedback@gujaratsamachar.com">Feedback</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="reserved-rights">© All Rights Reserved {{vm.currentDateYear}} <a href="#">GujaratSamachar.com</a></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </footer>
+    <div ng-if='vm.showLink' class="navbar navbar-fixed-bottom bg-color">
+      <div class="navbar-inner main-deeplink" >
+        <span class="main-deeplink-span"><a class="theme-color-orange"  ng-click="vm.openDeepLink()">Open in app</a></span>
+        <span class="margin-left10 color-white" ng-click="vm.closeDeeplink()"><i class="font-size17 fa fa-close" ></i></span>
+      </div>
+    </div>
+<!-- footer end -->

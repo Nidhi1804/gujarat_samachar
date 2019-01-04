@@ -1,0 +1,87 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa icon-notebook"></i>{{vm.typeTitle}} CMS Page
+		</div>
+		<div class="actions">
+			<div class="btn-group">
+				<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form class="form-horizontal" name="vm.editPageForm" novalidate="novalidate" role="form" ng-if="vm.isPageLoaded">
+			<div class="form-body">
+				<div class="row">
+					<!-- Title -->
+					<div class="form-group" ng-class="{'has-error' : vm.editPageForm.title.$error.required && vm.invalidForm}">
+						<label class="control-label  col-md-2">Title
+							<span class="required" aria-required="true">*</span>
+						</label>
+						<div class="col-md-6">
+							<input type="text" placeholder="Heading" class="form-control" name="title" ng-model="vm.page.title" required="">
+							<span ng-if="vm.editPageForm.$invalid && vm.editPageForm.$submitted">
+								<span class="text-danger" ng-if="vm.editPageForm.title.$error.required">Title is required.
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Meta Title -->
+					<div class="form-group" ng-class="{'has-error' : vm.editPageForm.metaTitle.$error.required && vm.invalidForm}">
+						<label class="control-label  col-md-2">Meta Title
+							<span class="required" aria-required="true">*</span>
+						</label>
+						<div class="col-md-6">
+							<input type="text" placeholder="Heading" class="form-control" name="metaTitle" ng-model="vm.page.metaTitle" required="">
+							<span ng-if="vm.editPageForm.$invalid && vm.editPageForm.$submitted">
+								<span class="text-danger" ng-if="vm.editPageForm.metaTitle.$error.required">Meta Title is required.
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Meta keywords -->
+					<div class="form-group">
+						<label class="control-label  col-md-2">Meta keywords
+						</label>
+						<div class="col-md-6">
+							<tags-input ng-model="vm.page.metaKeywords" on-tag-added="vm.addTag($tag, $query)" placeholder="Add a meta tag" min-length="2"
+							    display-property="name">
+								<auto-complete min-length="1" source="vm.getMetaTags($query)"></auto-complete>
+							</tags-input>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-class="{'has-error' :
+						vm.editPageForm.content.$error.required && vm.invalidForm}">
+					<div class="form-group">
+						<label class="control-label col-md-2">Content
+							<span class="required" aria-required="true">*</span>
+						</label>
+
+						<div class="col-md-10">
+							<summernote config="vm.options" height="200" name="content" ng-model="vm.page.content" ready="onReady()" ng-required="true"
+							    editable="editable" editor="editor"></summernote>
+							<span ng-if="vm.editPageForm.$invalid && vm.editPageForm.$submitted">
+								<span class="text-danger" ng-if="vm.editPageForm.content.$error.required">Content is required.
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="form-actions right">
+					<a class="btn default" ui-sref="root.pageList">Cancel</a>
+					<button class="btn blue" id="save_btn" type="submit" ng-click="vm.updatePage(vm.editPageForm.$valid)">
+						<i class="fa fa-check"></i>Save
+					</button>
+				</div>
+			</div>
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

@@ -1,0 +1,62 @@
+<div class="mainContentSection">
+  <div class="main-slider">
+    <div class="row">
+      <div class="singleImageSlider mb1">
+        <div class="col-md-12 col-sm-12 col-xs-12" ng-if="(vm.topStories.length == 0)">
+          <h3 class="text-center">No article found.</h3>
+        </div>
+        <div class="col-md-6 col-sm-12" ng-repeat="(key, story) in vm.topStories" ng-if="$index < 2">
+          <div class="home-news">
+            <div class="singleImageSliderBlock top-story-img">
+              <a href="javascript:void(0)" ui-sref="root.mainSidebar.articleDetails({articleId:story.articleId, categorySlug: story.slug ,articleUrl: story.articleUrl })">
+                <h2 class="homeNewsTitle" ng-bind="story.heading" title="{{story.heading}}"></h2>
+                <figure>
+                  <a class="cover-image" href="javascript:void(0)" ui-sref="root.mainSidebar.articleDetails({articleId:story.articleId, categorySlug: story.slug, articleUrl: story.articleUrl})"><img ng-src="{{story.baseUrl}}/{{story.articleImage}}" err-src="{{$root.errorImagePath}}"/></a>
+                </figure>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main-slider main-slider-mobile" ng-if="$root.isMobile">
+    <div class="home-news">
+      <slick class="" settings="vm.topStoriesSliderConfig" ng-if="vm.topStorySliderLoaded" dots="true">
+        <div class="homeMobileslider" ng-repeat="(key, story) in vm.topStories" ng-if="$index < 2">
+          <a href="javascript:void(0)" ui-sref="root.mainSidebar.articleDetails({articleId:story.articleId, categorySlug: story.slug ,articleUrl: story.articleUrl })">
+            <h3 class="homeNewsTitle">{{story.heading}}</h3>
+            <div class="slide-pic">
+              <img ng-src="{{story.baseUrl}}/{{story.articleImage}}" err-src="{{$root.errorImagePath}}" />
+            </div>
+          </a>
+        </div>
+      </slick>
+    </div>
+  </div>
+  <div class="main-news-inner">
+    <gs-loading show-loader="!vm.topStorySliderLoaded">
+      <!-- Top Story slider-start -->
+      <!-- slider-end -->
+      <!-- Top sub-story section start -->
+      <div class="mainContentSection">
+        <div class="row" ng-repeat="(key, story) in vm.topSubStories track by $index">
+          <div class="col-md-6 col-sm-6 col-xs-12 halfWidth" ng-repeat="(key, item) in story track by $index">
+            <div class="main-news">
+              <a ui-sref="root.mainSidebar.articleDetails({articleId:item.articleId, categorySlug: item.slug, articleUrl: item.articleUrl})">
+                <div class="main-news-pic v-center">
+                  <img src="{{item.baseUrl}}/{{item.articleImage}}" alt="" err-src="{{$root.errorImagePath}}"/>
+                </div>
+                <div class="mian-news-cntnt v-center">
+                  <p>{{item.heading}}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <a ng-if="vm.topStories.length > 0 || vm.topSubStories.length > 0" ui-sref="root.mainSidebar.topHeadingNewsList({pageIndex : 1,date:''})" class="news_read_more">More Headlines...</a>  
+      </div>
+      <!-- Top sub-story section end -->
+    </gs-loading>
+  </div>
+</div>

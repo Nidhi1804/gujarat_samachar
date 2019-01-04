@@ -1,0 +1,202 @@
+// -----------------------------------------------------------------------------
+// This file contains CSS helper classes.
+// -----------------------------------------------------------------------------
+
+/**
+ * Clear inner floats
+ */
+.clearfix::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+/**
+ * Main content containers
+ * 1. Make the container full-width with a maximum width
+ * 2. Center it in the viewport
+ * 3. Leave some space on the edges, especially valuable on small screens
+ */
+.container {
+  max-width: $max-width; /* 1 */
+  margin-left: auto; /* 2 */
+  margin-right: auto; /* 2 */
+  padding-left: 8px; /* 3 */
+  padding-right: 8px; /* 3 */
+  width: 100%; /* 1 */
+ }
+
+.row {
+  margin-right: -8px;
+  margin-left: -8px;
+}
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+  padding-right: 8px;
+  padding-left: 8px;
+}
+/**
+ * Hide text while making it readable for screen readers
+ * 1. Needed in WebKit-based browsers because of an implementation bug;
+ *    See: https://code.google.com/p/chromium/issues/detail?id=457146
+ */
+.hide-text {
+  overflow: hidden;
+  padding: 0; /* 1 */
+  text-indent: 101%;
+  white-space: nowrap;
+}
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+
+/*layout halpers*/
+
+.full-width--block{
+  width: 100%;
+  float: left;
+}
+
+.auto-width--block{
+  width: auto;
+  float: left;
+}
+
+.text-strong{
+  @extend .bold-font-stack;
+}
+
+a.brand-anchor {
+  color: $brand-anchor;
+  text-decoration: none;
+
+  @include on-event {
+    color: $brand-anchor-hover;
+    text-decoration: underline;
+  }
+}
+
+/* no-gutters Class Rules */
+.row.no-gutters {
+   margin-right: 0;
+   margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+   padding-right: 0;
+   padding-left: 0;
+}
+
+.mt0{
+  margin-top: 0px !important;
+}
+
+.mt1{
+  margin-top: 10px !important;
+}
+
+.mt15{
+  margin-top: 15px !important;
+}
+
+.mt2{
+  margin-top: 20px !important;
+}
+
+.mb1{
+  margin-bottom: 10px !important;
+}
+
+.mb15{
+  margin-bottom: 15px !important;
+}
+
+.mb2{
+  margin-bottom: 20px !important;
+}
+
+.no-border{
+  border: none !important;
+}
+
+.flex-block{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-ellipsis{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-ellipsis-two-line{
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gCard{
+  @extend .full-width--block;
+  background: $white;
+  // border: solid 1px $gray;
+  @include rem(padding,10px);
+  @include box-shadow(0, 1px, 3px,rgba(0, 0, 0, 0.33)); 
+}
+
+.ngCard{
+  @include rem(padding,0);
+  @extend .gCard;
+}
+
+.gCardTitle{
+  background: $red;
+  color: $white;
+  @extend .full-width--block;
+  h4{
+    @extend .bold-font-stack; 
+    @include rem(padding,4px 10px);
+    @include rem(margin,0);
+    width: auto;
+    float: left;
+  }
+  .gCardControls{
+    float: right;
+    @include rem(padding,0px 10px);
+    button{
+      background: transparent;
+      border: 0;
+      float: left;
+      display: inline-block;
+      line-height: 28px;
+    }
+  }
+}
+
+.mainTitle{
+  @extend .full-width--block;
+  @include rem(padding,0);
+  @include rem(margin,0);
+  h1{
+    @include rem(font-size, 50px);
+    line-height: 58px;
+    text-align: justify;
+  }
+}

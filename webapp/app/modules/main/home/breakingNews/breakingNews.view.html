@@ -1,0 +1,17 @@
+<!-- breaking news start -->
+<div class="breakingNews" ng-if="(vm.articleLoaded && vm.article)">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="bannerImage">
+      <a href="#">
+        <a ui-sref="root.mainSidebar.articleDetails({categorySlug: vm.article.slug, articleId:vm.article.articleId, articleUrl: vm.article.articleUrl})"><div class="overlay"></div></a>
+        <div class="newIcon"><figure><img src="{{app_base_url}}/assets/images/breaking-news-icon.png" alt="" /></figure></div>
+        <div class="caption">
+          <a ui-sref="root.mainSidebar.articleDetails({categorySlug: vm.article.slug, articleId:vm.article.articleId, articleUrl: vm.article.articleUrl})"><p>{{:: vm.article.heading}}</p></a>
+        </div>
+        <figure><img class="poster-image img-responsive" src="{{:: vm.article.baseUrl}}/{{:: vm.article.posterImage}}" alt="" err-src="{{errorImagePath}}"/></figure>
+      </div>
+    </div>  
+  </div>
+</div>
+<!-- breaking news end -->

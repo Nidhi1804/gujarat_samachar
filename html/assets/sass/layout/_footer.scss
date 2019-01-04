@@ -1,0 +1,113 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+.footerSection{
+	border:solid 2px $gray;
+	background-color: #f6f6f6;
+	@extend .full-width--block;
+	@include rem(margin,20px 0 10px 0);
+	.footerInner{
+		@include rem(padding, 5px 20px 20px 20px);
+		h2{
+			@include rem(font-size, 22px);
+			@include rem(margin, 0 0 0 0);
+			@extend .bold-font-stack;
+			@include breakpoint(x-small){
+				@include rem(font-size, 18px);
+			}
+		}
+		.footerLinks{
+			@include rem(margin, 0 0 0 0);
+			@include rem(padding, 0);
+			@include breakpoint(large){
+				@include rem(margin, 0 0 10px 0);
+			}
+			li{
+				position: relative;
+				@include rem(padding, 0 20px 5px 0);
+				float: left;
+				&:after{
+					content: "";
+					@include abs-pos(4px, 10px, null, null);
+					width: 2px;
+					height: 14px;
+					display: block;
+					background: $black-option-1;
+					@include breakpoint(x-small){
+						width: 1px;
+						height: 14px;
+						top: 4px;
+
+					}
+				}
+				a{
+					@include rem(font-size, 16px);
+					@extend .regular-font-stack;
+					@include breakpoint(x-small){
+						@include rem(font-size, 14px);
+					}
+				}
+			}
+		}
+		.footerGujratiLinks{
+			.footerLinks li a{
+				//@extend .bold-base-font-stack;
+			}
+			.footerLinks li:after{
+				// display: none;
+			}
+		}
+	}
+
+	.copyright{
+		background: $red;
+		color: $white;
+		line-height: normal;
+		@include rem(padding, 5px 1rem 5px);
+		@include breakpoint(xx-large){
+			text-align: center;
+		}
+		p{
+			@extend .regular-font-stack;
+			@include rem(font-size, 14px);
+			@include rem(margin, 0);
+			@include breakpoint(x-small){
+				@include rem(font-size, 13px);
+			}
+		}
+		.copyrightLink{
+			@include rem(margin, 0);
+			text-align: right;
+			@include breakpoint(xx-large){
+				text-align: center;
+				@include rem(margin, 5px 0 0 0);
+			}
+			li{
+				position: relative;
+				&:first-child:after{
+					display: none;
+				}
+				&:after{
+					content: "";
+					@include abs-pos(3px, null, null, -3px);
+					width: 2px;
+					height: 14px;
+					display: block;
+					background: $white;
+					@include breakpoint(x-small){
+						width: 2px;
+					}
+				}
+				a{
+					@extend .bold-font-stack;
+					color: $white;
+					@include rem(font-size, 14px);
+					@include breakpoint(x-small){
+						@include rem(font-size, 13px);
+					}
+				}
+			}
+		}
+	}
+
+}

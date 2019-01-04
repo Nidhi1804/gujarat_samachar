@@ -1,0 +1,375 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa icon-list"></i>{{vm.typeTitle}} Advertise
+        </div>
+        <div class="actions">
+            <div class="btn-group">
+                <a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="vm.addAdvertiseForm" novalidate="novalidate" role="form">
+            <div class="form-body" ng-if="vm.isAdvertiseLoaded">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label  col-md-4">User agent<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <div class="radio-list">
+                                    <label class="radio-inline"> 
+                                        <input 
+                                            icheck 
+                                            type="radio" 
+                                            name="user-agent"
+                                            ng-change="vm.getAdPositions()" 
+                                            value="mobile" 
+                                            ng-model="vm.advertise.userAgent"> Mobile
+                                    </label>
+                                    <label class="radio-inline"> 
+                                        <input 
+                                            icheck 
+                                            type="radio"
+                                            ng-change="vm.getAdPositions()" 
+                                            name="user-agent" 
+                                            value="web" 
+                                            ng-model="vm.advertise.userAgent"> Web
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label class="control-label  col-md-2">Title <span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-10">
+                                <input type="text" placeholder="Title" class="form-control" name="title" ng-model="vm.advertise.title" required="">
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.title.$error.required">Title is required.
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Type Start -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">Page Type<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.advertise.pageType" class="chosen-select form-control" data-placeholder-text-single="'Select Page Type'"
+                                ng-change="vm.getAdPositions()"
+                                    chosen required name="pageType" ng-options="page.key as page.name for page in vm.pageType">
+                                        <option></option>
+                                    </select>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.pageType.$error.required"> Please select page type</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Position -->
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">Position<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.advertise.position" class="chosen-select form-control" data-placeholder-text-single="'Select Position'"
+                                    chosen required name="position" ng-options="position.value as position.name for position in vm.position">
+                                        <option></option>
+                                    </select>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.position.$error.required"> Please select at least one position</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page Type End -->
+
+                <div class="row">
+                    <div class="col-md-6" ng-if="vm.advertise.pageType == 'category'">
+                        <!-- Main Category -->
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">Category<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.parentId" class="chosen-select form-control" data-placeholder-text-single="'Select Category'" chosen
+                                    multiple required name="category" ng-options="category._id as category.name for category in vm.mainCategoryList" ng-change="vm.checkOption(vm.parentId)">
+                                        <option></option>
+                                    </select>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.category.$error.required"> Please select at least one category</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.pageType == 'magazine'">
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">Magazines<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.magazineSlug" class="chosen-select form-control" data-placeholder-text-single="'Select Magazine'" chosen
+                                    multiple required name="magazine" ng-options="magazine._id as magazine.name for magazine in vm.magazineList" ng-change="vm.checkOption(vm.magazineSlug)">
+                                        <option></option>
+                                    </select>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.magazine.$error.required"> Please select at least one category</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.pageType == 'city'">
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">City<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.citySlug" class="chosen-select form-control" data-placeholder-text-single="'Select City'" chosen
+                                    multiple required name="city" ng-options="city._id as city.name for city in vm.citiesList" ng-change="vm.checkOption(vm.citySlug)">
+                                        <option></option>
+                                    </select>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.city.$error.required"> Please select at least one city</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.pageType == 'category'">
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">Subcategory</label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.subCatIds" class="chosen-select form-control" data-placeholder-text-single="'Select Sub Category'" chosen
+                                    multiple name="subcategory" ng-options="subcategory._id as subcategory.name for subcategory in vm.subCategoryList" ng-change="vm.checkOption(vm.subCatIds)">
+                                        <option></option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Start Date -->
+                    <div class="col-md-6">
+                        <div class="form-group" ">
+                            <label class="control-label col-md-4 ">Start Date <span class="required " aria-required="true ">*</span></label>
+                            <div class="col-md-8 ">
+                                <input 
+                                    type="text"
+                                    name="startDate"
+                                    class="form-control date-picker" 
+                                    readonly="readonly"
+                                    uib-datepicker-popup="dd/MM/yyyy"
+                                    ng-model="vm.advertise.startDate"
+                                    datepicker-options="vm.dateOptionsStartDate" 
+                                    ng-required="true" 
+                                    close-text="Close" 
+                                    popup-placement="bottom"
+                                    is-open="vm.openStartDate.opened" 
+                                    ng-click="vm.openStartDate()"
+                                    ng-change="vm.updateEndDateConfig()"
+                                    placeholder="Start Date"
+                                    required/>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted ">
+                                        <span class="text-danger " ng-if="vm.addAdvertiseForm.startDate.$error.required ">Start Date is required.
+                                        </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Date -->
+                    <div class="col-md-6 ">
+                        <div class="form-group "">
+                            <label class="control-label col-md-4">End Date <span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" name="endDate" class="form-control date-picker" readonly="readonly" uib-datepicker-popup="dd/MM/yyyy"
+                                    ng-model="vm.advertise.endDate" 
+                                    datepicker-options="vm.dateOptionsEndDate" ng-required="true"
+                                    close-text="Close" popup-placement="bottom" is-open="vm.openEndDate.opened" ng-click="vm.openEndDate()"
+                                    ng-change="vm.updateStartDateConfig()" placeholder="End Date" required/>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.endDate.$error.required">End Date is required.
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- File Type -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">Ad type<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.advertise.fileType" class="chosen-select form-control" data-placeholder-text-single="'Select File-Type'"
+                                    chosen required name="fileType" ng-options="type for type in vm.fileType">
+                                        <option></option>
+                                    </select>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.fileType.$error.required"> Please select at least one type</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.position == 'List'">
+                        <div class="form-group">
+                            <label for="single-prepend-text" class="control-label col-md-4">List Index<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="vm.advertise.listIndex" class="chosen-select form-control" data-placeholder-text-single="'Select Index'"
+                                    chosen required name="listIndex" ng-options="index for index in vm.indexList">
+                                        <option></option>
+                                    </select>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.listIndex.$error.required"> Please select list index</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image upload : If file-type 'Image' selected. There will be 2 images for header -->
+                <div class="row" ng-if="vm.advertise.fileType == 'Image'">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Ad Image 1<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <label for="image-upload" class="upload-label nopad control-label">
+                                    <input 
+                                        id="image-upload"
+                                        type="file"
+                                        class="file-upload hidden" 
+                                        ngf-select 
+                                        ng-model="vm.advertise.image1" 
+                                        name="image1"
+                                        ngf-pattern="'image/*'" 
+                                        ngf-accept="'image/*'" 
+                                        ngf-max-size="3MB"
+                                        required>
+                                    <i class="fa fa-upload" aria-hidden="true"></i>Upload Image 1 </label>
+                                    <div style="width:122px">
+                                        <img class="img-responsive" ngf-src="vm.advertise.image1" class="thumb" />
+                                        <a ng-if="vm.advertise.image1" ng-click="vm.removethisImage(1)"><img class="ad-remove-img" src="assets/images/remove.png"/></a><br/>
+                                    </div>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.image1.$error.required">Please upload image.
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.position == 'Header'">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Ad Image 2</label>
+                            <div class="col-md-8">
+                                <label for="header-image2" class="upload-label nopad control-label">
+                                <input 
+                                    id="header-image2"
+                                    class="file-upload hidden"
+                                    type="file" 
+                                    ngf-select 
+                                    ng-model="vm.advertise.image2"
+                                    name="image2" 
+                                    ngf-pattern="'image/*'"
+                                    ngf-accept="'image/*'"
+                                    ngf-max-size="3MB">
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                Upload Image 2 </label>
+                                <div ng-if="vm.advertise.image2" style="width:122px">
+                                    <img style="width:122px" class="img-responsive" ngf-src="vm.advertise.image2" class="thumb">
+                                    <a ng-click="vm.removethisImage(2)"><img class="ad-remove-img" src="assets/images/remove.png"/></a><br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="vm.advertise.fileType == 'Image'">
+                    <!-- Ad Link : If file-type 'Image' selected -->
+                    <div class="col-md-6">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label class="control-label  col-md-4">Ad Link 1<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" placeholder="Ad Link 1" class="form-control" name="adLink1" ng-model="vm.advertise.adLink1" required="">
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.adLink1.$error.required">Ad Link is required.
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.position == 'Header'">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label class="control-label  col-md-4">Ad Link 2</label>
+                            <div class="col-md-8">
+                                <input type="text" placeholder="Ad Link 2" class="form-control" name="adLink2" ng-model="vm.advertise.adLink2">
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <!-- Show textarea : If file-type 'Google Code' selected -->
+                <div class="row" ng-if="vm.advertise.fileType == 'Google Code'">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Description 1<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <textarea rows="5" class="form-control" placeholder="Google Code" name="description1" ng-model="vm.advertise.description1"
+                                    required="">
+                                </textarea>
+                                <span ng-if="vm.addAdvertiseForm.$invalid && vm.addAdvertiseForm.$submitted">
+                                    <span class="text-danger" ng-if="vm.addAdvertiseForm.description1.$error.required">Description is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.position == 'Header'">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Description 2</label>
+                            <div class="col-md-8">
+                                <textarea rows="5" class="form-control" placeholder="Google Code" name="description2" ng-model="vm.advertise.description2">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Active<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <input ng-model="vm.advertise.isActive" type="checkbox" class="make-switch" data-size="small" bs-switch>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="vm.advertise.pageType == 'category' || vm.advertise.pageType == 'magazine'">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Article<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-8">
+                                <input ng-model="vm.advertise.isArticle" type="checkbox" ng-change="vm.getAdPositions()" class="make-switch" data-size="small" bs-switch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions right">
+                    <a class="btn default" ui-sref="root.getAdvertiseList({pageIndex:1})">Cancel</a>
+                    <button ng-disabled="vm.disable" ng-if="!vm.advertiseId" class="btn green" id="save_btn" type="submit" ng-click="vm.checkDateRangForBottomAd(vm.addAdvertiseForm.$valid,true)">
+                        <i class="fa fa-check"></i>Save & Add New
+                    </button>
+                    <button ng-disabled="vm.disable" ng-if="!vm.advertiseId" class="btn blue" id="save_btn" type="submit" ng-click="vm.checkDateRangForBottomAd(vm.addAdvertiseForm.$valid,false)">
+                        <i class="fa fa-check"></i>Save
+                    </button>
+                    <button ng-disabled="vm.disable" ng-if="vm.advertiseId" class="btn green" id="save_btn" type="submit" ng-click="vm.checkDateRangForBottomAd(vm.addAdvertiseForm.$valid,true)">
+                        <i class="fa fa-check"></i>Update & Add New
+                    </button>
+                    <button ng-disabled="vm.disable" ng-if="vm.advertiseId" class="btn blue" id="save_btn" type="submit" ng-click="vm.checkDateRangForBottomAd(vm.addAdvertiseForm.$valid,false)">
+                        <i class="fa fa-check"></i>Update
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

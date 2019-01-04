@@ -1,0 +1,145 @@
+<div class="tab-content">
+	<div id="tab_2" class="tab-pane active">
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa icon-diamond"></i> {{vm.typeTitle}} Sub Category
+				</div>
+				<div class="tools"></div>
+				<div class="actions">
+					<div class="btn-group">
+						<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="portlet-body">
+				<div class="form-group">
+					<form class="form-horizontal" name="vm.addSubCatFrm" role="form" novalidate>
+						<!-- Main Category -->
+						<div class="form-group" ng-if="!vm.hideMainCategory">
+							<label class="col-md-2 control-label" for="mainCategory">Main Category <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-4">
+								<select ng-model="vm.parentId" class="chosen-select form-control" data-placeholder-text-single="'Select Category'" no-results-text=""
+								 chosen required id="mainCategory" name="mainCategory" ng-change="vm.getSubCategory(vm.parentId, true)" ng-options="category._id as category.name for category in vm.mainCategoryList">
+									<option><option>
+								</select>
+								<span ng-if="vm.addSubCatFrm.$invalid && vm.addSubCatFrm.$submitted">
+									<span class="text-danger" ng-if="vm.addSubCatFrm.mainCategory.$error.required"> Select at least one category.</span>
+								</span>
+							</div>
+						</div>
+
+						<!-- N-level Sub Category list -->
+						<div class="form-group" ng-repeat="category in vm.subCategoryList" ng-include="'subCategoryRenderer.html'">
+						</div>
+
+						<!-- Sub Category Name -->
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">New Sub Category <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-4">
+								<input type="text" value="" name="name" ng-model="vm.category.name" placeholder="Add sub category" id="name" class="form-control"
+								 ng-maxlength="25" required="">
+								<span ng-if="vm.addSubCatFrm.$invalid && vm.addSubCatFrm.$submitted">
+									<span class="text-danger" ng-if="vm.addSubCatFrm.name.$error.required">Sub Category Name is required.
+									</span>
+								<span class="text-danger" ng-if="(vm.addSubCatFrm.name.$error.maxlength && vm.addSubCatFrm.name.$dirty)">Max character length is 25.
+									</span>
+								</span>
+								<!-- API Error message -->
+								<span ng-if="vm.noDataText">
+									<span class="text-danger">{{vm.noDataText}}
+									</span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+                            <label class="control-label col-md-2">Icon<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-10">
+                                <label for="image-upload" class="upload-label nopad control-label">
+                                    <input 
+                                        id="image-upload"
+                                        type="file"
+                                        class="file-upload hidden" 
+                                        ngf-select 
+                                        ng-model="vm.category.icon" 
+                                        name="icon"
+                                        ngf-pattern="'image/*'"
+    									ngf-accept="'image/*'" 
+    									ngf-max-size="15KB"
+    									ngf-max-height="300"
+    									ngf-max-width="300"
+                                        required>
+                                    <i class="fa fa-upload" aria-hidden="true"></i>Upload Icon</label>
+                                    <div ng-if="vm.category.icon" style="width:122px">
+                                        <img class="img-responsive" ngf-src="vm.category.icon" class="thumb">
+                                        <a ng-click="vm.removethisIcon()"><img class="ad-remove-img" src="assets/images/remove.png"/></a><br/>
+                                    </div>
+                                <span ng-if="vm.addSubCatFrm.$invalid &&vm.addSubCatFrm.$submitted"><br>
+                                    <span class="text-danger" ng-if="vm.addSubCatFrm.icon.$error.required">Please upload icon.
+                                    </span>
+                                </span>
+                                <span class="text-danger" ng-if="vm.addSubCatFrm.icon.$error.maxHeight">Please upload image upto 300px.
+                                </span>
+                                <span class="text-danger" ng-if="vm.addSubCatFrm.icon.$error.maxWidth">Please upload image upto 300px.
+                                </span>
+                                <span class="text-danger" ng-if="vm.addSubCatFrm.icon.$error.maxSize">Please upload image upto 15KB.
+                                </span>
+                            </div>
+                        </div>
+						<!-- <div class="form-group">
+							<label class="col-md-2 control-label" for="name">List Type <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<div class="radio-list">
+									<label class="radio-inline"> 
+										<input 
+											icheck 
+											type="radio" 
+											name="listType"
+											value="byCaendar" 
+											ng-model="vm.category.listType" required=""> By Calendar
+									</label>
+									<label class="radio-inline"> 
+										<input 
+											icheck 
+											type="radio" 
+											name="listType"
+											value="all"
+											ng-model="vm.category.listType" required> All
+									</label><br/>
+									<span ng-if="vm.addSubCatFrm.$invalid && vm.addSubCatFrm.$submitted">
+										<span class="text-danger" ng-if="vm.addSubCatFrm.listType.$error.required">List type is required.
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> -->
+						<hr>
+						<div class="form-group">
+							<div class="col-md-offset-2 col-md-10">
+								<a class="btn default" ng-if="vm.parentId !== undefined" ui-sref="root.subCategoryList({parentId : vm.parentId})">Cancel</a>
+								<a class="btn default" ng-if="vm.parentId === undefined" ui-sref="root.categoryList">Cancel</a>
+								<button ng-if="!vm.categoryId" ng-click="vm.addCategory(vm.addSubCatFrm.$valid,true)" class="btn green" id="save" type="submit">Save & Add New</button>
+								<button ng-if="!vm.categoryId" ng-click="vm.addCategory(vm.addSubCatFrm.$valid,false)" class="btn blue" id="save" type="submit">Save</button>
+								<button ng-if="vm.categoryId" ng-click="vm.addCategory(vm.addSubCatFrm.$valid,true)" class="btn green" type="submit">Update & Add New</button>
+								<button ng-if="vm.categoryId" ng-click="vm.addCategory(vm.addSubCatFrm.$valid,false)" class="btn blue" type="submit">Update</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- Sub Category View -->
+<script type="text/ng-template" id="subCategoryRenderer.html">
+	<label class="col-md-2 control-label" for="subCategory">{{ category.label }}</label>
+	<div class="col-md-4">
+		<select ng-model="vm.models[$index]" class="chosen-select form-control" data-placeholder-text-single="'Select Category'"
+		 chosen id="subCategory" name="subCategory" ng-change="vm.getSubCategory(vm.models[$index], false, $index)" ng-options="cat._id as cat.name for cat in category.list">
+			<option><option>
+		</select>
+	</div>
+</script>

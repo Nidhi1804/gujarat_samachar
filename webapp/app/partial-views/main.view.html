@@ -1,0 +1,16 @@
+<!-- Header sectio start -->
+<header ui-view="header"></header>
+<!-- Header sectio end -->
+
+<!-- middle content start -->
+<div ng-hide="!loading" class="middle-section" ng-spinner-bar>
+    <div class="loader"></div>
+</div>
+<div class="container" ng-show="!loading">
+	<div class="middle-section" when-scrolled="more()" ui-view></div>
+</div>
+<!-- middle content end -->
+
+<!-- footer sectio start -->
+<footer class="footerSection" ui-view="footer"></footer>
+<!-- footer sectio end -->

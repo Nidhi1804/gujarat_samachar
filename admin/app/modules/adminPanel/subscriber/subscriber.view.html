@@ -1,0 +1,38 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="icon-settings"></i>Subscriber List
+		</div>
+		<div class="tools"></div>
+		<!-- <div class="actions">
+			<div class="btn-group">
+				<a ui-sref="root.editConfig" id="add_user" class="btn btn-circle default" uib-tooltip="Edit Configuration" type="button">Send Email</a>
+			</div>
+		</div> -->
+	</div>
+	<div class="portlet-body">
+		<div id="ajax_data" ng-if="vm.isContentLoaded">
+			<div class="table-scrollable">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th> # </th>
+							<th> Email </th>
+							<th> Action </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-if="vm.subscriberList.length == 0">
+							<td class="text-center" colspan="3">No data found.</td>
+						</tr>
+						<tr ng-repeat="(key, user) in vm.subscriberList">
+							<td>{{ $index+1 }} </td>
+							<td ng-bind-template="{{ user.emailId }}"></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+/**
+ * Basic typography style for copy text
+ */
+body {
+  color: $body-color;
+  @extend .bold-base-font-stack;
+}
+
+.base-font-stack{
+  font-family: $base-font-stack;
+  font-weight: normal;
+}
+
+.bold-base-font-stack{
+  font-family: $base-bold-font-stack;
+  font-weight: bold;
+}
+
+.regular-font-stack{
+  font-family: $secondary-font-stack;
+  font-weight: normal;
+}
+
+.bold-font-stack{
+  font-family: $secondary-bold-font-stack;
+  font-weight: bold;
+}

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "gujarat-samachar-217607",
+  "private_key_id": "4639730bceac48751dfb47cd810354ee0202d906",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCLDeTt5/wJ5hkX\n/JJSoq5LAQZ4Axtgbh1ZI+W4iWD8SVKogFOjf+EWd6JvuTpJxTFpmWQzv1oqQ8fq\n8XzVGDtZ0K1XiRLAAFiEwPLoEafs1Q6CBW+NCefXYa3qfa3MJjzhzLxVmiLCWkR/\n5JBKfujGaAFS9BT203N29tMrhEJknUE5aiLuQ5JcL4ezuu6pycOFGmcPElTGF2SX\nghoN/G5AFwC9EzwkswcaK8nW34GjJrzzXx+umka557xljrhLwo/Whaf52zFG5OPX\nr+N5VVsPROKdpBT2CQRSFx9M5BFOpIfgKK/OU9T6k9bgZ2wMlG21YxI0pv2DiTpK\nxFlnDh6DAgMBAAECggEADC/7kJ50iKmSKXgJmxSHEivU1U/wZlNAXz+2MqZXycTj\nacFVk07x+3Yg1on1geG2ovq+vYpX7LxkGUNxHXwyN30CtFlfO1TMbVY78/sYLLm/\nu8WeMU5c85OsGpFJWks/qsq29wm7Yi1nM45k1yKoZDtZYlviOn/t7s9TUs0UxJyi\nt5XjF4GSK3zr35fcbPCwQOgvEJ3V23fRvZgGY8fLekC2lrrH904uWg4j3HsL2q8v\nO0LR8Gdff6PlfyVkPY6/GbzMq2VLrW2uBU8AyxhXTY40c4JDa42Xnm5ZKfAU1JL3\ntIeE9KudBE9ebPixyHqeh0v72BFdHswL9NHTnaSIgQKBgQC+vNPVLt9Fr6nA7Nbk\nqftR8GmyPrBM/+7CmqCNhxDXWAuCFmNSt9osvi7gEu0cxF03iMtdRblRp0O3iIVJ\nkSAWkFgnpeqYOxm+O8E8FB7VWuH9Q0jtXTCASArHRha7KgWoVrD0kiWU6pYyjnfn\n7+acKX85KUGdeEYEKSfRPy/HNwKBgQC6of9djUR+AiJUH9xfWzX3kizJGfg0SMIS\nakMQos/P3M4hnhGp3fRpUt/E7KRLqBmomvnbOWZPUqrrxQUAyAzflMzyxTvezsOB\ndvvuQSa6Nexu5z+/lTw1EDM5tRj6qOh8y9HfDzsCvW7mzPuxspav8htUOpWiWrhk\ncZOZSyjxFQKBgQCNy/ErThI8SzBGtYu4KMomizT4hvQn+ig00iFDtcKGZPUBO8WR\nDA8NLkHI4SkXNsAZ9f9BkwEHO/LysXJtU49oVtzCdO0nSOCFdQTdthOKB2t0DZ5c\nn+fbpjMlG+zwLXhRQkmBOFjqEU+hvBpV+hoVxB/JjesytuROWY45V+EcFwKBgQCN\nLJlkhMW4o5igFfG21+H8wb/K5zAPLLJRB7xvSxjzXU03tMAbxF9rhFrsNS0aZa/z\nEDfMEqFHg3rzGXdtXeYPAhn90iA1rCXLOtvbH8FRvhR418gq/ZIreXOmRUz93uLt\n86dvma/DpNPNFmWVx0ehE/yEPESQKRuuLxO9M1Nm+QKBgAb2vw2wIjIFGS/K+8qF\nXpNowWOx75NRreptqagmZoEOGprbUZedAb7K2jd7yw0UjHVZV4EeenxIFdRNqtWO\ngDbovkzlkDQWWSYJ+Xgub4dPWXGrz5XUDT02yFBXHrJl6+ZgUIluPrT7I+vKNS4z\njqGcofA+V3ggoRE1AckrROVc\n-----END PRIVATE KEY-----\n",
+  "client_email": "gs-991@gujarat-samachar-217607.iam.gserviceaccount.com",
+  "client_id": "113164124896367075590",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gs-991%40gujarat-samachar-217607.iam.gserviceaccount.com"
+}

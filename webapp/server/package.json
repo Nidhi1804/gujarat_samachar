@@ -1,0 +1,58 @@
+{
+  "name": "gujarat_samachar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://Belim@192.168.0.43:88/nimesh/gujarat_samachar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apicache": "^1.1.0",
+    "async": "^2.5.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.1",
+    "connect-mongo": "^1.3.2",
+    "consolidate": "^0.14.5",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "express-redis-cache": "^1.1.3",
+    "express-session": "^1.15.3",
+    "express-validator": "^3.2.0",
+    "fs": "0.0.1-security",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-bytediff": "^1.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-ng-annotate": "^2.1.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.3.0",
+    "gulp-uglify": "^3.0.0",
+    "helmet": "^3.6.1",
+    "httpolyglot": "^0.1.2",
+    "jsonwebtoken": "^7.4.1",
+    "memory-cache": "^0.2.0",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.18.1",
+    "mongodb": "^2.2.28",
+    "prerender-node": "^2.7.4",
+    "q": "^1.5.0",
+    "rss": "^1.2.2",
+    "sitemap": "^1.13.0",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "nodemon": "^1.11.0"
+  }
+}

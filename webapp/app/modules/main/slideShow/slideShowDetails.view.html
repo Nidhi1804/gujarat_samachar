@@ -1,0 +1,92 @@
+<!-- middle content end -->
+<div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="sideShowSlider mb2 singleImageSlider">
+        <gs-loading show-loader="!vm.slideShowsLoaded">
+            <slick class="main-slider slider row newArrow" settings="vm.slideShowConfig2">
+                <div class="col-md-12" ng-repeat="slideShowImage in vm.slideShowImages track by $index">
+                    <div class="sideShowBlock">
+                        <img alt="" src="{{slideShowImage. baseUrl}}/{{slideShowImage.image}}" alt="slideShowImage.title" err-src="{{errorImagePath}}"/>
+                    </div>
+                </div>
+            </slick>
+            <slick class="slider-nav slider row" settings="vm.navConfig">
+                <div class="col-md-4" ng-repeat="slideShowImage in vm.slideShowImages track by $index" active="slide.active">
+                    <div class="sideShowBlock">
+                        <img alt="" src="{{slideShowImage. baseUrl}}/{{slideShowImage.image}}" alt="slideShowImage.title" err-src="{{errorImagePath}}"/>
+                    </div>
+                </div>
+            </slick>
+            <div ng-repeat="(key,value) in vm.slideShowImages">
+                <div class="content first" data-id="{{key}}" ng-if="key === 0">
+                    <div class="contdesc gCard">
+                        <h3>{{vm.slideShowImages[key].title}}</h3>
+                        <h3 class="slide-show-content" ng-if="vm.slideShowImages[key].description" ng-bind-html="vm.slideShowImages[key].description | unsafe"></h3>
+                    </div>
+                </div>
+                <div class="content " data-id="{{key}}" ng-if="key > 0">
+                    <div class="contdesc gCard">
+                        <h3>{{vm.slideShowImages[key].title}}</h3>
+                        <h3 class="slide-show-content" ng-if="vm.slideShowImages[key].description" ng-bind-html="vm.slideShowImages[key].description | unsafe"></h3>
+                    </div>
+                </div>
+            </div>
+        </gs-loading>
+    </div>
+
+    <!-- slide show -->
+
+    <!-- windowResize directive used to get innerWidth of window -->
+    <div class="mainFullBlock" window-resize>
+        <div class="full-width--block mb2 ">
+            <div class="gCardTitle ">
+                <h4>Slide Show</h4>
+                <div class="gCardControls" ng-class="{
+                    'hidden': width <= 480 && vm.slideShows.length <= 2,
+                    'xs-hidden': width > 480 && width < 1024  && vm.slideShows.length <= 3,
+                    'md-hidden': width >= 1024 && vm.slideShows.length <= 4
+                    }">
+                    <button class="gallery-icon-prev" id="arrowBtn" ng-click="::vm.previousSlide($event)"></button>
+                    <button class="gallery-icon-next" id="arrowBtn" ng-click="::vm.nextSlide($event)"></button>
+                </div>
+            </div>
+
+            <div class="gCard ">
+                <gs-loading show-loader="!vm.slideShowLoaded">
+                    <div class="mainFullBlock ">
+                        <slick class="row " settings="vm.slideShowConfig " ng-if="vm.slideShowLoaded " dots="false" slides-to-show="3 " slides-to-scroll="1 ">
+                            <div class="col-md-4" ng-repeat="slide in vm.slideShows" ng-if="slide.Id !== vm.Id">
+                                <div class="galleryBlock">
+                                    <a ui-sref='root.mainSidebar.slideShowDetails({Id : slide.Id, url: slide.url})' title="{{slide.slideShowName}}">
+                                    <img alt=" " src="{{slide.baseUrl}}/{{slide.slideShowImages[0].image}}" alt="example1 " err-src="{{errorImagePath}}"/>
+                                     <p>{{slide.slideShowName | limitTo:70}}<span ng-if="slide.slideShowName.length > 70">...</span></p> 
+                                </a>
+                                </div>
+                            </div>
+
+
+                        </slick>
+                        <div class="row">
+                            <div class="col-md-12"><a ui-sref='root.mainSidebar.slideShow({pageIndex : 1})' class="moreAnchore">More Slide Shows..</a>
+                            </div>
+                        </div>
+                    </div>
+                </gs-loading>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- Articles By City - Multi-news-section start -->
+                    <div class="partial-view mt1" ui-view="articlesByCity"></div>
+                    <!-- Articles By City - Multi-news-section end -->
+                    <!-- Articles By category - section start -->
+                    <div class="partial-view" ui-view="articlesByCategory"></div>
+                    <!-- Articles By category - section end -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bottom Advertise Start-->
+    <div page-type="slide-show" bottom-advertise></div>
+    <!-- Bottom Advertise End -->
+</div>

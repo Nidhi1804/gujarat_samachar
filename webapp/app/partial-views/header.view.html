@@ -1,0 +1,140 @@
+  <!-- Header section start  -->
+<div id="header">
+  <div class="header" ng-class="{'city-magazin-page' : $state.params.listType == 'city' || $state.current.name == 'root.mainSidebar.articleByMagazine' || $state.current.name == 'root.mainSidebar.articleDetails'}">
+    <h1 class="logo">
+      <a ui-sref="root.mainSidebar.home"><img ng-src="{{vm.logo}}" err-src="assets/images/logo.png" alt="gujarat-samachar" /></a>
+      <span class="date-time">{{vm.currentDate}} | <b>{{vm.currentTime}}</b></span>
+    </h1>
+    <div class="header-ad">
+     <div page-type="{{vm.pageType}}" header-advertise></div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation section start -->
+<div class="navigation-section main-navigation" ng-class="{'city-magazin-page' : $state.params.listType == 'city' || $state.current.name == 'root.mainSidebar.articleByMagazine' || $state.current.name == 'root.mainSidebar.articleDetails'}" mobile-menu>
+  <nav class="navbar navbar-inverse" role="navigation" is-loaded="vm.loadMenu">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" uib-collapse="vm.isNavCollapsed">
+      <ul class="nav navbar-nav" ng-if="vm.loadMenu">
+        <!-- Static Home Link -->
+        <li class="text" ng-class="{'active': vm.currentState == 'root.mainSidebar.home'}"><a ng-click="vm.closeMenu()" ui-sref-active="active" ui-sref="root.mainSidebar.home" ng-click="vm.isNavCollapsed = true">Home</a></li>
+
+        <li class="home"><a ng-click="vm.closeMenu()" ui-sref="root.mainSidebar.home" ng-click="vm.isNavCollapsed = true"><img src="assets/images/GS_logo-white.png"></a></li>
+
+        <!-- Dynamic Categories -->
+        <li  ng-repeat="(key, category) in vm.getMenuList track by $index" ng-if="(category.name != 'Home')" ng-class="{'subMenu' : category.submenu, 'active': (vm.activeTab == category.slug && vm.currentState !== 'root.mainSidebar.home' && vm.activeTab !== undefined) || (vm.activeTab == category.name && category.submenu && vm.currentState !== 'root.mainSidebar.home' && vm.activeTab !== undefined)}">
+
+          <!-- Disable anchor if menu contain submenu  -->
+          <a ng-if="category.submenu" class="nav-link dropdownTitle dropdown-toggle">{{ category.name }}</a>
+
+          <b class="submenu-caret"></b>
+
+          <!-- Add link to anchor if no submenu  -->
+          <a ng-click="vm.closeMenu()" ng-if="!category.submenu" ui-sref="root.mainSidebar.articleList({ Id : category.Id, slug: category.slug, pageIndex : 1, date:'', listType:'category' })">{{ category.name }}</a>
+
+
+          <!-- City Sub Menu Start -->
+          <ul class="first-level dropdown-menu multi-level" ng-if="category.submenu && category.name == 'City News'">
+
+            <li ng-repeat="(key, city) in category.submenu" ng-class=" {'subMenu' : city.submenu}">
+              <a class="nav-link dropdown-toggle" ng-click="vm.closeMenu()" ui-sref="root.mainSidebar.articleList({ Id : city.Id, slug: city.slug ,pageIndex : 1, date:'', listType: 'city'})">{{city.name}}</a>
+            </li>
+          </ul>
+          <!-- City Sub Menu End -->
+
+          <!-- First Level Sub menu start(Don't include magazine) -->
+          <ul class="first-level dropdown-menu multi-level rightOpen" ng-if="(category.submenu && category.name !== 'Magazines' && category.name !== 'City News')">
+
+            <li class="subMenu-more" ng-repeat="(key, firstLevel) in  category.submenu" ng-class="{'subMenu' : firstLevel.submenu}">
+              <a class="nav-link dropdown-toggle" ng-click="vm.closeMenu()" ui-sref="root.mainSidebar.articleList({ Id : firstLevel.Id, slug: firstLevel.slug ,pageIndex : 1, date:'', listType: 'category'})">{{firstLevel.name}}</a>
+
+              <!-- Second Level Sub menu start(Don't include magazine and 'City News' cities) -->
+              <b class="submenu-caret" ng-if="firstLevel.submenu"></b>
+              <ul class="more second-level more-second dropdown-menu" ng-if=" firstLevel.submenu" ng-repeat="(key, secondLevel) in  firstLevel.submenu">
+                <li> <a ng-click="vm.closeMenu()" ui-sref="root.mainSidebar.articleList({ Id : secondLevel.Id, slug: secondLevel.slug ,pageIndex : 1, date:'', listType:'category'})">{{secondLevel.name }}</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+          <!-- Sub menu End-->
+
+          <!-- Magazine submenu start -->
+          <ul class="subMenu first-level dropdown-menu multi-level magazineBlock" ng-if="(category.name == 'Magazines')">
+            <li ng-repeat="(key, magazine) in category.submenu">
+              <figure><a ng-click="vm.closeMenu()" ui-sref="root.mainSidebar.articleByMagazine({slug:magazine.slug,pageIndex : 1, date:''})"><img src="assets/images/{{magazine.name}}.png" alt=" " /></a></figure>
+            </li>
+          </ul>
+          <!-- Magazine submenu end -->
+        </li>
+        <!-- E-paper external link -->
+        <li><a target="_blank" href="http://gujaratsamacharepaper.com">ePaper</a></li>
+
+        <!-- More sub menu start -->
+        <li class="subMenu main-more" ng-class="{'active':vm.activeTab == 'More'}">
+          <a class="dropdownTitle dropdown-toggle" href="javascript:void(0)">More</a>
+          <b class="submenu-caret"></b>
+          <ul class="first-level dropdown-menu multi-level lastNav rightOpen more_sub_category">
+            <li class="subMenu-more" ng-repeat="(key, category) in vm.moreCategories" ng-class="{ 'subMenu' : category.submenu}">
+
+              <a class="nav-link dropdown-toggle" ng-class="{'dropdownTitle' : category.name == 'Vaividhya'}" ng-click="vm.closeMenu()" ui-sref="root.mainSidebar.articleList({ Id : category.Id, slug: category.slug ,pageIndex : 1, date : '', listType:'category'})">{{category.name}}</a>
+              <!-- <a ng-if="category.name == 'Vaividhya' || category.name == 'Gujarat'" class="nav-link dropdown-toggle" ng-class="{'dropdownTitle' : category.name == 'Vaividhya'}" ng-click="vm.closeMenu()">{{category.name}}</a> -->
+              <b class="submenu-caret" ng-if="category.submenu"></b>
+              <!-- second-level Sub menu start(Don't include magazine) -->
+              <ul class="more second-level more-second dropdown-menu" ng-if="category.submenu">
+                <li ng-repeat="(key, secondLevel) in category.submenu" ng-class="{'subMenu' : secondLevel.submenu,'city-sport{{key}}' : secondLevel.submenu}">
+
+                  <a ui-sref="root.mainSidebar.articleList({ Id : secondLevel.Id, slug: secondLevel.slug ,pageIndex : 1, date : '', listType:'category'})">{{secondLevel.name}}</a>
+                  <!-- third-level Sub menu start -->
+                  <b class="submenu-caret" ng-if="secondLevel.submenu"></b>
+                  <ul class="more third-level-custom dropdown-menu" ng-if="secondLevel.submenu">
+                    <li ng-repeat="(key, thirdLevel) in secondLevel.submenu" ng-class="{'subMenu' : thirdLevel.submenu}"> 
+                      <a ng-click="vm.closeMenu()" ui-sref="root.mainSidebar.articleList({ Id : thirdLevel.Id, slug: thirdLevel.slug, pageIndex : 1, date:'', listType:'category'})">
+                        {{ thirdLevel.name }}</a>
+                    </li>
+                  </ul> 
+                  <!-- third-level Sub menu end -->
+
+                </li>
+              </ul>
+              <!-- Sub menu End-->
+
+            </li>
+          </ul>
+        </li>
+        <li class="subMenu follow-us"><a class="dropdownTitle" href="#">Follow us<b class="submenu-caret"></b></a>
+          <ul class="dropdown-menu">
+            <div class="followus-social">
+              <ul>
+                <li><a target="_blank" href="https://www.facebook.com/gujarat.samachar.news"><i class="fa fa-facebook"></i></a></li>
+                <li><a target="_blank" href="https://plus.google.com/+GujaratSamacharAhmedabad/posts"><i class="fa fa-google-plus"></i></a></li>
+                <li><a target="_blank" href="https://instagram.com/gujratsamachar/"><i class="fa fa-instagram"></i></a></li>
+                <li><a target="_blank" href="https://www.linkedin.com/company/gujaratsamachar/"><i class="fa fa-linkedin"></i></a></li>
+                <li><a target="_blank" href="http://twitter.com/gujratsamachar"><i class="fa fa-twitter"></i></a></li>
+                <li><a target="_blank" href="https://www.youtube.com/GujaratSamacharVideo"><i class="fa fa-youtube"></i></a></li>
+              </ul>
+            </div>
+          </ul>
+        </li>
+        <!-- <li id="nav-search" class="navSearch">
+          <a href="javascript:void(0)"><i class="fa fa-search" aria-hidden="true"></i></a>
+          <div class="search-input">
+            <input type="text" placeholder="Search here">
+          </div>
+        </li> -->
+        <!-- More sub menu end -->
+      </ul>
+    </div>
+  </nav>
+</div>
+<!-- Header section end -->
+
+<!-- Navigation section end -->

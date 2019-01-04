@@ -1,0 +1,4 @@
+﻿User-agent: *
+Disallow:
+Allow: /
+SITEMAP: https://www.gujaratsamachar.com/sitemap.xml

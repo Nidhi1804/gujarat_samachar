@@ -1,0 +1,65 @@
+<div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="mainFullBlock">
+        <div class="gCardTitle">
+            <h4>Latest News </h4>
+        </div>
+        <gs-loading show-loader="!vm.articlesLoaded">
+            <div class="row no-gutters">
+                <div class="col-md-12 col-sm-12 col-xs-12" ng-if="::(vm.articles.length == 0)">
+                    <h3 class="text-center">No Article found.</h3>
+                </div>
+            </div>
+            <div class="gCard">
+                <div class="categoryBlock" dir-paginate="article in ::vm.articles | itemsPerPage : vm.pageSize" total-items="{{::vm.totalCount}}"
+                    current-page="::vm.pagination.current">
+                    <figure><a ui-sref="root.mainSidebar.articleDetails({categorySlug: article.slug, articleId:article.articleId, articleUrl: article.articleUrl})"><img src="{{::article.baseUrl}}/{{::article.articleImage}}" err-src="{{errorImagePath}}"></figure></a>
+                        <div class="categoryContent">
+                            <a ui-sref="root.mainSidebar.articleDetails({categorySlug: article.slug, articleId:article.articleId, articleUrl: article.articleUrl})">
+                                <h2>{{::article.heading}}</h2>
+                            </a>
+                            <p> {{::article.publishScheduleTime | date:"yyyy MMMM dd 'at' hh:mm a"}}</p>
+                            <!-- <a class="moreAnchoreBlock" ui-sref="root.mainSidebar.articleDetails({categorySlug: article.slug, articleId:article.articleId, articleUrl: article.articleUrl})">More</a> -->
+                        </div>
+                </div>
+            </div>
+
+    </div>
+    <div class="gCardTitle mt1">
+        <h4>Latest News </h4>
+    </div>
+    <div class="gCard">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <dir-pagination-controls max-size='6' boundary-links="true" on-page-change="::vm.pageChanged({date:vm.article.date,pageIndex:newPageNumber})"></dir-pagination-controls>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <p class="input-group datepicker">
+                    <input type="text" name="" class="form-control  date-picker" readonly="readonly" uib-datepicker-popup="yyyy-MM-dd" ng-model="::vm.article.date"
+                        datepicker-options="::vm.dateOption" ng-required="true" close-text="Close" popup-placement="bottom" is-open="vm.openDate.opened"
+                        placeholder="Select date" ng-change="::vm.pageChanged({date:vm.article.date,pageIndex:1})" required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="::vm.openDate()"><span class="glyphicon glyphicon-calendar"></span></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Advertise Bottom End -->
+        <div class="col-md-6 col-sm-6 col-xs-12" ng-repeat="(key, bottomAd) in ::vm.bottomAd" ng-if="::vm.bottomAd">
+            <div class="advertisementSection mt1">
+                <!-- If Ad Type Google Code -->
+                <div ng-if="::(bottomAd.fileType == 'Google Code')" google-ad html="::bottomAd.description"></div>
+
+                <!-- If Ad Type Image -->
+                <div ng-if="::(bottomAd.fileType == 'Image')">
+                    <img ng-if="::!bottomAd.adLink" ng-src="{{::bottomAd.imageUrl}}" />
+                    <a href="{{::bottomAd.adLink}}" target="_blank" ng-if="::bottomAd.adLink">
+                    <img ng-src="{{::bottomAd.imageUrl}}"/>
+                  </a>
+                </div>
+            </div>
+        </div>
+        <!-- Advertise Bottom End -->
+    </div>
+</div>

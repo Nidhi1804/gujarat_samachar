@@ -1,0 +1,462 @@
+.main-section,.middle-section{
+	@extend .full-width--block;
+}
+//single-slider
+.singleImageSlider{
+	@extend .full-width--block;
+	.singleImageSliderBlock{
+		@extend .full-width--block;
+		figure{
+			@include rem(margin,0);
+			@include rem(padding,0 0 0 0);
+		}
+
+		img{
+			max-width: 100%;
+			@include breakpoint(x-small) {
+				width: 100%;
+			}
+		}
+
+		h2{
+			@include rem(font-size,20px);
+			line-height: 30px;
+			@extend .bold-base-font-stack;
+			@include rem(margin,0 0 10px 0);
+			@include breakpoint(xx-large) {
+				text-overflow: ellipsis;
+  				white-space: nowrap;
+  				overflow: hidden;
+			}
+			@include breakpoint(x-small){
+				@include rem(font-size, 20px);
+				line-height: normal;
+				@include rem(margin,0 0 10px 0);
+			}
+		}
+	}
+	.slick-next{ 
+		left: inherit;
+		right: -10px;
+		width: 32px;
+		height: 32px; 
+		z-index: 1;
+		top: 64%;
+		@include breakpoint(xx-large) {
+			right: 10px;
+		}
+	}
+	.slick-next:before{
+		background-image: url(../images/single-slider-arrow.png);
+		width: 32px;
+		height: 32px;
+		content: "";
+		display: block;
+		background-position: -41px 0px;
+		opacity: 1;
+	}
+	.slick-prev {
+		left: -10px;
+		width: 32px;
+		height: 32px;
+		z-index: 1;
+		top: 64%;
+		@include breakpoint(xx-large) {
+			left: 10px;
+		}
+	} 
+	.slick-prev:before {
+		background-image: url(../images/single-slider-arrow.png);
+		width: 32px;
+		height: 32px;
+		content: "";
+		display: block;
+		opacity: 1;
+	}
+}
+
+// .single-image-content-slider
+.singleImageContentSliderSection{
+	@extend .full-width--block;
+	@include rem(margin,0 0 10px 0);
+	.tab-content>.tab-pane{
+		@extend .full-width--block;
+		@include rem(padding,12px 4px);
+		background-color: $gary-background;
+	}
+	.singleImageContentSliderControls{
+		float: right;
+		width: auto;
+		@include rem(margin,-48px -4px 0 0);
+		border: solid 5px $yellow;
+		background: $white;
+		min-width: 200px;
+		@include rem(padding,4px 5px);
+		@include breakpoint(x-large){
+			min-width: auto;
+		}
+		button{
+			background: transparent;
+			@include rem(padding,0 0 0 10px);
+			border: 0;
+			float: right;
+			@include breakpoint(x-large){
+				@include rem(padding,0 5px);
+			}
+		}
+	}
+	.singleImageContentSlider{
+		.singleImageContentSliderBlock{
+			background-color: $white;
+			@include rem(padding,12px);
+			p{
+				@include rem(font-size,15px);
+				line-height: 22px;
+				@include rem(margin,10px 0 0 0);
+			}
+			@include breakpoint(l-small){
+				text-align: center;
+			}
+		}
+		.slick-slide img{
+			display: inline-block;
+		}
+		.slick-slider{
+			@include rem(margin,0);
+		}
+		.slick-next{ 
+			left: inherit;
+		    width: 10px;
+		    height: 18px;
+		    z-index: 1;
+		    top: -27px;
+		    right: 0;
+		}
+		.slick-next:before{
+			background-image: url(../images/single-slider-arrow1.png);
+			width: 10px;
+			height: 18px;
+			content: "";
+			display: block;
+			background-position: -15px 0px;
+			opacity: 1;
+		}
+		.slick-prev {
+			right: 82px;
+		    width: 10px;
+		    height: 18px;
+		    z-index: 1;
+		    top: -27px;
+		    left: inherit;
+		} 
+		.slick-prev:before {
+			background-image: url(../images/single-slider-arrow1.png);
+			width: 10px;
+			height: 18px;
+			content: "";
+			display: block;
+			opacity: 1;
+		}
+		.slick-dots{
+			bottom: inherit;
+			top: -42px;
+			width: auto;
+			right: 40px;
+			margin: 0;
+		}
+		.slick-dots li{
+			width: auto;
+			height: auto;
+			@include rem(margin,0);
+			@include rem(padding,0 5px);
+		}
+		.slick-dots li a{
+			@include rem(font-size,15px);
+			color: $gray-option-7;
+			width: auto;
+			height: auto;
+			@extend .regular-font-stack;
+		}
+		.slick-dots li a:before{
+			font-size: 0;
+		}
+		.slick-dots li.slick-active a{
+			@include rem(font-size,16px);
+			color: $orange-option-1;
+			@extend .bold-font-stack;
+		}
+	}
+}
+
+
+// pill
+.pillSection{
+	@extend .full-width--block;
+	.nav-pills{
+		@extend .full-width--block;
+		background: $red;
+		@include rem(padding,4px 5px);
+	}
+	.nav-pills>li>a{
+		@include rem(font-size, 16px);
+		color: $white;
+		@include rem(padding,1px 5px);
+		border: solid 2px transparent;
+		@extend .bold-font-stack;
+	}
+	.nav-pills>li.active>a,.nav>li>a:focus, .nav>li>a:hover{
+		background: $white;
+		color: $tab-active;
+		border: solid 2px $gray;
+		border-radius: 0;
+	}
+}
+
+//search-box
+.search-section{
+	@extend .full-width--block;
+	background-color: $red;
+	@include rem(padding,9px 10px);
+	position: relative;
+	.form-control{
+		border: none;
+		border-radius: 0;
+		height: 30px;
+		color: $gary-option-5;
+		@extend .regular-font-stack;
+      	@include rem(font-size, 16px);
+      	width: 98%;
+		@include x-placeholder {
+      	color: $gary-option-5;
+   		}
+	}
+	.search-btn{
+		background: transparent;
+		border-radius: 0;
+		border: none;
+		width: 51px;
+		height: 52px;
+		@include abs-pos(0, 7px, null, null);
+		@include rem(padding,0);
+	}
+}
+
+
+//white-block-gallery
+.whiteBlockGallery{
+	@extend .full-width--block;
+	.whiteBlockGalleryTitle{
+		background: $red;
+		color: $white;
+		@extend .full-width--block;	
+		h4{
+			@extend .bold-font-stack;	
+			@include rem(padding,10px 10px);
+			@include rem(margin,0);
+			// width: calc(100% - 130px);
+			@include calc( width, '100% - 130px');
+			float: left;
+		}
+		.whiteBlockGalleryControls{
+			width: 130px;
+			float: right;
+			text-align: right;
+			@include rem(padding,8px 0 7px);
+			button{
+				background: transparent;
+				border: 0;
+				float: left;
+				display: inline-block;
+			}
+		}
+	}
+	.whiteBlockGallerySlider{
+		@extend .full-width--block;	
+	}
+	.whiteBlockSliderBlock{
+		@extend .full-width--block;
+		
+		h2{
+			@include rem(font-size, 20px);	
+			line-height: 28px;
+			@extend .bold-base-font-stack;
+			@include rem(margin,0);
+			@include rem(padding,10px 5px);
+			@include breakpoint(xx-large) {
+				text-overflow: ellipsis;
+  				white-space: nowrap;
+  				overflow: hidden;
+			}
+		}
+		p{
+			@include rem(font-size, 13px);
+			@extend .base-font-stack;
+			line-height: 26px;
+		}
+	}
+}
+
+// opinion-poll
+.opinion-poll{
+	@extend .full-width--block;
+	background: $light-white-background;
+	.opinionPollTitle{
+		@extend .full-width--block;
+		background: $orange;
+		@include rem(padding,8px 10px 6px);
+		@include rem(margin,10px 0 0 0);
+	}	
+	.opinionPollSlider{
+		@extend .full-width--block;
+		border: solid 2px $gray;
+		a:hover .view-more{
+			visibility: visible;
+		}
+		.view-more{
+			visibility: hidden;
+			@include abs-pos(-10%,0,0,0);
+			text-align: center;
+			@extend .flex-block;
+			height: 100%;
+			span{
+				background: rgba(0,0,0,0.7);
+				color: $white;
+				width: auto;
+				@include rem(font-size, 14px);
+				margin: 0 auto;
+				max-width: 180px;
+				@include rem(padding,10px);
+
+			}
+		}
+		h2{
+			text-align: center;
+		}
+		.slick-next{ 
+		    width: 29px;
+		    height: 73px;
+		    z-index: 1;
+		    right: 8px;
+
+		}
+		.slick-next:before{
+			background-image: url(../images/opinion-poll-arrow.png);
+			width: 29px;
+			height: 73px;
+			content: "";
+			display: block;
+			background-position: -37px 0px;
+			opacity: 1;
+		}
+		.slick-prev {
+		    width: 29px;
+		    height: 73px;
+		    z-index: 1;
+		    left: 8px;
+		} 
+		.slick-prev:before {
+			background-image: url(../images/opinion-poll-arrow.png);
+			width: 29px;
+			height: 73px;
+			content: "";
+			display: block;
+			opacity: 1;
+		}
+		.opinionPollSliderRadioblock{
+			// width: calc(100% - 60px);
+			@include calc( width, '100% - 60px');
+			@include rem(margin,-20px 0 30px 30px);
+			@include rem(padding,20px 20px 10px 20px);
+			position: relative;
+			background: $white;
+			z-index: 99;
+			.custom-radio-group{
+				width: 100%;
+				@include rem(margin,0 0 5px 0);
+				label.label{
+					text-align: left;
+					@include rem(font-size, 16px);
+					@extend .regular-font-stack;
+					line-height: 22px;
+					padding-left: 40px;
+				}
+			}
+		}
+		.opinionPollSliderControl{
+			@extend .full-width--block;
+			@include rem(margin,-20px 0 0 0);
+			@include rem(padding,0 15px 15px 15px);
+		}
+	}
+}
+
+// RADIO :BEGIN
+.custom-radio-group{
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	width: auto;
+	label.label{
+		display: block;
+		position: relative;
+		overflow: hidden;
+		margin: 0;
+		cursor: pointer;
+		padding-left: 25px;
+		line-height: 20px;
+		color: $black;
+		&:before{
+			content: '';
+			@include abs-pos(2px, auto, auto, 0);
+			border: 2px solid $orange;
+			height: 22px;
+			width: 22px;
+			@include border-radius(50%);
+		}
+		&:after{
+			content: '';
+			@include abs-pos(2px, auto, auto, 0);
+			height: 22px;
+			width: 22px;
+			@include border-radius(50%);
+			background-color: $orange;
+			@include scale(0);
+			@include transition(all ease-in-out 300ms);
+			opacity: 0;
+		}
+	}
+	input.radio-control{
+		@include abs-pos(auto, auto, auto, -9999px);
+	}
+	input.radio-control:checked + label.label:after{
+		opacity: 1;
+		@include scale(0.6);
+	}
+}
+// RADIO :END
+
+//main-block
+.mainFullBlock{
+	@extend .full-width--block;	
+	.contdesc{
+		@extend .full-width--block;	
+		p{
+			@include rem(font-size, 14px);
+			@extend .base-font-stack;
+			line-height: 26px;
+		}
+	}
+}
+
+//list-style
+.glist-style{
+	@extend .full-width--block;	
+	list-style-type: square;
+	@include rem(padding,15px 10px 10px 30px);
+	@include rem(margin,0);
+
+	li{
+		@include rem(margin,10px 0);
+		@extend .base-font-stack;
+	}
+}

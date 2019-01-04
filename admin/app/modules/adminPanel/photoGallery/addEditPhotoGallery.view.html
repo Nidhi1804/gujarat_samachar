@@ -1,0 +1,101 @@
+<div class="portlet box blue gallery-image-block">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa icon-camera"></i>{{vm.typeTitle}} Photo Gallery
+		</div>
+		<div class="actions">
+			<div class="btn-group">
+				<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form class="form-horizontal" name="vm.addPhotoGalleryForm" novalidate="novalidate" role="form" ng-if="vm.isSectionLoaded">
+			<div class="form-body">
+				<!-- Gallery Images -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet light form-fit bordered">
+							<div class="portlet-title">
+								<div class="caption">
+									<span class="caption-subject font-green bold uppercase">Photo Gallery Image</span>
+								</div>
+							</div>
+							<div class="portlet-body form" ng-include="'photoGalleryImage.html'"></div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="form-actions right">
+
+					<a class="btn default" ui-sref="root.photoGalleryList({pageId:1})">Cancel</a>
+					<!-- Add New slideShow -->
+					<button ng-disabled="vm.disable" ng-if="!vm.photoGalleryId" class="btn green" id="save_btn" type="submit" ng-click="vm.savePhotoGallery('Add',true)">
+						<i class="fa fa-check"></i>Save & Add New 
+					</button>
+					<button ng-disabled="vm.disable" ng-if="!vm.photoGalleryId" class="btn blue" id="save_btn" type="submit" ng-click="vm.savePhotoGallery('Add',false)">
+						<i class="fa fa-check"></i>Save
+					</button>
+					<!-- Edit slide Show -->
+					<button ng-disabled="vm.disable" ng-if="vm.photoGalleryId" class="btn green" id="save_btn" type="submit" ng-click="vm.savePhotoGallery('Update',true)">
+						<i class="fa fa-check"></i>Update & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="vm.photoGalleryId" class="btn blue" id="save_btn" type="submit" ng-click="vm.savePhotoGallery('Update',false)">
+						<i class="fa fa-check"></i>Update
+					</button>
+
+				</div>
+			</div>
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>
+
+<!-- slide Show Image list views -->
+<script type="text/ng-template" id="photoGalleryImage.html">
+	<div class="form-body">
+		<!-- BEGIN FORM-->
+		<div class="form-group">
+			<div class="row">
+				<label class="control-label col-md-3">Image Title<span class="required" aria-required="true">*</span></label>
+				<div class="col-md-4">
+					<input type="text" placeholder="Image Title" class="form-control" name="image_" ng-model="vm.photoGallery.title" required="true">
+					<span ng-if="vm.addPhotoGalleryForm.$invalid && vm.addPhotoGalleryForm.$submitted">
+						<span class="text-danger" ng-if="vm.addPhotoGalleryForm['image_'].$error.required">Image title is required.
+						</span>
+					</span>
+				</div>
+				<div class="col-md-2">
+					<div class="action-block">
+						<label for="file-upload" class="upload-label nopad custom-upload-label" ng-click="vm.openAddModal()">
+							<i class="fa fa-upload" aria-hidden="true"  uib-tooltip="Upload Image"></i>
+						</label>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="action-block">
+						<!-- slide Show image thumbnail -->
+						<div class="gallery-img-thumb" style="width:122px" ng-if="vm.photoGallery.image">
+							<img class="img-responsive" ng-src="slide_show/{{vm.photoGallery.image}}" />
+						</div>
+						<!-- Image validation error -->
+						<span class="text-danger" ng-if="!vm.photoGallery.image && vm.addPhotoGalleryForm.$submitted">
+							Please upload gallery image.
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-md-3">Image Description<span class="required" aria-required="true">*</span></label>
+				<div class="col-md-8">
+					<textarea rows="2" type="text" placeholder="Image Description" class="form-control" name="image_desc_" ng-model="vm.photoGallery.description" required=""></textarea>
+					<span ng-if="vm.addPhotoGalleryForm.$invalid && vm.addPhotoGalleryForm.$submitted">
+						<span class="text-danger" ng-if="vm.addPhotoGalleryForm['image_desc_'].$error.required">Image description is required.
+						</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

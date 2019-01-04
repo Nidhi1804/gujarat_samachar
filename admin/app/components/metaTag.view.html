@@ -1,0 +1,9 @@
+<tags-input 
+	min-length="2"
+	name="metKeyword"
+	ng-model="vm.metakeywords"
+	on-tag-added="vm.addTag($tag, $query)"
+	placeholder="{{vm.placeholder}}"
+	display-property="name">
+	<auto-complete min-length="1" source="vm.getMetaTags($query)"></auto-complete>
+</tags-input>

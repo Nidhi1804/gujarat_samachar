@@ -1,0 +1,46 @@
+{
+  "name": "gujarat_samachar",
+  "authors": [
+    "Shahin <shahin.belim@tops-int.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "~3.3.7",
+    "font-awesome": "^4.7.0",
+    "angular": "^1.6.4",
+    "angular-animate": "~1.6.4",
+    "angular-bootstrap": "~2.5.0",
+    "angular-resource": "~1.6.4",
+    "angular-ui-router": "^1.0.4",
+    "angular-sanitize": "~1.6.4",
+    "oclazyload": "ocLazyLoad#^1.1.0",
+    "angular-toastr": "^2.1.1",
+    "nprogress": "^0.2.0",
+    "iCheck": "icheck#^1.0.2",
+    "angular-chosen-localytics": "^1.7.0",
+    "angular-datepicker": "^2.0.3",
+    "angular-slick-carousel": "^3.1.7",
+    "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
+    "angular-fancybox-plus": "^1.0.3",
+    "angular-moment": "^1.0.1",
+    "angular-socialshare": "angularjs-socialshare#^2.3.11",
+    "angular-cookies": "^1.7.1"
+  },
+  "resolutions": {
+    "jquery": "~3.3.1",
+    "angular": "^1.6.4",
+    "moment": ">= 2.6.0"
+  }
+}

@@ -1,0 +1,116 @@
+<mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above Article Box"></mobile-adv>
+
+<div class="col-md-8 col-sm-8 col-xs-12" ng-class="{'fadeIn' : vm.articleLoaded}">
+   <!-- advertisement start -->
+    <div class="main-news-adv" ng-repeat="header2Ad in vm.adLeftSide | filter:{position:'Header2'}" ng-if="!isMobile">
+      <div class="advertisementSection">
+        <!-- If Ad Type Google Code -->
+        <div ng-if="(header2Ad.fileType == 'Google Code')" google-ad html="header2Ad.description"></div>
+        <!-- If Ad Type Image -->
+        <div ng-if="header2Ad.fileType == 'Image'">
+          <img ng-if="!header2Ad.adLink" ng-src="{{header2Ad.imageUrl}}" />
+          <a href="{{header2Ad.adLink}}" target="_blank" ng-if="header2Ad.adLink">
+            <img ng-src="{{header2Ad.imageUrl}}"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- advertisement end -->
+    <div class="gCard mainFullBlock article-detail">
+        <gs-loading show-loader="!vm.articleLoaded">
+            <div class="row no-gutters">
+                <div class="col-md-12 col-sm-12 col-xs-12" ng-if="vm.article.length == 0">
+                    <h3 class="text-center">No Article found.</h3>
+                </div>
+            </div>
+            <div ng-if="vm.article.length != 0">
+                <div class="mainTitle">
+                    <h1 class="mt0">{{:: vm.article.heading}}</h1>
+                </div>
+                <div class="contdesc mt15">
+                    <h3 ng-if=":: vm.article.subHeadingOne" class="text-danger sub-heading" ng-bind-template="{{:: vm.article.subHeadingOne}}"></h3>
+                    <h3 ng-if="vm.article.subHeadingTwo" class="text-danger sub-heading" ng-bind-template="{{:: vm.article.subHeadingTwo}}"></h3>
+                    <!-- advertisement start -->
+                    <div class="main-news-adv" ng-repeat="header3Ad in vm.adLeftSide | filter:{position:'Article-Header3'}">
+                      <div class="advertisementSection">
+                        <!-- If Ad Type Google Code -->
+                        <div ng-if="(header3Ad.fileType == 'Google Code')" google-ad html="header3Ad.description"></div>
+                        <!-- If Ad Type Image -->
+                        <div ng-if="header3Ad.fileType == 'Image'">
+                          <img ng-if="!header3Ad.adLink" ng-src="{{header3Ad.imageUrl}}" />
+                          <a href="{{header3Ad.adLink}}" target="_blank" ng-if="header3Ad.adLink">
+                            <img ng-src="{{header3Ad.imageUrl}}"/>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- advertisement end -->
+                    <p class="fontChange article-image-set image-mrg-right" ng-bind-html=":: vm.article.content | unsafe"></p>
+                </div>
+                <div ng-if="vm.article.metaTag.length > 0">
+                    <ul class="list-inline"> Tags :
+                        <li ng-repeat="metaTag in vm.article.metaTag" ng-if="metaTag != ''">
+                            <a ui-sref="root.mainSidebar.meta({ slug: metaTag.name, pageIndex : 1, date:'', 'metaTag': metaTag.name})">{{:: metaTag.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Share Button Start -->
+                <div class="social-link mt15">
+                    <a href="" socialshare ng-if="vm.isMobile" class="ripplelink whatsapp" socialshare-provider="whatsapp" socialshare-text="{{:: vm.article.heading}}" socialshare-url="{{::vm.article.linkUrl}}"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                    <a href="" socialshare class="ripplelink google-plus" socialshare-provider="google" socialshare-text="{{::vm.article.heading}}" socialshare-url="{{::vm.article.linkUrl}}"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a socialshare class="ripplelink twitter-icon" socialshare-provider="twitter" socialshare-text="{{::vm.article.heading}}" socialshare-url="{{::vm.article.linkUrl}}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="" socialshare class="ripplelink linked-in-icon" socialshare-provider="linkedin" socialshare-text="{{::vm.article.heading}}" socialshare-description="{{::vm.article.description}}" socialshare-image="{{::vm.article.imageUrl}}" socialshare-media="{{::vm.article.imageUrl}}" socialshare-url="{{::vm.article.linkUrl}}"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a socialshare class="ripplelink facebook-icon" socialshare-provider="facebook" socialshare-url="{{::vm.article.linkUrl}}"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                </div>
+                    <!-- Share Button End -->
+                    <!-- Disqus Comments Start -->
+                    <!-- <disqus-comments ng-if="isFirst"></disqus-comments>
+                    <disqus-comments ng-if="!isFirst" id="disqus_thread" identifier="vm.article.Id" new-title="vm.article.heading" new-url="{{::vm.articleUrl}}"></disqus-comments> -->
+                    <!-- Disqus Comments End -->
+            </div>
+        </gs-loading>
+    </div>
+    <!-- advertisement start -->
+    <div class="main-news-adv" ng-repeat="header4Ad in vm.adLeftSide | filter:{position:'Article-Header4'}" ng-if="!isMobile">
+      <div class="advertisementSection">
+        <!-- If Ad Type Google Code -->
+        <div ng-if="(header4Ad.fileType == 'Google Code')" google-ad html="header4Ad.description"></div>
+        <!-- If Ad Type Image -->
+        <div ng-if="header4Ad.fileType == 'Image'">
+          <img ng-if="!header4Ad.adLink" ng-src="{{header4Ad.imageUrl}}" />
+          <a href="{{header4Ad.adLink}}" target="_blank" ng-if="header4Ad.adLink">
+            <img ng-src="{{header4Ad.imageUrl}}"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- advertisement end -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <!-- Articles By City - Multi-news-section start -->
+            <!-- <div class="advertisementSection mb1" ng-if="isMobile">
+                <div google-ad html="vm.adRightTop.description1">
+                  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:300px;height:250px"
+                         data-ad-client="ca-pub-8096200923666860"
+                         data-ad-slot="4586495139"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div> -->
+            <mobile-adv mobile-ad-data="vm.mobileAd" sort="Above City News Box"></mobile-adv>
+            <div class="partial-view mt1" ui-view="articlesByCity"></div>
+            <!-- Articles By City - Multi-news-section end -->
+            <!-- Articles By category - section start -->
+            <div class="partial-view" ui-view="articlesByCategory"></div>
+            <!-- Articles By category - section end -->
+        </div>
+    </div>
+        <jsonld data-json="vm.jsonIdNewsArticle"></jsonld>
+        <jsonld data-json="vm.jsonIdArticle"></jsonld>
+    <!-- Bottom Advertise Start-->
+    <div bottom-advertise></div>
+    <!-- Bottom Advertise End -->
+</div>

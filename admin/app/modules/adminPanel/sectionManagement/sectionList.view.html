@@ -1,0 +1,86 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption medium-icons">
+			<i class="fa icon-list"></i>
+			Section List 
+			&nbsp;&nbsp;&nbsp;&nbsp;Total Records: {{vm.totalSections}}
+		</div>
+		<div class="tools"> </div>
+		<div class="actions">
+			<div class="btn-group">
+				<a ui-sref="root.addSection" class="btn btn-circle default" type="button">Create Section</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<div class="form-group">
+			<div id="alert_notification"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Search By Title -->
+				<div class="col-md-6">
+					<input 
+						type="text" 
+						placeholder="Search" 
+						class="form-control" 
+						ng-model="vm.searchText"
+						name="searchText">
+				</div>
+				<div class="col-md-6">
+					<button title="Search" ng-click="vm.getSections()" id="search" class="btn blue" type="button" >
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</div>		
+		<div id="ajax_data">			
+			<div class="table-scrollable" ng-if="vm.isSectionLoaded">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>							
+							<th>#</th>
+							<th>Title</th>
+							<th>Articles</th>
+							<th nowrap="nowrap">Action</th>
+						</tr>
+					</thead>
+					<tbody id="sortable-row">
+						<tr ng-if="vm.sectionList.length == 0">
+							<td class="text-center" colspan="3">No data found.</td>
+						</tr>						
+						<tr dir-paginate="section in vm.sectionList | itemsPerPage : vm.sectionsPerPage" total-items="vm.totalSections" current-page="vm.pagination.current">
+							<td>{{ (vm.sectionsPerPage * (vm.pagination.current-1)) + $index+1}} </td>
+							<td class="black_text" ng-bind-template="{{section.title}}"></td>
+							<td class="black_text">{{section.articles}}</td>
+							<td nowrap="nowrap">  
+								<!-- Active / Inactive  -->
+								<a ng-if="!section.isActive" href="javascript:void(0)" title="Active" class="btn btn-icon-only red" ng-click="vm.changeStatus(section._id, 1)">
+									<i class="fa fa-ban"></i>
+								</a>
+								<a href="javascript:void(0)" ng-if="section.isActive" title="Inactive" class="btn btn-icon-only blue" ng-click="vm.changeStatus(section._id, 0)"><i class="fa fa-check"></i>
+								</a>								
+								
+								<!-- Edit Article -->
+								<a ui-sref="root.editSection({sectionId : section._id})" title="Edit" class="btn btn-icon-only blue" >
+									<i class="fa fa-edit"></i>
+								</a>
+								
+								<!-- Delete Article -->
+								<a href="javascript:void(0)" id="delete" title="Delete" class="btn btn-icon-only purple" ng-click="vm.deleteSection(sm,section._id)"><i class="fa fa-trash"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<dir-pagination-controls
+					max-size='5'
+					on-page-change="vm.pageChanged(newPageNumber)"
+					></dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

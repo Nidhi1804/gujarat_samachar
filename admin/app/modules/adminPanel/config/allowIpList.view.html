@@ -1,0 +1,85 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption medium-icons">
+            <i class="fa icon-list"></i> Manage IP &nbsp;&nbsp;&nbsp;&nbsp;Total Records: {{vm.totalIp}}
+        </div>
+        <div class="tools"> </div>
+        <div class="actions">
+            <div class="btn-group">
+                <a ui-sref="root.addAllowIp" class="btn btn-circle default" type="button">Add Allowed IP</a>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-xs-12">Allow All IP</label>
+                    <div class="col-md-1 col-sm-2 col-xs-4">
+                        <confirm-modal name="User Ip" type="allow all" id="{{vm.allowAllIp}}" on-confirm="vm.allowAll(id)" /></confirm-modal>
+                    </div>
+                    <div class="col-md-1 col-xs-6">
+                        <confirm-modal name="IP" type="delete selected" id="{{vm.deleteIdList}}" on-confirm="vm.deleteSelectedAllowIp(id)" /></confirm-modal>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ajax_data">
+            <div class="table-scrollable" ng-if="vm.allowIpListLoaded">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                <label class="checkbox-inline">
+                                    <input icheck type="checkbox" ng-change="vm.checkAllBox()" ng-model="vm.selectAll" required="">
+                                </label>
+                            </th>
+                            <th>IP Address</th>
+                            <th>IP Name</th>
+                            <th nowrap="nowrap">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sortable-row">
+                        <tr ng-if="vm.ipList.length == 0">
+                            <td class="text-center" colspan="5">No data found.</td>
+                        </tr>
+                        <tr dir-paginate="data in vm.ipList | itemsPerPage : vm.ipsPerPage" total-items="{{vm.totalIp}}" current-page="vm.pagination.current">
+                            <td>{{ (vm.ipsPerPage * (vm.pagination.current-1)) + $index+1}} </td>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input icheck type="checkbox" value="{{data._id}}" ng-model="data.isChecked" ng-change="vm.toggleCheckBox(data._id, data.isChecked)"
+                                        required="">
+                                </label>
+                            </td>
+                            <td class="black_text" ng-bind-template="{{data.ip}}"></td>
+                            <td class="black_text" ng-bind-template="{{data.name}}"></td>
+                            <td nowrap="nowrap">
+                                <!-- Active IP confirm  -->
+                                <confirm-modal ng-if="!data.isActive" name="IP" type="activate" id="{{data._id}}" on-confirm="vm.changeStatus(id, status)"
+                                /></confirm-modal>
+
+                                <!-- Inactive IP confirm  -->
+                                <confirm-modal ng-if="data.isActive" name="IP" type="Inactive" id="{{data._id}}" on-confirm="vm.changeStatus(id, status)"
+                                /></confirm-modal>
+
+                                <!-- Edit IP -->
+                                <a ui-sref="root.editAllowIp({allowIpId : data._id})" title="Edit" uib-tooltip="Edit IP" class="btn btn-icon-only blue">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
+                                <!-- Delete Single IP -->
+                                <confirm-modal name="IP" type="delete" id="{{data._id}}" on-confirm="vm.deleteSingleAllowIp(id)" /></confirm-modal>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <dir-pagination-controls max-size='5' on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="row" ng-if="::vm.bottomAd && !isMobile">    
+    <!-- Advertise Bottom End -->    
+    <div class="col-xs-12" 
+        ng-class="::(vm.position == 'Bottom 1 + Bottom 2') ? 'col-md-12 col-sm-12' : 'col-md-6 col-sm-6' "
+        ng-repeat="(key, bottomAd) in ::vm.bottomAd">
+        <div class="advertisementSection mt1">
+            <!-- If Ad Type Google Code -->
+            <div ng-if="::(bottomAd.fileType == 'Google Code')" google-ad html="::bottomAd.description"></div>
+
+            <!-- If Ad Type Image -->
+            <div ng-if="::(bottomAd.fileType == 'Image')">
+              <img ng-if="::!bottomAd.adLink" ng-src="{{::bottomAd.imageUrl}}"/>
+              <a href="{{::bottomAd.adLink}}" target="_blank" ng-if="::bottomAd.adLink">
+                <img ng-src="{{::bottomAd.imageUrl}}"/>
+              </a>
+            </div>
+        </div>
+    </div>
+    <!-- Advertise Bottom End -->
+</div>    

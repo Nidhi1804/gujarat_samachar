@@ -1,0 +1,67 @@
+// -----------------------------------------------------------------------------
+// This file contains all @font-face declarations, if any.
+// -----------------------------------------------------------------------------
+@font-face {
+    font-family:'Shruti';
+    src: url('../fonts/Shruti.eot');
+	src: url('../fonts/Shruti.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/Shruti.woff2') format('woff2'),
+		url('../fonts/Shruti.woff') format('woff'),
+		url('../fonts/Shruti.svg#Shruti') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-00FE;
+}
+
+@font-face {
+    font-family:'Shruti-bold';
+    src: url('../fonts/ShrutiBold.eot');
+    src: url('../fonts/ShrutiBold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ShrutiBold.woff2') format('woff2'),
+        url('../fonts/ShrutiBold.woff') format('woff'),
+        url('../fonts/ShrutiBold.svg#Shruti Bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2212;
+}
+
+// @font-face {
+//     font-family:'Gujrati Saral-1';
+//     src: url('Gujrati Saral-1.eot');
+// 	src: url('Gujrati Saral-1.eot?#iefix') format('embedded-opentype'),
+// 		url('Gujrati Saral-1.woff2') format('woff2'),
+// 		url('Gujrati Saral-1.woff') format('woff'),
+// 		url('Gujrati Saral-1.svg#Gujrati Saral-1') format('svg');
+//     font-weight: 400;
+//     font-style: normal;
+//     font-stretch: normal;
+//     unicode-range: U+0020-00FB;
+// }
+
+@font-face {
+    font-family:'OpenSansBold';
+    src: url('../fonts/OpenSansBold.eot');
+    src: url('../fonts/OpenSansBold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/OpenSansBold.woff2') format('woff2'),
+        url('../fonts/OpenSansBold.woff') format('woff'),
+        url('../fonts/OpenSansBold.svg#Open Sans Bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+}
+
+@font-face {
+    font-family:'OpenSansRegular';
+    src: url('../fonts/OpenSansRegular.eot');
+    src: url('../fonts/OpenSansRegular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/OpenSansRegular.woff2') format('woff2'),
+        url('../fonts/OpenSansRegular.woff') format('woff'),
+        url('../fonts/OpenSansRegular.svg#Open Sans Regular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2212;
+}

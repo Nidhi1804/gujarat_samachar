@@ -1,0 +1,39 @@
+<mobile-adv mobile-ad-data="vm.mobileAd" sort="Above Video Gallery Box"></mobile-adv>
+<div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="mainFullBlock">
+        <div class="gCardTitle">
+            <h4>More Video Gallery</h4>
+        </div>
+        <div class="gCard">
+            <div class="mainFullBlock">
+                <p ng-if="vm.lastModifyDate !== undefined">Last Update : {{vm.lastModifyDate |date:"dd MMMM, yyyy"}}</p>
+                <gs-loading show-loader="!vm.videoGalleryLoaded">
+                    <div class="row no-gutters">
+                        <div class="col-md-12 col-sm-12 col-xs-12" ng-if="vm.videoGalleries.length == 0">
+                            <h3 class="text-center">No video gallery found.</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 slide-show-slider" class="categoryBlock" dir-paginate="video in vm.videoGalleries | itemsPerPage : vm.documentsPerPage" total-items="{{vm.totalCount}}" current-page="vm.pagination.current">
+                            <div class=" galleryBlock">
+                                <a ui-sref='root.mainSidebar.videoGalleryDetails({url: video.url, Id : video.Id})' title="{{video.galleryName}}">
+                                    <figure>
+                                        <img class="img-responsive" src="//img.youtube.com/vi/{{video.galleryVideos[0].videoId}}/0.jpg" alt=" " title="{{video.galleryName}}" err-src="{{errorImagePath}}"></figure>
+                                    <p>{{video.galleryName | limitTo:65}}<span ng-if="video.galleryName.length > 65">...</span></p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </gs-loading>
+            </div>
+            <div class="row ">
+                <div class="col-md-6 col-sm-6 col-xs-12 top-margin10">
+                    <dir-pagination-controls max-size='6' boundary-links="true" on-page-change="vm.pageChanged({pageIndex:newPageNumber})"></dir-pagination-controls>
+                </div>
+            </div>
+            <!-- Bottom Advertise Start-->
+            <div page-type="video-gallery" bottom-advertise></div>
+            <!-- Bottom Advertise End -->
+        </div>
+    </div>
+</div>

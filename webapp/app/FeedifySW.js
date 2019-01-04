@@ -1,0 +1,1 @@
+importScripts('https://feedify.net/js/push/sw.js');

@@ -1,0 +1,25 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+.moreAnchore{
+	@include rem(font-size,16px);
+	color: $gray-option-4;
+	float: right;
+	@include rem(padding,8px 10px 3px);
+}
+
+.moreAnchoreBlock{
+    float: left;
+    background: $red;
+    color: $white;
+    border: 0;
+    @extend .bold-font-stack;
+    @include rem(padding,7px 15px);
+    @include rem(margin,10px 0 0 0);
+	@include on-event {
+	background: $black-option-2;
+	text-decoration: none;
+	color: $white;
+	}
+} 

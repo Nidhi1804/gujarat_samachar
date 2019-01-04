@@ -1,0 +1,51 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+/// Regular font family
+$base-font-stack: 'Shruti'!default;
+$base-bold-font-stack: 'Shruti-bold';
+$secondary-font-stack: 'OpenSansRegular';
+$secondary-bold-font-stack: 'OpenSansBold';
+
+
+/// Container's maximum width
+$max-width: 1186px !default;
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using a CDN
+///   $base-url: 'http://cdn.example.com/assets/';
+$base-url: '/assets/' !default;
+
+
+/// color
+$white: #fff;
+$white-option-1: #fffaff;
+$black: #000;
+$black-option-1: #221f20;
+$black-option-2: #373435;
+$red: #e31e25;
+$gray: #e5e6e7;
+$gray-option-3: #423d3b;
+$gray-option-4: #a6a9ab;
+$gary-option-5: #d0d2d4;
+$gray-option-6: #EBEDEC;
+$gray-option-7: #808184;
+$orange: #f25d3d;
+$orange-option-1: #f5811e;
+$yellow: #ffca01;
+
+//text-color
+$body-color: $black-option-1;
+
+//anchor-color
+$brand-anchor: $black-option-1;
+$brand-anchor-hover: $red;
+$tab-active: $black-option-2;
+
+//border
+$news-border-block: $gray;
+
+//background-color
+$gary-background: $gray-option-3;
+$light-white-background: $white-option-1;

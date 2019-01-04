@@ -1,0 +1,117 @@
+.img-responsive.custom{
+	display: inline-block;
+}
+.my-drop-zone { border: dotted 3px lightgray; }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
+
+html, body { height: 100%; }
+
+/*canvas{
+	background-color: #f3f3f3;
+	-webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+	-moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+	box-shadow: 3px 3px 3px 0 #e3e3e3;
+	border: 1px solid #c3c3c3;
+	height: 100px;
+	margin: 6px 0 0 6px;
+}*/
+.modal{z-index: 10050 !important;}
+.modal-backdrop, .modal-backdrop.fade.in{z-index:9999 !important;}
+
+.show-hide-animation {
+  transition: all linear 0.5s;
+}
+.show-hide-animation.ng-hide {
+  opacity: 0;
+}
+.portlet-body{min-height: 300px}
+#nprogress .bar, #nprogress .spinner{z-index: 9996;}
+.portlet > .portlet-title > .caption > i{font-size: 18px !important;}
+tags-input .autocomplete .suggestion-item.selected, tags-input .autocomplete .suggestion-item.selected em{ background-color:#337AB7 !important; color:#fff !important;  }
+.page-footer .page-footer-inner{float: none;}
+.login .content .form-actions{padding: 15px 30px;}
+.actions .btn-group{margin-right: 5px;}
+/* Overrite invalid tags-input style */
+tags-input.ng-invalid .tags{border: 1px solid #ccc !important; box-shadow:none !important;}
+.drag-drop-section .upload-label{  
+  color: #494949;
+  cursor: pointer;
+  font-size: 20px !important;
+  left: inherit;
+  position: absolute;
+  right: 25px;
+  top: inherit;
+}
+.upload-crop-section .image-view-box {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  min-height: 337px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.upload-crop-section .image-view-box .background, .crop-view-box .image-view-box .background {
+  background-color: #ffffff;
+  display: block;
+  width: 100% !important;
+}
+.custom-upload-label{float: left;}
+.custom-upload-label .fa-upload{
+  font-size: 25px;
+  height: 34px;
+  margin-top: 8px;
+  width: 34px;
+}
+.gallery-image-block .portlet-body{min-height: 50px;}
+.gallery-img-thumb{float: left;margin-bottom: 10px;}
+.del-all-action{display: inline;}
+.action-block button{ margin: 0 5px }
+.page-header.navbar .page-logo .logo-default{margin: 23px 10px 0}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img{width: 39px}
+/* Reset angular-ui-tree css based on theme */
+.portlet-body .angular-ui-tree-handle{font-weight: unset; }
+.custom-error{
+  display: inline-block;
+  left: 0;
+  min-width: 400px;
+  position: absolute;
+  top: 35px;
+}
+.form-group canvas{max-width: 100%}
+.btn-facebook{color: #fff; background-color: #4267b2}
+.btn-facebook:hover{color: #fff; background-color: #365899}
+.highlighted { background: yellow }
+.no-top-padding{ padding-top: 0 !important; }
+
+.modal-body{
+  padding: 28px!important;
+}
+table.tr-caption-container {padding: 6px;margin-bottom: .5em;}
+td.tr-caption {font-size: 80%;padding-top: 4px;}
+a.black_text{color: #000;}
+.remove-img {width: 20px;position: absolute;top: 12px;left: 128px;}
+.ad-remove-img {width: 20px;position: absolute;top: 20px;left: 128px;}
+.note-editor.note-frame.fullscreen{z-index: 9995 !important}
+.note-editor.note-frame.fullscreen .note-toolbar-wrapper.panel-default{height: 0px !important;}
+textarea.form-control{resize: none !important;}
+#sortable-row tr td.text-change {text-transform: capitalize;}
+.portlet>.portlet-body p, .table .btn{font-size: 18px;}
+#headLine h2{width: 370px;float: left;font-size: 22px;font-weight: 500;font-family: 'arial unicode ms';line-height: normal;margin-bottom: 13px;overflow: hidden; text-overflow: inherit;white-space: inherit;margin:0px;}
+#headLine{display: inline-block;}
+.modal-backdrop {
+  display: none;
+}
+.note-editor .modal {
+  background: rgba(0,0,0,0.5);
+}
+.note-image-popover{ z-index: 9999 !important; }
+
+.articles-list-popup  { margin-bottom: 0px; }
+.articles-list-popup .form-group .blue i  { margin-right: 5px; }
+.articles-list-popup .portlet-title i   { margin-top: 12px; font-size: 20px; cursor: pointer;}
+.send-mail-check  { width: 18px; }
+th.sort-colum,th span.sortorder{cursor: pointer;}
+.sortorder:after {content: '\25b2';font-size: 12px;}
+.sortorder.reverse:after {content: '\25bc';font-size: 12px;}
+
+.table-scrollable .table tbody tr.expire  { opacity: 0.2;}

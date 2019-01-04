@@ -1,0 +1,62 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; /* Sets up the Base 10 stuff */
+}
+
+/**
+ * Make all elements from the DOM inherit from the parent box-sizing
+ * Since `*` has a specificity of 0, it does not override the `html` value
+ * making all elements inheriting from the root box-sizing value
+ * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:focus {
+    outline: 0;
+}
+/**
+ * Basic styles for links
+ */
+a {
+  color: $brand-anchor;
+  text-decoration: none;
+
+  @include on-event {
+    color: $brand-anchor-hover;
+    text-decoration: underline;
+    @include transition(all 0.3s ease-in-out 0s);
+  }
+}
+
+figure{
+	@include rem(margin,0);
+}
+
+img{
+	max-width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+  // @extend .bold-base-font-stack;
+  font-family: arial unicode ms;
+  @include rem(margin,10px 0 0 0);
+  @include rem(padding,10px 0 8px);
+  line-height: normal;
+}
+h1{@include rem(font-size, 24px);}
+h2{@include rem(font-size, 20px);}
+h3{@include rem(font-size, 18px);}
+h4{@include rem(font-size, 16px);}
+h5{@include rem(font-size, 14px);}
+h6{@include rem(font-size, 12px);}

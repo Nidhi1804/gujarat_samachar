@@ -1,0 +1,102 @@
+<div class="gallery-section custom-tab-section mgr-top32">
+  <div class="tabTitle">
+     <uib-tabset type="pills">
+        <uib-tab index="0" heading="Slide Show" ng-click="vm.getSlideData()">
+          <gs-loading show-loader="vm.showLoader">
+            <div class="row cstm-pdng mobileNone">
+              <div class="col-md-12 col-sm-12 col-xs-12" ng-if="(vm.slideShows.length == 0)">
+                <h3 class="text-center">No Slide Show found.</h3>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 col-c-p" ng-repeat="slide in vm.slideShows" ng-if="$index < 6">
+                <div class="gallery-box">
+                  <a ui-sref='root.mainSidebar.slideShowDetails({Id : slide.Id, url: slide.url})' title="{{slide.slideShowName}}">
+                    <div class="news-pic">
+                      <img ng-src="{{slide.baseUrl}}/{{slide.slideShowImages[0].image}}" alt="" err-src="{{$root.errorImagePath}}"/>
+                    </div>
+                    <h4 class="gallert-newsTitle">{{slide.slideShowName | limitTo:57}}</h4>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <a ui-sref="root.mainSidebar.slideShow({pageIndex : 1})" class="news_read_more">More Slide...</a>
+            <div class="gallery-slider-mobile">
+              <slick class="" settings="vm.slickConfig1" ng-if="vm.slideShowLoaded" init-onload="true" dots="false">
+                <div class="gallery-slick-slide" ng-repeat="slide in vm.slideShows" ng-if="$index < 6 && vm.slideShowLoaded">
+                  <a ui-sref='root.mainSidebar.slideShowDetails({Id : slide.Id, url: slide.url})' title="{{slide.slideShowName}}">
+                    <div class="slide-pic">
+                      <img ng-src="{{slide.baseUrl}}/{{slide.slideShowImages[0].image}}" alt="" err-src="{{$root.errorImagePath}}"/>
+                    </div>
+                    <h4 class="sportNewsTitle" ng-if="vm.slideShowLoaded">{{slide.slideShowName | limitTo:57}}</h4>
+                  </a>
+                </div>
+              </slick>
+            </div>
+          </gs-loading>
+        </uib-tab>
+        <uib-tab index="1" heading="Photo Gallery" ng-click="vm.getPhotoGalleryData()">
+          <gs-loading show-loader="vm.showLoader">
+            <div class="row cstm-pdng mobileNone">
+              <div class="col-md-12 col-sm-12 col-xs-12" ng-if="vm.galleryList.length == 0">
+                <h3 class="text-center">No Photo Gallery found.</h3>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 col-c-p" ng-repeat="gallery in vm.galleryList" ng-if="$index < 6">
+                <div class="gallery-box">
+                  <a rel="photo_gallery_group" title="{{gallery.title}}" href="{{vm.baseUrl}}/{{gallery.image}}" fancyboxable="vm.photoGalleryFancybox">
+                    <div class="news-pic">
+                      <img ng-src="{{gallery.baseUrl}}/{{gallery.image}}" alt="" err-src="{{$root.errorImagePath}}"/>
+                    </div>
+                    <h4 class="gallert-newsTitle">{{gallery.title | limitTo:57}}</h4>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <a ui-sref="root.mainSidebar.photoGallery({pageIndex : 1})" class="news_read_more">More Slide...</a>
+          <div class="gallery-slider-mobile">
+            <slick class="slide-show-slider" settings="vm.slickConfig1" ng-if="vm.galleryListLoaded" init-onload="true" dots="false">
+              <div class="gallery-slick-slide" ng-repeat="gallery in vm.galleryList" ng-if="$index < 6">
+                <a rel="photo_gallery_group" title="{{gallery.title}}" href="{{gallery.baseUrl}}/{{gallery.image}}" fancyboxable="vm.photoGalleryFancybox">
+                  <div class="slide-pic">
+                    <img ng-src="{{gallery.baseUrl}}/{{gallery.image}}" alt="" err-src="{{$root.errorImagePath}}"/>
+                  </div>
+                  <h4 class="sportNewsTitle">{{gallery.title | limitTo:57}}</h4>
+                </a>
+              </div>
+            </slick>
+          </div>
+        </gs-loading>  
+        </uib-tab>
+        <uib-tab index="2" heading="Video Gallery" ng-click="vm.getVideoGalleryData()">
+          <gs-loading show-loader="vm.showLoader">
+            <div class="row cstm-pdng mobileNone">
+              <div class="col-md-12 col-sm-12 col-xs-12" ng-if="(vm.videoGalleries.length == 0)">
+                <h3 class="text-center">No Videos found.</h3>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 col-c-p" ng-repeat="video in vm.videoGalleries" ng-if="$index < 6">
+                <div class="gallery-box">
+                  <a ui-sref="root.mainSidebar.videoGalleryDetails({url: video.url, Id : video.Id})">
+                    <div class="news-pic">
+                      <img ng-src="//img.youtube.com/vi/{{video.galleryVideos[0].videoId}}/0.jpg" title="{{video.galleryName}}" alt="" err-src="{{$root.errorImagePath}}"/>
+                    </div>
+                    <h4 class="gallert-newsTitle">{{video.galleryName | limitTo:57}}</h4>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <a ui-sref="root.mainSidebar.videoGalleryList({pageIndex : 1})" class="news_read_more">More Slide...</a>
+            <div class="gallery-slider-mobile">
+              <slick class="" settings="vm.slickConfig1" ng-if="vm.videoGalleryLoaded" init-onload="true" dots="false">
+                <div class="gallery-slick-slide" ng-repeat="video in vm.videoGalleries" ng-if="$index < 6">
+                  <a ui-sref='root.mainSidebar.videoGalleryDetails({url: video.url, Id : video.Id})' title="{{video.galleryName}}">
+                    <div class="slide-pic">
+                      <img ng-src="//img.youtube.com/vi/{{video.galleryVideos[0].videoId}}/0.jpg" title="{{video.galleryName}}" alt="" err-src="{{$root.errorImagePath}}"/>
+                    </div>
+                    <h4 class="sportNewsTitle">{{video.galleryName | limitTo:57}}</h4>
+                  </a>
+                </div>
+              </slick>
+            </div>
+          </gs-loading>
+        </uib-tab>
+      </uib-tabset>
+  </div>
+</div>

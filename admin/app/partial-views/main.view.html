@@ -1,0 +1,26 @@
+<div ui-view="header"></div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- START SIDEBAR -->        
+        <div data-ng-include="'partial-views/sidebar/sidebar.view.html'" data-ng-controller="SidebarController as vm" class="page-sidebar-wrapper"></div>
+        <!-- END SIDEBAR -->
+    </div>
+    <!-- END SIDEBAR -->
+	<div class="page-content-wrapper">
+		<!-- BEGIN CONTENT BODY -->
+		<div class="page-content" style="min-height:826px">
+			<!-- BEGIN PAGE BASE CONTENT -->
+			<div class="row">
+				<div class="col-md-12">
+					<div ui-view></div>
+				</div>
+			</div>
+			<!-- END PAGE BASE CONTENT -->
+		</div>
+		<!-- END CONTENT BODY -->
+	</div>		
+</div>
+<!-- END CONTAINER -->
+<div ui-view="footer"></div>

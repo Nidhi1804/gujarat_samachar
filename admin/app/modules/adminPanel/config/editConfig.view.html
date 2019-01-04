@@ -1,0 +1,55 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="icon-settings"></i> Edit Configuration
+		</div>
+		<div class="tools"></div>
+		<div class="actions">
+			<div class="btn-group">
+				<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<form class="form-horizontal" name="vm.editConfigFrm" novalidate="novalidate" role="form" ng-if="vm.isContentLoaded">
+			<div class="form-body">
+				<div class="row" ng-repeat="(key, config) in vm.configObj">
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="col-md-12">
+								<input type="text" value="" name="name_{{key}}" ng-model="config.name" class="form-control" readonly="">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div class="col-md-5">
+									<input type="number" value="" min="0" name="value_{{key}}" ng-model="config.value" class="form-control" required="" allow-decimal="false"
+									 ng-pattern="vm.allowNumber"></div>
+								<span ng-if="vm.editConfigFrm.$invalid && vm.editConfigFrm.$submitted">
+									<span class="text-danger" ng-if="vm.editConfigFrm['value_'+$index].$error.required">Value is required.
+									</span>
+								</span>
+								<span ng-if="vm.editConfigFrm.$invalid && vm.editConfigFrm.$submitted">
+								<span class="text-danger" ng-if="vm.editConfigFrm['value_'+$index].$error.number">Limit should be in number.
+									</span>
+								</span>
+								<span class="text-danger" ng-if="vm.editConfigFrm['value_'+$index].$error.pattern">Limit should not be in decimal number.
+									</span>
+								</span>
+								<span class="text-danger" ng-if="vm.editConfigFrm['value_'+$index].$error.min">Limit should be positive number.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions right">
+					<a class="btn default" ui-sref="root.manageConfig">Cancel</a>
+					<button ng-click="vm.updateConfig(vm.editConfigFrm.$valid)" class="btn blue" type="submit">Save</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

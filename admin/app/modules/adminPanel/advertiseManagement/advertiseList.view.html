@@ -1,0 +1,220 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa icon-puzzle"></i> Advertise List &nbsp;&nbsp;&nbsp;&nbsp;Total Records: {{vm.totalCount}}
+        </div>
+        <div class="tools"> </div>
+        <div class="actions">
+            <div class="btn-group">
+                <a ui-sref="root.addAdvertise" class="btn btn-circle default" type="button">Create Advertise</a>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <form ng-submit="vm.searchAdvertise()">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <!-- Category -->
+                        <select ng-model="vm.pageType" class="chosen-select form-control" data-placeholder-text-single="'Select Page Type'"
+                        chosen required name="pageType" ng-options="page.key as page.name for page in vm.pageTypeList">
+                                <option></option>
+                        </select>
+					</select>
+                    </div>
+                </div>
+                <div class="col-md-3" ng-if="vm.pageType == 'category'">
+                    <div class="form-group">
+                        <!-- Category -->
+                        <select 
+                            ng-model="vm.categoryId" 
+                            class="chosen-select form-control" data-placeholder-text-single="'Select Category'" chosen
+                            ng-change="vm.getSubCategory(vm.article.category)" name="category" ng-options="category._id as category.name for category in vm.mainCategoryList">
+                            <option><option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3" ng-if="vm.pageType == 'magazine'">
+                    <div class="form-group">
+                        <!-- Category -->
+                        <select 
+                            ng-model="vm.magazineId" 
+                            class="chosen-select form-control" data-placeholder-text-single="'Select Magazine'" chosen
+                            name="category" ng-options="magazine._id as magazine.name for magazine in vm.magazineList">
+                            <option><option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3" ng-if="vm.pageType == 'city'">
+                    <div class="form-group">
+                        <!-- Category -->
+                        <select 
+                            ng-model="vm.cityId" 
+                            class="chosen-select form-control" data-placeholder-text-single="'Select City'" chosen
+                            name="city" ng-options="city._id as city.name for city in vm.citiesList">
+                            <option><option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <!-- Category -->
+                        <select 
+                            ng-model="vm.userAgent" 
+                            class="chosen-select form-control" data-placeholder-text-single="'Select User Agent'" chosen
+                            name="position" ng-options="userAgent.name as userAgent.name for userAgent in vm.userAgentList">
+                            <option><option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <!-- Category -->
+                        <select 
+                            ng-model="vm.position" 
+                            class="chosen-select form-control" data-placeholder-text-single="'Select Position'" chosen
+                            name="position" ng-options="position.value as position.value for position in vm.positionList">
+                            <option><option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <!-- Category -->
+                        <select 
+                            ng-model="vm.advertiseType" 
+                            class="chosen-select form-control" data-placeholder-text-single="'Select Advertise Type'" chosen
+                            name="position" ng-options="type.name as type.name for type in vm.AdvertiseTypeList">
+                            <option><option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Search By Title -->
+                                <input type="text" placeholder="Search" class="form-control" ng-model="vm.searchText" name="searchText">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button title="Search" ng-click="vm.searchAdvertise()" id="search" class="btn blue" type="submit"><i class="fa fa-search"></i></button>
+                                <button title="Reset" ng-click="vm.resetFilter()" id="search" class="btn red" type="button">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <!-- Delete selected advertise -->
+                                <confirm-modal name="advertise" type="delete selected" id="{{vm.deleteIdList}}" on-confirm="vm.deleteSelectedAd(id)"/></confirm-modal>
+                                
+                                <!-- Inactive selected advertise -->
+                                <confirm-modal name="advertise" type="inactive selected" id="{{vm.deleteIdList}}" on-confirm="vm.activeSelectedAdvertise(id, status)"
+                                /></confirm-modal>
+                                
+                                <!-- Activate selected advertise -->
+                                <confirm-modal name="advertise" type="activate selected" id="{{vm.deleteIdList}}" on-confirm="vm.activeSelectedAdvertise(id, status)"
+                                /></confirm-modal>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="ajax_data" ng-if="vm.isAdvertiseLoaded">
+            <div class="table-scrollable">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                <label class="checkbox-inline"> 
+									<input 
+										icheck 
+										type="checkbox" 
+										ng-change="vm.checkAllBox()"
+										ng-model="vm.selectAll" required="">
+								</label>
+                            </th>
+                            <th>Title</th>
+                            <th>Page Type</th>
+                            <th ng-click="vm.reverse = !vm.reverse" class="sort-colum">Last Modified <span class="sortorder" ng-class="{reverse: vm.reverse}"></span></th>
+                            <th>Ad type</th>
+                            <th>Position</th>
+                            <th>User Agent</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sortable-row">
+                        <tr ng-if="vm.advertiseList.length == 0">
+                            <td class="text-center" colspan="7">No data found.</td>
+                        </tr>
+                        <tr dir-paginate="advertise in vm.advertiseList | itemsPerPage : vm.advertisePerPage | orderBy:advertise.lastModifiedAt:vm.reverse" total-items="vm.totalCount" current-page="vm.pagination.current" ng-class="{'expire': advertise.isExpired}">
+                            <td>{{ (vm.advertisePerPage * (vm.pagination.current-1)) + $index+1}} </td>
+                            <td>
+                                <label class="checkbox-inline">
+									<input 
+										icheck 
+										type="checkbox"
+										value="{{advertise._id}}"
+										ng-model="advertise.isChecked"
+										ng-change="vm.toggleCheckBox(advertise._id, advertise.isChecked)"
+										required="">
+								</label>
+                            </td>
+
+                            <td class="black_text" ng-bind-template="{{advertise.title}}"></td>
+                            <td ng-if="advertise.pageType != 'category' && advertise.pageType != 'magazine' && advertise.pageType != 'city'" class="black_text text-change" ng-bind-template="{{advertise.pageType.replace('-',' ')}}"></td>
+                            <td ng-if="advertise.pageType == 'category'" class="black_text">
+                                <span ng-repeat="(key,adv) in advertise.categoriesInfo">
+                                    {{adv.name}}
+                                    <span ng-if="$index != advertise.categoriesInfo.length - 1">,
+                                    </span>
+                                </span>
+                            </td>
+                            <td ng-if="advertise.pageType == 'magazine'" class="black_text">
+                                <span ng-repeat="(key,adv) in advertise.magazinesInfo">
+                                    {{adv.name}}
+                                    <span ng-if="$index != advertise.magazinesInfo.length - 1">,
+                                    </span>
+                                </span>
+                            </td>
+                            <td ng-if="advertise.pageType == 'city'" class="black_text">
+                                <span ng-repeat="(key,adv) in advertise.cityInfo">
+                                    {{adv.name}}
+                                    <span ng-if="$index != advertise.cityInfo.length - 1">,
+                                    </span>
+                                </span>
+                            </td>
+                            <td nowrap="nowrap" ng-bind-template="{{ advertise.lastModifiedAt | date : 'yyyy-MM-dd H:mm'  }}"></td>
+                            <!-- <td class="black_text" ng-bind-template="{{advertise.category}}"></td> -->
+                            <td class="black_text" ng-bind-template="{{advertise.fileType}}"></td>
+                            <td class="black_text" ng-bind-template="{{advertise.position}}"></td>
+                            <td class="black_text" ng-bind-template="{{advertise.userAgent}}"></td>
+                            <td nowrap="nowrap" align="left">
+                                <!-- Active Advertise confirm  -->
+                                <confirm-modal ng-if="!advertise.isActive" name="advertise" type="activate" id="{{advertise._id}}" on-confirm="vm.changeStatus(id, status)"
+                                /></confirm-modal>
+
+                                <!-- Inactive advertise confirm  -->
+                                <confirm-modal ng-if="advertise.isActive" name="advertise" type="Inactive" id="{{advertise._id}}" on-confirm="vm.changeStatus(id, status)"
+                                /></confirm-modal>
+
+                                <!-- Edit Advertise -->
+                                <a uib-tooltip="Edit" ui-sref="root.editAdvertise({advertiseId : advertise._id})" title="Edit" class="btn btn-icon-only blue">
+									<i class="fa fa-edit"></i>
+								</a>
+
+                                <!-- Delete Single Article -->
+                                <confirm-modal name="advertise" type="delete" id="{{advertise._id}}" on-confirm="vm.deleteSingleAd(id)" /></confirm-modal>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <dir-pagination-controls max-size='5' on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above List Box"></mobile-adv>
+<!-- middle content end -->
+<div class="col-md-8 col-sm-8 col-xs-12" ng-class="{'fadeIn' : vm.magazineListLoaded}">
+    <div class="main-news-adv" ng-repeat="header2Ad in vm.adLeftSide | filter:{position:'Header2'}" ng-if="!isMobile">
+      <div class="advertisementSection">
+        <!-- If Ad Type Google Code -->
+        <div ng-if="(header2Ad.fileType == 'Google Code')" google-ad html="header2Ad.description"></div>
+        <!-- If Ad Type Image -->
+        <div ng-if="header2Ad.fileType == 'Image'">
+          <img ng-if="!header2Ad.adLink" ng-src="{{header2Ad.imageUrl}}" />
+          <a href="{{header2Ad.adLink}}" target="_blank" ng-if="header2Ad.adLink">
+            <img ng-src="{{header2Ad.imageUrl}}"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mainFullBlock">
+        <div class="gCardTitle">
+            <h4>{{::vm.magazineName}}</h4>
+            <!-- <h4 ng-if="vm.magazineList[0].publishScheduleTime"> for {{vm.magazineList[0].publishScheduleTime | date:"MMMM dd 'at' hh:mm a "}}</h4> -->
+        </div>
+        <div class="gCard">
+            <gs-loading show-loader="!vm.magazineListLoaded">
+                <div class="row no-gutters">
+                    <div class="col-md-12 col-sm-12 col-xs-12" ng-if="::(vm.magazineList.length == 0)">
+                        <h3 class=" text-center ">No Article found.</h3>
+                    </div>
+                </div>
+                <div class="categoryBlock gCardAdv" dir-paginate="(key,magazine) in vm.magazineList | itemsPerPage : vm.pageSize" total-items="{{vm.totalCount}}" current-page="vm.pagination.current">
+                    <!-- advertisement start -->
+                    <div class="main-news-adv adv-gCardAdv mb1" ng-repeat="lisAd in vm.adLeftSide | filter:{position:'List'}" ng-if="key == lisAd.listIndex && !isMobile">
+                      <div class="advertisementSection">
+                        <!-- If Ad Type Google Code -->
+                        <div ng-if="(lisAd.fileType == 'Google Code')" google-ad html="lisAd.description"></div>
+                        <!-- If Ad Type Image -->
+                        <div ng-if="lisAd.fileType == 'Image'">
+                          <img ng-if="!lisAd.adLink" ng-src="{{lisAd.imageUrl}}" />
+                          <a href="{{lisAd.adLink}}" target="_blank" ng-if="lisAd.adLink">
+                            <img ng-src="{{lisAd.imageUrl}}"/>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- advertisement end -->
+                    <a ui-sref="root.mainSidebar.articleDetails({categorySlug: vm.slug, articleId:magazine.articleId, articleUrl: magazine.articleUrl}) ">
+                        <figure><img src="{{::magazine.baseUrl}}/{{::magazine.articleImage}}" err-src="{{errorImagePath}}"></figure>
+                    </a>
+                    <div class="categoryContent ">
+                        <a ui-sref="root.mainSidebar.articleDetails({categorySlug: vm.slug, articleId:magazine.articleId, articleUrl: magazine.articleUrl}) ">
+                            <h2>{{::magazine.heading}}</h2>
+                        </a>
+                        <p ng-if="::magazine.publishScheduleTime">{{::magazine.publishScheduleTime | date:"MMMM dd 'at' hh:mm a "}}</p>
+                        <p>{{::magazine.description}}</p>
+                        <!-- <a ui-sref="root.mainSidebar.articleDetails({categorySlug: vm.slug, articleId:magazine.articleId, articleUrl: magazine.articleUrl})" class="moreAnchoreBlock ">More</a> -->
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="gCardTitle mt1 ">
+        <h4>{{::vm.magazineName}}</h4>
+        <!-- <h4 ng-if="vm.magazineList[0].publishScheduleTime"> for {{vm.magazineList[0].publishScheduleTime | date:"MMMM dd 'at' hh:mm a "}}</h4> -->
+    </div>
+    <div class="gCard pagination-grid">
+        <div class="row ">
+            <div class="col-md-7 col-sm-6 col-xs-12 ">
+                <dir-pagination-controls max-size='6' boundary-links="true" on-page-change="::vm.pageChanged({date:vm.magazine.date,pageIndex:newPageNumber})"></dir-pagination-controls>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 ">
+                <p class="input-group datepicker ">
+                    <input type="text" class="chosen-select form-control  date-picker" readonly="readonly" uib-datepicker-popup="yyyy-MM-dd" ng-model="::vm.magazine.date" datepicker-options="::vm.dateOption" ng-required="true" close-text="Close" popup-placement="bottom" is-open="vm.openDate.opened" placeholder="Select date" ng-change="::vm.pageChanged({date:vm.magazine.date,pageIndex:1})" required/>
+                    <span class="input-group-btn ">
+                           <button type="button" class="btn btn-default" ng-click="::vm.openDate()"><span class="glyphicon glyphicon-calendar"></span></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div page-type="magazine" bottom-advertise></div>
+</div>
+</div>

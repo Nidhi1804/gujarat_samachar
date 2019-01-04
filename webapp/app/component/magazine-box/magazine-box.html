@@ -1,0 +1,11 @@
+<div class="megazine-section mgr-top32">
+	<gs-loading show-loader="!vm.magazinesLoaded">
+	     <div class="megazine-logo" ng-repeat="magazine in vm.magazines">
+	        <div class="content-cntr">
+	          <a ui-sref="root.mainSidebar.articleByMagazine({slug:magazine.slug,pageIndex : 1})">
+	            <img ng-src="assets/images/{{magazine.name}}.png" alt=" " />
+	          </a>
+	        </div>
+	    </div>
+	</gs-loading>    
+</div>

@@ -1,0 +1,69 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa icon-list"></i>{{vm.typeTitle}} IP
+        </div>
+        <div class="actions">
+            <div class="btn-group">
+                <a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="vm.addAllowIpForm" novalidate="novalidate" role="form">
+            <div class="form-body">
+                <div class="row">
+                    <!-- IP -->
+                    <div class="form-group" ng-class="{'has-error' : vm.addAllowIpForm.ip.$error.required && vm.invalidForm}">
+                        <label class="control-label  col-md-2">Name <span class="required" aria-required="true">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" placeholder="Enter Name" class="form-control" name="name" ng-model="vm.allowIp.name" required="">
+                            <span ng-if="vm.addAllowIpForm.$invalid && vm.addAllowIpForm.$submitted">
+								<span class="text-danger" ng-if="vm.addAllowIpForm.ip.$error.required">Name is required.
+                                </span>
+                            <!-- <span class="text-danger">Ip is required.
+                            </span>-->
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error' : vm.addAllowIpForm.ip.$error.required && vm.invalidForm}">
+                        <label class="control-label  col-md-2">IP <span class="required" aria-required="true">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" placeholder="Enter Allow IP Address" class="form-control" name="ip" ng-pattern="vm.validIp" ng-model="vm.allowIp.ip"
+                                required="">
+                            <span ng-if="vm.addAllowIpForm.$invalid && vm.addAllowIpForm.$submitted">
+								<span class="text-danger" ng-if="vm.addAllowIpForm.ip.$error.required">IP is required.
+                                </span>
+                            <span class="text-danger" ng-if="vm.addAllowIpForm.ip.$error.pattern">Please Insert Valid IP Address.
+                                </span>
+                            <!-- <span class="text-danger">Ip is required.
+                            </span>-->
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <span class="help-block"></span>
+
+                <br>
+                <div class="form-actions right">
+                    <a class="btn default" ui-sref="root.allowIpList({pageIndex:1})">Cancel</a>
+                    <button ng-if="!vm.allowIpId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveAllowIp(vm.addAllowIpForm.$valid,true)">
+						<i class="fa fa-check"></i>Save & Add New
+                    </button>
+                    <button ng-if="!vm.allowIpId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveAllowIp(vm.addAllowIpForm.$valid,false)">
+						<i class="fa fa-check"></i>Save
+					</button>
+                    <button ng-if="vm.allowIpId" class="btn green" id="save_btn" type="submit" ng-click="vm.updateAllowIp(vm.addAllowIpForm.$valid,true)">
+						<i class="fa fa-check"></i>Update & Add New
+					</button>
+                    <button ng-if="vm.allowIpId" class="btn blue" id="save_btn" type="submit" ng-click="vm.updateAllowIp(vm.addAllowIpForm.$valid,false)">
+						<i class="fa fa-check"></i>Update
+					</button>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

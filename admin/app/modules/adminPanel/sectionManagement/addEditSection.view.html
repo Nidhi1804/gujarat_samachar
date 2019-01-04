@@ -1,0 +1,87 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa icon-list"></i>{{vm.typeTitle}} Section
+		</div>
+		<div class="actions">
+			<div class="btn-group" ng-if="vm.sectionId">
+				<a title="Associate Article" href="javascript:;" ng-click="vm.associateArticles()" class="btn btn-circle red-sunglo">Associate Article</a>
+			</div>
+			<div class="btn-group">
+				<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form class="form-horizontal" name="vm.addSectionForm" novalidate="novalidate" role="form" ng-if="vm.isSectionLoaded">
+			<div class="form-body">
+				<div class="row">
+					<!-- Title -->
+					<div class="form-group" ng-class="{'has-error' : vm.addSectionForm.title.$error.required && vm.invalidForm}">
+						<label class="control-label  col-md-2">Title
+							<span class="required" aria-required="true">*</span>
+						</label>
+						<div class="col-md-6">
+							<input type="text" placeholder="Heading" class="form-control" name="title" ng-model="vm.section.title" required="">
+							<span ng-if="vm.addSectionForm.$invalid && vm.addSectionForm.$submitted">
+								<span class="text-danger" ng-if="vm.addSectionForm.title.$error.required">Title is required.
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<span class="help-block"></span>
+				<div class="row">
+					<!-- Meta tag -->
+					<div class="form-group" ng-class="{'has-error' : vm.addSectionForm.metaTags.$error.required && vm.invalidForm}">
+						<label class="control-label  col-md-2">Meta tag
+							<span class="required" aria-required="true">*</span>
+						</label>
+						<div class="col-md-6">
+							<tags-input ng-required="vm.isSubmitted" name="metaTags" ng-model="vm.section.metaTags" on-tag-added="vm.addTag($tag, $query)"
+							 placeholder="Add a meta tag" min-length="2" display-property="name">
+								<auto-complete min-length="1" source="vm.getMetaTags($query)"></auto-complete>
+							</tags-input>
+							<span ng-if="vm.addSectionForm.$invalid && vm.addSectionForm.$submitted">
+								<span class="text-danger" ng-if="vm.addSectionForm.metaTags.$error.required">Meta Tag is required.</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-class="{'has-error' : 
+						vm.addSectionForm.description.$error.required && vm.invalidForm}">
+					<div class="form-group">
+						<label class="control-label col-md-2">Description
+							<span class="required" aria-required="true">*</span>
+						</label>
+						<div class="col-md-8">
+							<textarea placeholder="Add a meta Description" class="form-control" rows="1" ng-model="vm.section.description" name="metaDescriptions" required=""></textarea>
+							<span ng-if="vm.addSectionForm.$invalid && vm.addSectionForm.$submitted">
+								<span class="text-danger" ng-if="vm.addSectionForm.metaDescriptions.$error.required">Meta Descriptions is required.
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="form-actions right">
+					<a class="btn default" ui-sref="root.sectionList({pageId:1})">Cancel</a>
+					<button ng-disabled="vm.disable" ng-if="!vm.sectionId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveSection(vm.addSectionForm.$valid,true)">
+						<i class="fa fa-check"></i>Save & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="!vm.sectionId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveSection(vm.addSectionForm.$valid,false)">
+						<i class="fa fa-check"></i>Save
+					</button>
+					<button ng-disabled="vm.disable" ng-if="vm.sectionId" class="btn green" id="save_btn" type="submit" ng-click="vm.updateSection(vm.addSectionForm.$valid,true)">
+						<i class="fa fa-check"></i>Update & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="vm.sectionId" class="btn blue" id="save_btn" type="submit" ng-click="vm.updateSection(vm.addSectionForm.$valid,false)">
+						<i class="fa fa-check"></i>Update
+					</button>
+				</div>
+			</div>
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

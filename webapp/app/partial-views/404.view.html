@@ -1,0 +1,23 @@
+<div ng-init="vm.showLoader = true">
+    <gs-loading show-loader="!vm.showLoader">
+        <center>
+            <h1><b>404 Not Found</b></h1>
+            <br><strong>Sorry. We haven't been able to serve the page you asked for...</strong></center>
+        <br/>
+        <div style="width:100%">
+            <div style="margin: 0 auto; display: table; ">
+                The requested document was not found on this site. This could be for a variety of reasons, including:
+                <div style="margin: 0 auto; display: table;">
+                    <br> * You followed a broken or out-of-date link.
+                    <br> * You entered the URL incorrectly.
+                    <br> * The file no longer exists.
+                    <br>
+                    <br>
+                    <strong><a ui-sref="root.mainSidebar.home" title="Back to Main GujaratSamachar Online News Paper Page">Back to Main Home Page</a></strong>
+                    <br/>
+                    <!-- <strong><a href="javascript: history.go(-1)" title="click to back">Back to the page you came from</a></strong> -->
+                </div>
+            </div>
+        </div>
+    </gs-loading>
+</div>

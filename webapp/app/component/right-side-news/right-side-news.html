@@ -1,0 +1,28 @@
+<div id="mainContentRight" ng-class="{'mgr-top32' : $root.isMobile}">
+    <div class="rightNews">
+      <h3 class="newsTitle">{{vm.title}}</h3>
+      <gs-loading show-loader="!vm.componentInitialize">
+      <div class="top-news">
+        <div class="m5" ng-if="(vm.data.length == 1 && vm.articleUrl == vm.data[0].articleUrl) || vm.data.length == 0">
+          <h3 class="text-center">No article found.</h3>
+        </div>
+        <ul>
+          <li ng-repeat="(key, news) in vm.data" ng-if="$index <= 6 && vm.articleUrl != news.articleUrl"
+          >
+            <a ui-sref="root.mainSidebar.articleDetails({categorySlug: news.slug, articleId:news.articleId, articleUrl: news.articleUrl})" title="{{news.heading}}">
+              <div class="news-pic v-center">
+                <img src="{{news.baseUrl}}/{{news.articleImage}}" alt="" err-src="{{vm.errorImagePath}}"/>
+              </div>
+              <div class="news-disc v-center">
+                <h3>{{news.heading}}</h3>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <a ui-sref="root.mainSidebar.topReadNewsList({pageIndex : 1,date:''})" class="news_read_more" ng-if="vm.title == 'Top Read News' && vm.data.length > 0">Read More...</a>
+        <a ui-sref="root.mainSidebar.articleByMagazine({pageIndex : 1,slug : vm.magazineSlug})" ng-if="vm.title == 'GS Plus' && vm.data.length > 0" class="news_read_more">Read More...</a>
+        <a ui-sref="root.mainSidebar.recentNewsList({pageIndex : 1,date:''})" ng-if="vm.title == 'Recent News' && vm.data.length > 0" class="news_read_more">Read More...</a>
+      </div>
+      </div>
+    </div> 
+</div>

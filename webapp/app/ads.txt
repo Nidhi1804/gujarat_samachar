@@ -1,0 +1,5 @@
+google.com, pub-8096200923666860, DIRECT, f08c47fec0942fa0
+google.com, pub-9551272614573760, DIRECT, f08c47fec0942fa0
+pubmatic.com, 156707,  RESELLER, 5d62403b186f2ace
+contextweb.com, 561781, DIRECT, 89ff185a4c4e857
+pubmatic.com, 156388,  RESELLER, 5d62403b186f2ace

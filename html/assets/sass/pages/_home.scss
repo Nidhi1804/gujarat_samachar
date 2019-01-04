@@ -1,0 +1,391 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+.latest-news-section{
+	@extend .full-width--block;
+	border: solid 2px $red;
+	.latestNewsTitle{
+		@include rem(font-size, 24px);
+		@extend .bold-font-stack;
+		width: 160px;
+		background-color: $red;
+		color: $white;
+		@include rem(padding, 0 5px);
+		@extend .auto-width--block; 
+		@include breakpoint(l-small) {
+			min-width: 100%;
+			text-align: center;
+		}
+		@include breakpoint(x-small){
+			@include rem(font-size, 18px);
+		}
+	}
+	.latestNewsTicker{
+		// width: calc(100% - 436px);
+		@include calc( width, '100% - 435px');
+		float: left;
+		@include breakpoint(small) {
+			// width: calc(100% - 160px);	
+			@include calc( width, '100% - 160px');	
+		}
+		@include breakpoint(l-small) {
+			width: 100%;		
+		}
+		.newsTickerList{
+			@include rem(margin, 0);
+    		@include rem(padding, 0);
+    		list-style-type: none;
+    		overflow: hidden;
+    		white-space: nowrap;
+    		display: flex;
+    		width: 100%;
+			.newsTickerItem{
+				@include rem(margin, 0 0 0 5px);
+				@extend .auto-width--block;
+    			a{
+    				@extend a.brand-anchor;
+    				display: inline-block;
+    				@include rem(margin, 0 10px 0 10px);
+    				// @include rem(padding, 9px 0 3px);
+    				@include rem(padding, 6px 0 6px);
+    				line-height: 22px;
+    				@include rem(font-size, 14px);
+    				@include breakpoint(x-small){
+						@include rem(font-size, 13px);
+					}
+    			}
+			}
+		}
+	}
+
+	.social-media-section{
+		float: right;
+		width: 275px;
+		@include breakpoint(small) {
+			width: 100%;
+			float: left;
+			text-align: center;
+		}
+		ul{
+			@include rem(margin, 4px 0);
+			height: 26px;
+			li{
+				@include rem(padding, 0 2px);
+				display: inline-block;
+				height: 26px;
+				a{
+					display: inline-block;
+					height: 26px;
+					.social-media-icon{
+						background: url(../images/social-media-icons.png);
+						width: 25px;
+						height: 26px;
+						display: inline-block;
+						@include transition(all 0.3s ease-in-out 0s);
+						&.fb{
+							background-position: 0 0;
+							@include on-event {
+								background-position: 0 26px;
+							}
+						}
+						&.y{
+							background-position: -33px 0;
+							@include on-event {
+								background-position: -33px 26px;
+							}
+						}
+						&.twitter{
+							background-position: -66px 0;
+							@include on-event {
+								background-position: -66px 26px;
+							}
+						}
+						
+					}
+				}
+			}
+		}
+	}
+}
+
+.advertisementSection{
+	@extend .full-width--block;
+	background: $gray-option-6;
+	text-align: center;
+}
+
+.mainNewsSection{
+	@extend .full-width--block;
+	border: solid 1px $news-border-block;
+	.mainNewsBox{
+		border: solid 1px $news-border-block;
+		@include rem(padding,12px 10px 6px);
+		@include breakpoint(x-small){
+			@include rem(font-size, 15px);
+		}
+		a{
+			display: block;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+  			-webkit-box-orient: vertical;
+  			overflow: hidden;
+  			text-overflow: ellipsis;
+  			min-height: 48px;
+  			line-height: 24px;
+  			@include rem(font-size, 19px);
+  			@include breakpoint(small) {
+  				min-height: auto;
+  			}
+		}
+	}
+}
+
+
+
+.magazineSection{
+	@extend .full-width--block;
+	.magazineSectionInner{
+		@extend .full-width--block;
+		ul{
+			@include rem(margin,0);
+			li{
+				width: 25%;
+				float: left;
+				height: 90px;
+				@include rem(margin,0 0 10px 0);
+				@include breakpoint(x-small) {
+					width: 50%;
+				}
+				figure{
+					border: solid 2px $gray;
+					@include rem(margin,0);
+					@include rem(padding,10px);
+					height: 90px;
+					text-align: center;
+					@extend .flex-block;
+					&:hover{
+						border: solid 2px $red;
+						@include transition(all 0.3s ease-in-out 0s);
+					}
+					img{
+						max-width: 100%;
+						max-height: 100%;
+					}
+				}
+			}
+		}
+	}
+	.tab-content>.tab-pane{
+		@extend .full-width--block;
+		border: solid 2px $gray;
+		@include rem(padding,10px 5px);
+		min-height: 420px;
+	}
+}
+
+
+.multiNewsSection{
+	@extend .full-width--block;
+	.multiNewsTicker{
+		@extend .full-width--block;
+		background-color: $red;
+		@include rem(padding, 2px 5px);
+		button{
+			background: transparent;
+			border: 0;
+			float: left;
+			display: inline-block;
+			line-height: 23px;
+		}
+		.multiNewsTickerControls{
+			float: right;
+			width: 80px;
+		}
+		.multiNewsTickerList{
+			@include rem(margin, 0);
+    		@include rem(padding, 0);
+    		list-style-type: none;
+    		overflow: hidden;
+    		@include calc( width, '100% - 80px');
+    		float: left;
+			.multiNewsTickeritem{
+				@include rem(margin, 0 0 0 5px);
+				@extend .auto-width--block;
+    			
+    			&.slick-active a{
+    				background: $white;
+					color: $tab-active;
+					border: solid 2px $gray;
+					text-decoration: none;
+    			}
+    			a{
+    				@extend a.brand-anchor;
+    				display: inline-block;
+    				@include rem(margin, 0);
+    				@include rem(font-size, 16px);
+    				@include rem(padding, 0 5px);
+    				line-height: 22px;
+    				color: $white;
+    				line-height: normal;
+    				border: solid 2px transparent;
+    				@extend .bold-font-stack;
+
+    				@include on-event {
+						background: $white;
+						color: $tab-active;
+						border: solid 2px $gray;
+						text-decoration: none;
+  					}
+    			}
+			}
+		}
+	}
+}
+
+.multiNewsBlock{
+	@extend .full-width--block;
+	border: solid 2px $gray;
+	.multiNewsBlockFull{
+		@extend .full-width--block;
+		border-right: solid 2px $gray;
+		@include breakpoint(large) {
+			border-right: 0;
+		}
+		h2{
+			@include rem(font-size, 20px);
+			line-height: 30px;
+			@include rem(margin, 0);
+			@include rem(padding, 10px 5px);
+			//@extend .bold-base-font-stack;
+			@include breakpoint(x-small){
+				@include rem(font-size, 20px);
+				line-height: 30px;
+				@include rem(padding, 5px 5px);
+			}
+		}
+		figure{
+			width: 100%;
+			height: 350px;
+			border: solid 1px #000;
+			@include breakpoint(x-small) {
+				height: auto;
+			}
+			img{
+				width: 100%;
+				max-width: 100%;
+				max-height: 100%;
+			}
+		}
+	}
+	.multiNewsBlockHalf{
+		@extend .full-width--block;
+		border-bottom: solid 2px $gray;
+		@include rem(padding, 4px 10px);
+		a{
+			@include rem(font-size, 18px);
+			line-height: 1.5;
+			font-weight: normal;
+			font-family: arial unicode ms;
+			@include breakpoint(x-small){
+				@include rem(font-size, 14px);
+			}
+
+		}
+	}
+}
+
+.postSection{
+	.nav-pills>li{
+		width: 49%;
+		text-align: center;
+	}
+	.whiteBlock{
+		@extend .full-width--block;
+		border: solid 2px $gray;
+		@include rem(padding, 5px);
+		@include rem(margin, 10px 0 0 0);
+			&:hover{
+				border: solid 2px $red;
+				@include transition(all 0.3s ease-in-out 0s);
+			}
+		.pNumber{
+			width: 76px;
+			height: 56px;
+			float: left;
+			background-color: $red;
+			text-align: center;
+			color: $white;
+			span{
+				font-size: 45px;
+				font-weight: bold;
+				font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+				line-height: 58px;
+			}
+		}
+
+		figure{
+			width: 76px;
+			height: 56px;
+			float: left;
+			img{
+				max-width: 100%;
+				max-height: 100%;
+			}
+		}
+		.rightContent{
+			float: right;
+			// width: calc(100% - 90px);
+			@include calc( width, '100% - 90px');
+			@include rem(font-size, 19px);
+			// @include rem(line-height, 35px);
+			// line-height: 35px;
+			line-height: 1.5;
+			@extend .flex-block;
+			height: 56px;
+			@include breakpoint(x-small){
+				@include rem(font-size, 14px);
+			}
+		}
+	}
+}
+
+.breakingNews{
+	@extend .full-width--block;
+	@include rem(margin, 0 0 20px 0);
+	.bannerImage{
+		@extend .full-width--block;
+		position: relative;
+		.overlay{
+			@include abs-pos(0, 0, 0, 0);
+			width: 100%;
+			height: 100%;
+			background: url(../images/overlay-bg.png);
+			background-size: 100% 100%;
+		}
+		.newIcon{
+			@include abs-pos(0, 0, null, null);
+			img{
+				@include breakpoint(small){
+					width: 90px;
+				}
+			}
+		}
+		.caption{
+			@include abs-pos(null, 0, 8px, 0);
+			@include breakpoint(small){
+				@include abs-pos(null, 0, -5px, 0);
+			}
+			p{
+				color: $white;
+				@include rem(font-size, 32px);
+				line-height: 1.5;
+				@include rem(padding, 0 25px);
+				font-family: arial unicode ms;
+				@include breakpoint(small){
+					@include rem(font-size, 13px);
+					@include rem(padding, 0 10px);
+				}
+			}
+		}
+	}	
+}

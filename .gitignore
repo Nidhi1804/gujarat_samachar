@@ -1,0 +1,9 @@
+node_modules
+bower_components
+static
+admin/app/bower_components
+admin/server/node_modules
+admin/server/static
+webapp/server/node_modules
+webapp/server/static
+webapp/app/bower_components

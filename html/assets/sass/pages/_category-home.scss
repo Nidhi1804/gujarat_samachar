@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+
+
+
+.categoryBlock{
+	@extend .full-width--block;
+	@include rem(margin, 0 0 15px 0);
+	@include rem(padding, 0 0 15px 0);
+	border-bottom: solid 1px $gray;
+	figure{
+		width: 30%;
+		float: left;
+	}
+	.categoryContent{
+		width: 70%;
+		float: right;
+		@include rem(padding, 0 10px);
+		p{
+			@include rem(font-size, 15px);
+			@extend .regular-font-stack;
+			line-height: 30px;
+			@include rem(margin, 0);
+		}
+		h2{
+			margin-top: 0;
+			@include rem(padding, 0);
+		}
+	}
+}
+.pagination-sm{
+	width: 100%;
+	display: inline-block;
+	@include rem(margin, 0);
+	ul{
+		@include rem(margin, 0);
+		@include rem(padding, 0);
+	}
+	li{
+		list-style: outside none none;
+    }
+    a{
+		@include rem(margin, 0);
+    	@include rem(padding, 0);
+    	vertical-align: middle;
+    	color:#333;
+    }
+
+}
+.pagination-sm>li>a, .pagination-sm>li>span{ font-size: 14px; vertical-align: middle;	color:#333; font-family: "OpenSansRegular";}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{ background-color: $red !important; border-color: $red;}
+.pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span{border-radius: 0;}
+.pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span{border-radius: 0;}
+.datepicker .form-control{ border-radius: 0; }
+.datepicker .btn { border-radius: 0; }

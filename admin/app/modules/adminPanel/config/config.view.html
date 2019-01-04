@@ -1,0 +1,40 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="icon-settings"></i>Manage Configuration
+		</div>
+		<div class="tools"></div>
+		<div class="actions">
+			<div class="btn-group">
+				<a ui-sref="root.editConfig" id="add_user" class="btn btn-circle default" uib-tooltip="Edit Configuration" type="button">Edit Configuration</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<div id="ajax_data" ng-if="vm.isContentLoaded">
+			<div class="table-scrollable">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th> # </th>
+							<th> Name </th>
+							<th> Value </th>
+							<th> Last Modified Date </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-if="vm.userList.length == 0">
+							<td class="text-center" colspan="3">No data found.</td>
+						</tr>
+						<tr ng-repeat="(key, config) in vm.configObj.config">
+							<td>{{ $index+1 }} </td>
+							<td ng-bind-template="{{ config.name }}"></td>
+							<td ng-bind-template="{{ config.value}}"></td>
+							<td ng-bind-template="{{ vm.configObj.lastModifiedAt | date : 'yyyy-MM-dd H:mm'}}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

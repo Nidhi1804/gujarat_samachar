@@ -1,0 +1,90 @@
+<!-- middle content end -->
+<div class="col-md-8 col-sm-8 col-xs-12">
+    <gs-loading show-loader="!vm.videoGalleryDetailsLoaded">
+        <div class="sideShowSlider mb2 singleImageSlider">
+            <slick class="main-slider slider row newArrow" settings="vm.videoGalleryConfig2">
+                <div class="col-md-12" ng-repeat="video in vm.videoGalleryImages track by $index">
+                    <div class="sideShowBlock">
+                        <object width="100%" height="315" ng-attr-data="https://www.youtube.com/embed/{{video.videoId}}">
+                        </object>
+                    </div>
+                </div>
+            </slick>
+            <slick class="slider-nav slider row" settings="vm.navConfig">
+                <div class="col-md-4" ng-repeat="video in vm.videoGalleryImages track by $index" active="slide.active">
+                    <div class="sideShowBlock">
+                        <img alt="" src="//img.youtube.com/vi/{{video.videoId}}/0.jpg" err-src="{{errorImagePath}}"/>
+                    </div>
+                </div>
+            </slick>
+            <div ng-repeat="(key,value) in vm.videoGalleryImages">
+                <div class="content first" data-id="{{key}}" ng-if="key === 0">
+                    <div class="contdesc gCard">
+                        <h3>{{vm.videoGalleryImages[key].title}}</h3>
+                    </div>
+                </div>
+                <div class="content " data-id="{{key}}" ng-if="key > 0">
+                    <div class="contdesc gCard">
+                        <h3>{{vm.videoGalleryImages[key].title}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </gs-loading>
+    <!-- Video Gallery -->
+
+    <!-- windowResize directive used to get innerWidth of window -->
+    <div class="mainFullBlock" window-resize>
+        <div class="full-width--block mb2 ">
+            <div class="gCardTitle ">
+                <h4>Video Gallery</h4>
+                <div class="gCardControls" ng-class="{
+                    'hidden': width <= 480 && vm.videoGalleries.length <= 2,
+                    'xs-hidden': width > 480 && width < 1024  && vm.videoGalleries.length <= 3,
+                    'md-hidden': width >= 1024 && vm.videoGalleries.length <= 4
+                    }">
+                    <button class="gallery-icon-prev" id="arrowBtn" ng-click="::vm.previousSlide($event)"></button>
+                    <button class="gallery-icon-next" id="arrowBtn" ng-click="::vm.nextSlide($event)"></button>
+                </div>
+            </div>
+            <div class="gCard ">
+                <gs-loading show-loader="!vm.videoGalleryLoaded">
+                    <div class="mainFullBlock">
+                        <div class="row no-gutters" ng-if="vm.videoGalleries.length === 0 || vm.videoGalleries.length === 1">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h3 class="text-center">No Video Gallery found.</h3>
+                            </div>
+                        </div>
+                        <slick class="row " settings="vm.videoGalleryConfig " ng-if="vm.videoGalleryLoaded " dots="false" slides-to-show="3 " slides-to-scroll="1 ">
+                            <div class="col-md-4" ng-repeat="video in vm.videoGalleries" ng-if="video.Id !== vm.Id">
+                                <div class="galleryBlock">
+                                    <a ui-sref='root.mainSidebar.videoGalleryDetails({ url: video.url, Id : video.Id})' title="{{video.galleryName}}">
+                                    <img class="img-responsive" src="//img.youtube.com/vi/{{video.galleryVideos[0].videoId}}/0.jpg"  alt="example1 " err-src="{{errorImagePath}}"/>
+                                    <p>{{video.galleryName | limitTo:62}}<span ng-if="video.galleryName.length > 62">...</span></p>
+                                    </a>
+                                </div>
+                            </div>
+                        </slick>
+                        <div class="row" ng-if="vm.videoGalleries.length > 1">
+                            <div class="col-md-12"><a ui-sref='root.mainSidebar.videoGalleryList({pageIndex : 1})' class="moreAnchore">More Video Galleries..</a>
+                            </div>
+                        </div>
+                    </div>
+                </gs-loading>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- Articles By City - Multi-news-section start -->
+                    <div class="partial-view" ui-view="articlesByCity"></div>
+                    <!-- Articles By City - Multi-news-section end -->
+                    <!-- Articles By category - section start -->
+                    <div class="partial-view" ui-view="articlesByCategory"></div>
+                    <!-- Articles By category - section end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bottom Advertise Start-->
+    <div page-type="video-gallery" bottom-advertise></div>
+    <!-- Bottom Advertise End -->
+</div>

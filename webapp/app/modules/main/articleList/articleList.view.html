@@ -1,0 +1,113 @@
+<!-- <div class="col-xs-12" ng-if="isMobile">
+    <div class="advertisementSection mb1">
+        <div google-ad html="vm.adRightTop.description1">
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:300px;height:250px"
+                 data-ad-client="ca-pub-8096200923666860"
+                 data-ad-slot="3103932722"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+</div> -->
+<mobile-adv page-type="{{vm.pageType}}" mobile-ad-data="vm.mobileAd" sort="Above List Box"></mobile-adv>
+<div class="col-md-8 col-sm-8 col-xs-12" ng-class="{'fadeIn' : vm.articlesLoaded}">
+    <!-- advertisement start -->
+    <div class="main-news-adv" ng-repeat="header2Ad in vm.adLeftSide | filter:{position:'Header2'}" ng-if="!isMobile">
+      <div class="advertisementSection">
+        <!-- If Ad Type Google Code -->
+        <div ng-if="(header2Ad.fileType == 'Google Code')" google-ad html="header2Ad.description"></div>
+        <!-- If Ad Type Image -->
+        <div ng-if="header2Ad.fileType == 'Image'">
+          <img ng-if="!header2Ad.adLink" ng-src="{{header2Ad.imageUrl}}" />
+          <a href="{{header2Ad.adLink}}" target="_blank" ng-if="header2Ad.adLink">
+            <img ng-src="{{header2Ad.imageUrl}}"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- advertisement end -->
+    <div class="mainFullBlock">
+        <div class="gCardTitle">
+            <h4 ng-if="!vm.metaTag">Latest {{vm.typeName}} {{vm.typeName.indexOf("News") == -1 ? "News" : "" }}</h4>
+            <h4 ng-if="vm.metaTag" data="{{vm.articles}}">Result for : {{vm.typeName}} </h4>
+        </div>
+        <gs-loading show-loader="!vm.articlesLoaded">
+            <div class="row gCard no-gutters" ng-if="vm.articles.length == 0">
+                <div class="col-md-12 col-sm-12 col-xs-12" ng-if="::(vm.articles.length == 0)">
+                    <h3 class="text-center">No Article found.</h3>
+                </div>
+            </div>
+            <div class="gCard gCardAdv" ng-if="vm.articles.length > 0">
+                <div class="categoryBlock" dir-paginate="(key,article) in ::vm.articles | itemsPerPage : vm.pageSize" total-items="{{::vm.totalCount}}"
+                    current-page="::vm.pagination.current">
+                    <!-- advertisement start -->
+                    <div class="main-news-adv adv-gCardAdv mb1" ng-repeat="lisAd in vm.adLeftSide | filter:{position:'List'}" ng-if="key == lisAd.listIndex  && !isMobile">
+                      <div class="advertisementSection">
+                        <!-- If Ad Type Google Code -->
+                        <div ng-if="(lisAd.fileType == 'Google Code')" google-ad html="lisAd.description"></div>
+                        <!-- If Ad Type Image -->
+                        <div ng-if="lisAd.fileType == 'Image'">
+                          <img ng-if="!lisAd.adLink" ng-src="{{lisAd.imageUrl}}" />
+                          <a href="{{lisAd.adLink}}" target="_blank" ng-if="lisAd.adLink">
+                            <img ng-src="{{lisAd.imageUrl}}"/>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- advertisement end -->
+                    <figure><a class="list-cover-image" ui-sref="root.mainSidebar.articleDetails({categorySlug: article.slug, articleId:article.articleId, articleUrl: article.articleUrl})"><img src="{{::article.baseUrl}}/{{::article.articleImage}}" err-src="{{errorImagePath}}"></figure></a>
+                        <div class="categoryContent">
+                            <a ui-sref="root.mainSidebar.articleDetails({categorySlug: article.slug, articleId:article.articleId, articleUrl: article.articleUrl})">
+                                <h2>{{::article.heading}}</h2>
+                            </a>
+                            <p> {{::article.publishScheduleTime | date:"yyyy MMMM dd 'at' hh:mm a"}}</p>
+                            <!-- <a class="moreAnchoreBlock" ui-sref="root.mainSidebar.articleDetails({categorySlug: article.slug, articleId:article.articleId, articleUrl: article.articleUrl})">More</a> -->
+                        </div>
+                </div>
+            </div>
+    </div>
+    <div class="gCardTitle mt1">
+        <h4>{{vm.typeName}} {{vm.typeName.indexOf("News") == -1 ? "News" : "" }}<span ng-if="vm.articles.length > 0 && vm.categoryListType !=='all' "> for {{::vm.articles[0].publishScheduleTime | date:"MMMM, yyyy"}}</span> </h4>
+    </div>
+    <div class="gCard pagination-grid">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <dir-pagination-controls max-size='6' boundary-links="true" on-page-change="::vm.pageChanged({date:vm.article.date,pageIndex:newPageNumber})"></dir-pagination-controls>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <p class="input-group datepicker">
+                    <input type="text" name="" class="form-control  date-picker" readonly="readonly" uib-datepicker-popup="yyyy-MM-dd" ng-model="vm.article.date"
+                        datepicker-options="vm.dateOption" ng-required="true" close-text="Close" popup-placement="bottom" is-open="vm.openDate.opened"
+                        placeholder="Select date" ng-change="::vm.pageChanged({date:vm.article.date,pageIndex:1})" required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="::vm.openDate()"><span class="glyphicon glyphicon-calendar"></span></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Bottom Advertise Start-->
+        <div page-type="{{::vm.pageType}}" bottom-advertise></div>
+        <!-- Bottom Advertise End -->
+    </div>
+</div>
+<!-- <div ng-if="isMobile">
+    <div class="col-xs-12">
+        <div class="advertisementSection mb1">
+            <div google-ad html="vm.adRightTop.description1">
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:250px"
+                     data-ad-client="ca-pub-8096200923666860"
+                     data-ad-slot="9647056783"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </div>
+</div> -->

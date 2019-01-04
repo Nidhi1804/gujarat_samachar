@@ -1,0 +1,84 @@
+<!doctype html>
+<html ng-app="gApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>:: Gujarat Samachar ::</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Angular UI css start -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<!-- Angular UI css end -->
+
+<!-- Slick slider css start -->
+<link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css">
+<link rel="stylesheet" href="bower_components/slick-carousel/slick/slick-theme.css">
+<!-- Slick slider css end -->
+
+<link rel="stylesheet" href="bower_components/fancybox-plus/css/jquery.fancybox-plus.css" media="screen" />
+
+<!-- App css start -->
+<link rel="stylesheet" href="assets/css/main.css">
+<!-- App css end -->
+</head>
+<body>
+<!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]--> 
+<!-- Add your site or application content here -->
+<main class="main-section">
+  <div class="container"> 
+  <!-- Header sectio start -->
+ <header class="headerSection" ng-include="'partial-views/header.html'"></header>
+<!-- Header sectio end -->
+    <!-- middle content start -->
+    <div class="middle-section" ui-view></div>
+    <!-- middle content end --> 
+    <!-- footer sectio start -->
+     <footer class="footerSection" ng-include="'partial-views/footer.html'"></footer>
+     <!-- footer sectio end -->
+  </div>
+</main>
+<!-- Js library start -->
+<script src="assets/js/jquery.1.9.1.min.js"></script>
+<!-- Js library end -->
+
+<!-- Angular UI start -->
+<script src="assets/js/angularjs/1.6.1/angular.js"></script>
+<script src="assets/js/angular-ui-router.js"></script>
+<script src="assets/js/angularjs/1.6.1/angular-animate.js"></script>
+<script src="assets/js/angularjs/1.6.1/angular-sanitize.js"></script>
+<script src="assets/js/ui-bootstrap-tpls-2.5.0.js"></script>
+<!-- Angular UI end -->
+
+<!-- carousel Ticker start -->
+<script type="text/javascript" src="assets/js/jquery.carouselTicker.min.js"></script>
+<!-- carousel Ticker end -->
+
+<!-- Angular app js start -->
+<script src="app.js"></script>
+<script src="modules/home/home.controller.js"></script>
+<script src="partial-views/sidebar.controller.js"></script>
+<script src="modules/article-detail/article-detail.controller.js"></script>
+<script src="modules/category-home/category-home.controller.js"></script>
+<script src="modules/magazines-home/magazines-home.controller.js"></script>
+<script src="modules/magazine-article-detail-page/magazine-article-detail-page.controller.js"></script>
+<script src="modules/gujarat-city-home/gujarat-city-home.controller.js"></script>
+<script src="modules/gujarat-exclusive-home/gujarat-exclusive-home.controller.js"></script>
+<script src="modules/gujarat-exclusive-article-detail/gujarat-exclusive-article-detail.controller.js"></script> 
+<script src="modules/vaividhya/vaividhya.controller.js"></script>
+<script src="modules/more-poll/more-poll.controller.js"></script> 
+<script src="modules/usa-ads/usa-ads.controller.js"></script>
+<!-- <script src="modules/slide-show-detail-page/slide-detail-page.controller.js"></script> -->
+<script src="modules/photo-gallery/photo-gallery.controller.js"></script>
+<script src="modules/slide-show/slide-show.controller.js"></script>
+<script src="modules/slide-show-detail/slide-show-detail.controller.js"></script>
+<!-- Angular app js end -->
+<script src="bower_components/slick-carousel/slick/slick.js"></script>
+<script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
+<script src="bower_components/fancybox-plus/dist/jquery.fancybox-plus.js"></script>
+<script src="bower_components/angular-fancybox-plus/js/angular-fancybox-plus.js"></script>
+</body>
+</html>

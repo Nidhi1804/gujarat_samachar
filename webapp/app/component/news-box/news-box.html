@@ -1,0 +1,111 @@
+<mobile-adv page-type="home" sort="Above Category Box1" mobile-ad-data="vm.mobileAd" ng-if="vm.key == 0"></mobile-adv>
+<mobile-adv page-type="home" sort="Above Category Box2" mobile-ad-data="vm.mobileAd" ng-if="vm.key == 1"></mobile-adv>
+<mobile-adv page-type="home" sort="Above Category Box3" mobile-ad-data="vm.mobileAd" ng-if="vm.key == 2"></mobile-adv>
+<mobile-adv page-type="home" sort="Above Category Box4" mobile-ad-data="vm.mobileAd" ng-if="vm.key == 3"></mobile-adv>
+
+<div class="mainContentSection">
+    <div  ng-if="vm.data.type == 1" class="categorie-news custom-tab-section mgr-top32">
+        <div class="tabTitle">
+            <uib-tabset type="pills" ng-init="vm.getArticlesByCategory(vm.data.categories[0])">
+                <uib-tab ng-repeat="category in vm.data.categories" ng-click="vm.getArticlesByCategory(category)" index="$index" heading="{{category.name}}">
+                    <gs-loading show-loader="vm.showLoader">
+                      <div class="single-categorie-news">
+                        <div class="row">
+                           <div class="col-md-12 col-sm-12 col-xs-12" ng-if="(vm.stories.length == 0)">
+                              <h3 class="text-center">No article found.</h3>
+                            </div>
+                          <div class="col-md-6 col-sm-12" ng-if="(vm.stories.length > 0)">
+                            <a ui-sref="root.mainSidebar.articleDetails({articleId:vm.selectedStory.articleId, categorySlug: vm.selectedStory.categorySlug ,articleUrl: vm.selectedStory.articleUrl })">
+                              <div class="cityNewsTitle">
+                                <h4>{{vm.selectedStory.heading}}</h4>
+                              </div>
+                              <div class="categorie-news-pic">
+                                <img src="{{vm.selectedStory.baseUrl}}/{{vm.selectedStory.articleImage}}" alt="" title="{{vm.selectedStory.heading}}" err-src="{{$root.errorImagePath}}">
+                              </div>
+                            </a>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                            <div class="categorie-news-list">
+                              <ul>
+                                <li ng-repeat="(key, story) in vm.stories" ng-if="($index <= 4) && vm.selectedStory.articleUrl != story.articleUrl">
+                                  <a ui-sref="root.mainSidebar.articleDetails({articleId:story.articleId, categorySlug: story.categorySlug ,articleUrl: story.articleUrl })" title="{{story.heading}}">
+                                    <div class="categorie-pic v-center">
+                                      <img src="{{vm.thumbImageUrl}}/{{story.articleImage}}" alt="" err-src="{{$root.errorImagePath}}">
+                                    </div>
+                                    <div class="categorie-news-disc v-center">
+                                      <h3>{{story.heading}}</h3>
+                                    </div>
+                                  </a>
+                                </li>
+                              </ul>
+                              <a ng-if="vm.stories.length > 5" ui-sref="root.mainSidebar.articleList({ Id : vm.currentCategory._id, slug: vm.currentCategory.slug, pageIndex:1, date:'', listType:'category'})" class="news_read_more">Read More...</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </gs-loading>
+                </uib-tab>
+            </uib-tabset> 
+        </div>
+        <div></div>
+    </div>
+    <div ng-if="vm.data.type == 2" ng-init="vm.getArticlesByCategory(vm.data.categories)" class="categorie-news city-news mgr-top32">
+      <div class="city-news-title">
+        <h3 class="city-title">Sports</h3>
+      </div>
+      <gs-loading show-loader="vm.showLoader">
+        <div class="single-categorie-news">
+          <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12" ng-if="(vm.stories.length == 0)">
+                <h3 class="text-center">No article found.</h3>
+              </div>
+              <div class="col-md-6 col-sm-12" ng-if="(vm.stories.length > 0)">
+                <a ui-sref="root.mainSidebar.articleDetails({articleId:vm.selectedStory.articleId, categorySlug: vm.selectedStory.categorySlug ,articleUrl: vm.selectedStory.articleUrl })">
+                  <div class="cityNewsTitle">
+                    <h4>{{vm.selectedStory.heading}}</h4>
+                  </div>
+                  <div class="categorie-news-pic">
+                    <img src="{{vm.selectedStory.baseUrl}}/{{vm.selectedStory.articleImage}}" alt="" title="{{vm.selectedStory.heading}}" err-src="{{$root.errorImagePath}}">
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="categorie-news-list">
+                  <ul>
+                    <li ng-repeat="(key, story) in vm.stories" ng-if="($index <= 4) && vm.selectedStory.articleUrl != story.articleUrl">
+                      <a ui-sref="root.mainSidebar.articleDetails({articleId:story.articleId, categorySlug: story.categorySlug ,articleUrl: story.articleUrl })" title="{{story.heading}}">
+                        <div class="categorie-pic v-center">
+                          <img src="{{vm.thumbImageUrl}}/{{story.articleImage}}" alt="" err-src="{{$root.errorImagePath}}">
+                        </div>
+                        <div class="categorie-news-disc v-center">
+                          <h3>{{story.heading}}</h3>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  <a ui-sref="root.mainSidebar.articleList({ Id : vm.currentCategory._id, slug: vm.currentCategory.slug, pageIndex:1, date:'', listType:'category'})" class="news_read_more">Read More...</a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </gs-loading> 
+    </div> 
+</div>
+<div class="row" ng-if="vm.data.index == 2 && vm.middleAd3 && !$root.isMobile" >    
+  <!-- Advertise Bottom End -->    
+  <div class="col-xs-12 col-md-12 col-sm-12" >
+      <div class="advertisementSection mt1">
+          <!-- If Ad Type Google Code -->
+          <div ng-if="::(vm.middleAd3.fileType == 'Google Code')" google-ad html="::vm.middleAd3.description"></div>
+
+          <!-- If Ad Type Image -->
+          <div ng-if="::(vm.middleAd3.fileType == 'Image')">
+            <img ng-if="::!vm.middleAd3.adLink" ng-src="{{::vm.middleAd3.imageUrl}}"/>
+            <a href="{{::vm.middleAd3.adLink}}" target="_blank" ng-if="::vm.middleAd3.adLink">
+              <img ng-src="{{::vm.middleAd3.imageUrl}}"/>
+            </a>
+          </div>
+      </div>
+  </div>
+  <!-- Advertise Bottom End -->
+</div>

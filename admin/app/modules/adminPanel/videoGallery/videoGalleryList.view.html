@@ -1,0 +1,116 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa fa-play-circle-o"></i> Manage Video Gallery List
+		</div>
+		<div class="tools"> </div>
+		<div class="actions">
+			<div class="btn-group">
+				<a ui-sref="root.addVideoGallery" class="btn btn-circle default" type="button">Add Video Gallery</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<form ng-submit="vm.searchGallery()">
+			<div class="row">
+				<!-- <div class="col-md-3">
+					<div class="form-group">
+						Category
+						<select ng-model="vm.category" class="chosen-select form-control" data-placeholder-text-single="'Select Category'" chosen
+						 ng-change="vm.getSubCategory(vm.gallery.category)" name="category" ng-options="category._id as category.name for category in vm.mainCategoryList">
+						<option><option>
+					</select>
+					</div>
+				</div> -->
+				<!-- Search By Title -->
+				<div class="col-md-3">
+					<input type="text" placeholder="Search" class="form-control" ng-model="vm.searchText" name="searchText">
+				</div>
+				<div class="col-md-6">
+					<button title="Search" ng-click="vm.searchGallery()" id="search" class="btn blue" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+					<button title="Reset" ng-click="vm.resetFilter()" id="search" class="btn red" type="button">
+	                    <i class="fa fa-refresh"></i>
+	                </button>
+					<!-- Delete Selected Gallery -->
+					<confirm-modal name="{{(vm.deleteIdList.length === 1 || vm.deleteIdList.length === 0) ? 'video gallery' : 'video galleries'}}" type="delete selected" id="{{vm.deleteIdList}}" on-confirm="vm.deleteSelectedGalleries(id)"
+					/></confirm-modal>
+					 <!-- Inactive selected advertise -->
+                    <confirm-modal name="{{(vm.deleteIdList.length === 1 || vm.deleteIdList.length === 0) ? 'video gallery' : 'video galleries'}}" type="inactive selected" id="{{vm.deleteIdList}}" on-confirm="vm.inactiveSelectedVideo(id, status)"
+                    /></confirm-modal>
+                    
+                    <!-- Activate selected advertise -->
+                    <confirm-modal name="{{(vm.deleteIdList.length === 1 || vm.deleteIdList.length === 0) ? 'video gallery' : 'video galleries'}}" type="activate selected" id="{{vm.deleteIdList}}" on-confirm="vm.inactiveSelectedVideo(id, status)"
+                    /></confirm-modal>
+				</div>
+			</div>
+		</form>
+		<div id="ajax_data" ng-if="!vm.showLoader">
+			<div class="table-scrollable">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th> # </th>
+							<th>
+								<label class="checkbox-inline"> 
+									<input 
+										icheck 
+										type="checkbox" 
+										ng-change="vm.checkAllBox()"
+										ng-model="vm.selectAll" required="">
+								</label>
+							</th>
+							<th> Gallery Name </th>
+							<th> Action </th>
+						</tr>
+					</thead>
+					<tbody id="sortable-row">
+						<tr ng-if="vm.galleryList.length == 0">
+							<td class="text-center" colspan="5">No data found.</td>
+						</tr>
+						<tr dir-paginate="gallery in vm.galleryList | itemsPerPage : vm.itemsPerPage" total-items="vm.totalItems" current-page="vm.pagination.current">
+							<td>
+								{{ (vm.itemsPerPage * (vm.pagination.current-1)) + $index+1}}
+							</td>
+							<td>
+								<label class="checkbox-inline">
+									<input 
+										icheck 
+										type="checkbox"
+										value="{{gallery._id}}"
+										ng-model="gallery.isChecked"
+										ng-change="vm.toggleCheckBox(gallery._id, gallery.isChecked)"
+										required="">
+								</label>
+							</td>
+							<td nowrap="nowrap" ng-bind-template="{{gallery.galleryName}}"></td>
+							<td nowrap="nowrap" align="left">
+								<!-- Active gallery confirm  -->
+								<confirm-modal ng-if="!gallery.isActive" name="video gallery" type="activate" id="{{gallery._id}}" on-confirm="vm.changeStatus(id, status)"
+								/></confirm-modal>
+
+								<!-- Inactive gallery confirm  -->
+								<confirm-modal ng-if="gallery.isActive" name="video gallery" type="Inactive" id="{{gallery._id}}" on-confirm="vm.changeStatus(id, status)"
+								/></confirm-modal>
+
+								<!-- Edit Gallery -->
+								<a uib-tooltip="Edit" ui-sref="root.editVideoGallery({galleryId : gallery._id})" title="Edit" class="btn btn-icon-only blue">
+									<i class="fa fa-edit"></i>
+								</a>
+
+								<!-- Delete Gallery -->
+								<confirm-modal name="video gallery" type="delete" id="{{gallery._id}}" on-confirm="vm.deleteSingleGallery(id)" /></confirm-modal>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<dir-pagination-controls max-size='5' on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

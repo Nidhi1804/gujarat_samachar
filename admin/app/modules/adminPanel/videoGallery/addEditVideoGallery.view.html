@@ -1,0 +1,183 @@
+<div class="portlet box blue gallery-image-block">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa icon-camera"></i>{{vm.typeTitle}} Video Gallery
+		</div>
+		<div class="actions">
+			<div class="btn-group">
+				<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form class="form-horizontal" name="vm.addGalleryForm" novalidate="novalidate" role="form" ng-if="vm.isSectionLoaded">
+			<div class="form-body">
+				<div class="row">
+					<div class="col-md-6">
+						<!-- Gallery zName -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Gallery Name <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Gallery Name" class="form-control" name="galleryName" ng-model="vm.gallery.galleryName" required="">
+								<span ng-if="vm.addGalleryForm.$invalid && vm.addGalleryForm.$submitted">
+									<span class="text-danger" ng-if="vm.addGalleryForm.galleryName.$error.required">Gallery name is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!-- Meta Title (English) -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Meta Title (English)<span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Meta Title" class="form-control" ng-model="vm.gallery.metaTitle" name="metaTitle" required="">
+								<span ng-if="vm.addGalleryForm.$invalid && vm.addGalleryForm.$submitted">
+									<span class="text-danger" ng-if="vm.addGalleryForm.metaTitle.$error.required">Meta title is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- Meta tag -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Meta tag</label>
+							<div class="col-md-8">
+								<meta-tag-component metakeywords="vm.gallery.metaTag" placeholder="Add a meta tag"></meta-tag-component>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!-- Meta Descriptions -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Meta Descriptions</label>
+							<div class="col-md-8">
+								<textarea class="form-control" rows="1" ng-model="vm.gallery.metaDescriptions" name="metaDescriptions"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- Meta Keywords -->
+						<div class="form-group">
+							<label class="control-label col-md-4">
+								Meta Keywords
+							</label>
+							<div class="col-md-8">
+								<meta-tag-component metakeywords="vm.gallery.metaKeywords" placeholder="Add a keywords"></meta-tag-component>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label col-md-4">Publish</label>
+							<div class="col-md-8">
+								<input ng-model="vm.gallery.publishVideoGallery" type="checkbox" class="make-switch" data-size="small" bs-switch>
+							</div>
+						</div>
+						<div class="form-group show-hide-animation" ng-show="!vm.gallery.publishVideoGallery" id="schedule_date_div">
+							<label class="control-label col-md-4">Schedule Time <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="datetime" class="form-control" date-time format="YYYY-MM-DD HH:mm" ng-model="vm.gallery.publishScheduleTime"
+								 view="date" auto-close="true" readonly="readonly" name="publishScheduleTime" ng-required="!vm.gallery.publishVideoGallery"><br/>
+								<span ng-if="vm.addGalleryForm.$invalid && vm.addGalleryForm.$submitted">
+									<span class="text-danger" ng-if="vm.addGalleryForm.publishScheduleTime.$error.required">Schedule Time is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Gallery Images -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet light form-fit bordered">
+							<div class="portlet-title">
+								<div class="caption">
+									<span class="caption-subject font-green bold uppercase">Gallery Videos</span>
+								</div>
+							</div>
+							<div class="portlet-body form" ng-include="'galleryVideoList.html'"></div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="form-actions right">
+
+					<a class="btn default" ui-sref="root.videoGalleryList({pageId:1})">Cancel</a>
+					<!-- Add New Gallery -->
+					<button ng-disabled="vm.disable" ng-if="!vm.galleryId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveGallery(vm.addGalleryForm.$valid, 'Add',true)">
+						<i class="fa fa-check"></i>Save & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="!vm.galleryId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveGallery(vm.addGalleryForm.$valid, 'Add',false)">
+						<i class="fa fa-check"></i>Save
+					</button>
+					<!-- Edit Gallery -->
+					<button ng-disabled="vm.disable" ng-if="vm.galleryId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveGallery(vm.addGalleryForm.$valid, 'Update',true)">
+						<i class="fa fa-check"></i>Update & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="vm.galleryId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveGallery(vm.addGalleryForm.$valid, 'Update',false)">
+						<i class="fa fa-check"></i>Update
+					</button>
+				</div>
+			</div>
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>
+
+<!-- Sub Category View -->
+<script type="text/ng-template" id="subCategoryRenderer.html">
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="subCategory">{{ category.label }}</label>
+		<div class="col-md-8">
+			<select ng-model="vm.models[$index]" class="chosen-select form-control" data-placeholder-text-single="'Select Category'"
+			 chosen id="subCategory" name="subCategory" ng-change="vm.getSubCategory(vm.models[$index], false, $index)" ng-options="cat._id as cat.name for cat in category.list">
+				<option value="">Select sub category</option>
+			</select>
+		</div>
+	</div>
+</script>
+
+<!-- Gallery Video list views -->
+<script type="text/ng-template" id="galleryVideoList.html">
+	<div class="form-body">
+		<!-- BEGIN FORM-->
+		<div class="form-group" ng-repeat="(key, gallery) in vm.gallery.galleryVideos">
+			<label class="control-label col-md-2">Video Title<span class="required" aria-required="true">*</span></label>
+			<div class="col-md-4">
+				<input type="text" placeholder="Video Title" class="form-control" name="videoTitle_{{key}}" ng-model="gallery.title" required="">
+				<span ng-if="vm.addGalleryForm.$invalid && vm.addGalleryForm.$submitted">
+				<span class="text-danger" ng-if="vm.addGalleryForm['videoTitle_'+$index].$error.required">Video title is required.
+				</span>
+				</span>
+
+			</div>
+			<div class="col-md-4">
+				<input type="text" placeholder="Video ID" class="form-control" name="videoId_{{key}}" ng-model="gallery.videoId" required="">
+				<span ng-if="vm.addGalleryForm.$invalid && vm.addGalleryForm.$submitted">
+				<span class="text-danger" ng-if="vm.addGalleryForm['videoId_'+$index].$error.required">Video ID is required.
+				</span>
+				</span>
+			</div>
+			<div class="col-md-2">
+				<button ng-if="vm.gallery.galleryVideos.length >1" title="Delete" class="btn btn-icon-only red" ng-click="vm.removeGalleryItem(key)">
+					<i class="fa fa-trash"></i>
+			</button>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-10 col-md-push-2">
+				<div class="btn-group">
+					<button value="145" class="btn btn-primary default" ng-click="vm.addVideo()" type="button">Add Video</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

@@ -1,0 +1,322 @@
+<div class="tab-content">
+	<div id="tab_2" class="tab-pane active">
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa icon-user"></i> Add New User
+				</div>
+				<div class="tools"></div>
+				<div class="actions">
+					<div class="btn-group">
+						<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+					</div>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				<form class="form-horizontal" name="vm.addUserForm" role="form" novalidate>
+					<div class="form-body">
+						<h3 class="form-section">
+							<div class="row">
+								<div class="col-md-2">User Info</div>
+							</div>
+						</h3>
+						<input type="hidden" value="" name="id">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">First Name <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										<input type="text" placeholder="First Name" class="form-control" name="firstName" ng-model="vm.user.firstName" required="">
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.firstName.$error.required">First Name is required.
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Last Name <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										<input type="text" placeholder="Last Name" class="form-control" name="lastName" ng-model="vm.user.lastName" required="">
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.lastName.$error.required">Last Name is required.
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Email <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										 <!-- Chrome only autocompletes the first input. So, added blank input to avoid email autocomplete  -->
+										<input class="form-control" type="email" name="email" style="display: none;" />
+										
+										<input class="form-control" type="email" autocomplete="off" placeholder="Email" name="email" ng-blur="vm.checkEmailAvailablity(vm.addUserForm.email.$error.email)"
+										 ng-model="vm.user.email" required="" ng-disabled="vm.userId" />
+										<span class="text-danger" ng-if="!vm.isEmailAvailable && vm.checkEmail && !vm.addUserForm.email.$error.required && !vm.addUserForm.email.$error.email">User Email Already Taken
+										</span>
+										<span class="text-success" ng-if="vm.isEmailAvailable && vm.checkEmail && !vm.addUserForm.email.$error.required">User Email Available
+										</span>
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.email.$error.required">Email is required.
+											</span>
+											<span class="text-danger" ng-if="vm.addUserForm.email.$error.email">Valid email is required.
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Password<span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										<input ng-if="!vm.userId" type="password" placeholder="Password" class="form-control" name="password" ng-model="vm.user.password"
+										 ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required>
+										<input ng-if="vm.userId" type="password" placeholder="Password" class="form-control" name="password" ng-model="vm.user.password"
+										 ng-disabled="vm.userId">
+										<!-- Validation only for Add user(Avoide for edit user) -->
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.password.$error.pattern">
+											New Password must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)
+											</span>
+										<span class="text-danger" ng-if="vm.addUserForm.password.$error.required">Password is required.
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Gender</label>
+									<div class="col-md-9">
+										<div class="radio-list">
+											<label class="radio-inline"> 
+												<input 
+													icheck 
+													type="radio" 
+													name="gender" 
+													value="male" 
+													ng-model="vm.user.gender"> Male
+											</label>
+											<label class="radio-inline"> 
+												<input 
+													icheck 
+													type="radio" 
+													name="gender" 
+													value="female" 
+													ng-model="vm.user.gender"> Female
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Mobile No. <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										<input type="number" ng-model="vm.user.mobileNo" placeholder="Mobile No." ng-minlength="10" ng-maxlength="10" ng-min="0"
+										 class="form-control" name="mobileNo" required="">
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.mobileNo.$error.required || vm.addUserForm.mobileNo.$error.number">Valid mobile number is required.
+											</span>
+										<span class="text-danger" ng-if="vm.addUserForm.mobileNo.$error.min">Valid mobile number is required.<br/>
+											</span>
+										<span class="text-danger" ng-if="((vm.addUserForm.mobileNo.$error.minlength ||
+											vm.addUserForm.mobileNo.$error.maxlength) && vm.addUserForm.mobileNo.$dirty)">Mobile number should be 10 digits.
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Phone No.</label>
+									<div class="col-md-9">
+										<input type="number" placeholder="Phone No." ng-model="vm.user.phoneNo" class="form-control" name="phoneNo">
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.phoneNo.$error.number">Valid mobile number is required.
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Birth Date <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										<input type="text" name="dateOfBirth" class="form-control  date-picker" readonly="readonly" uib-datepicker-popup="yyyy-MM-dd"
+										 ng-model="vm.DOB" datepicker-options="vm.dateOption" ng-required="true" close-text="Close" popup-placement="bottom"
+										 is-open="vm.openDate.opened" ng-click="vm.openDate()" placeholder="Date of Birth" required/>
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.dateOfBirth.$error.required">Birth Date is required.
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Profile Image</label>
+									<div class="col-md-9">
+										<label for="file-upload" class="upload-label nopad">
+											<input 
+												id="file-upload" 
+												class="file-upload hidden" 
+												options="vm.user.image" 
+												type="file" 
+												name="" 
+												value="" 
+												placeholder="" 
+												nv-file-select 
+												uploader="vm.uploader">
+											<i class="fa fa-upload" aria-hidden="true"></i> Upload Image
+										</label>
+										<span class="file-name">{{vm.printLibPdfName}}</span>
+
+										<div ng-repeat="item in vm.uploader.queue">
+											<div ng-show="vm.uploader.isHTML5" ng-thumb="{ file: item._file, height: 122 }"></div>
+										</div>
+										<div ng-if="vm.user.profileImage && vm.uploader.queue.length == 0" style="width:122px">
+											<img class="img-responsive" ng-src="{{vm.baseUrl}}/{{vm.user.profileImage}}">
+										</div>
+										<div>
+											<span class="text-danger" ng-if="vm.imageTypeErr">Allowed file extensions are: jpg, jpeg, png & gif.
+											</span>
+											<span class="text-danger" ng-if="vm.imageSizerr">
+											Attachment size exceeds the allowable limit. Please upload file up to 3mb size.
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group no_check_error">
+									<label class="control-label col-md-3">User Group <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										<select ng-model="vm.user.userGroup" class="chosen-select form-control" data-placeholder-text-single="'Select a user group'"
+										 chosen required name="userGroup" ng-options="group.name as group.name for group in vm.userGroup">
+										</select>
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.userGroup.$error.required"> User Group is required.
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<label class="control-label col-md-1">About Author</label>
+								<div class="col-md-11">
+									<textarea rows="5" class="form-control" placeholder="About Author" name="aboutAuthor" ng-model="vm.user.aboutAuthor">
+									</textarea>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<h3 class="form-section">Address </h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Address <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-9">
+										<input type="text" ng-model="vm.user.address" class="form-control" placeholder="Address" name="address" required="">
+										<span ng-if="vm.addUserForm.$invalid && vm.addUserForm.$submitted">
+											<span class="text-danger" ng-if="vm.addUserForm.address.$error.required"> Address is required.
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">City</label>
+									<div class="col-md-9">
+										<input type="text" ng-model="vm.user.city" class="form-control" placeholder="City" name="city">
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">State</label>
+									<div class="col-md-9">
+										<input type="text" ng-model="vm.user.state" class="form-control" placeholder="State" name="state">
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group no_check_error2">
+									<label class="control-label col-md-3">Post Code</label>
+									<div class="col-md-9">
+										<input type="text" ng-model="vm.user.postCode" class="form-control" placeholder="Post Code" name="postCode">
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">Country</label>
+									<div class="col-md-9">
+										<input type="text" ng-model="vm.user.country" class="form-control" placeholder="Country" name="country">
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+					</div>
+					<div class="form-actions">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-offset-4 col-md-8">
+										<a class="btn default" ui-sref="root.userList.id({pageId:1})">Cancel</a>
+										<button ng-if="!vm.userId" ng-click="vm.addUser(vm.addUserForm.$valid,true)" class="btn green" type="submit">Submit & Add New</button>
+										<button ng-if="!vm.userId" ng-click="vm.addUser(vm.addUserForm.$valid,false)" class="btn blue" type="submit">Submit</button>
+										<button ng-if="vm.userId" ng-click="vm.updateUser(vm.addUserForm.$valid,true)" class="btn green" type="submit">Update & Add New</button>
+										<button ng-if="vm.userId" ng-click="vm.updateUser(vm.addUserForm.$valid,false)" class="btn blue" type="submit">Update</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6"> </div>
+						</div>
+					</div>
+				</form>
+				<!-- END FORM-->
+			</div>
+		</div>
+	</div>
+</div>

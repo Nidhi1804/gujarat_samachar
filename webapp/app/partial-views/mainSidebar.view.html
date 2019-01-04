@@ -1,0 +1,4 @@
+<div class="row">
+    <div ui-view></div>
+    <div class="sideBar" ng-if="$state.current.name != 'root.mainSidebar.home' || !isMobile" ng-include="'partial-views/sidebar/sidebar.html' "></div>
+</div>

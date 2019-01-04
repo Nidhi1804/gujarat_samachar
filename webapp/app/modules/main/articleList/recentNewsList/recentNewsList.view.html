@@ -1,0 +1,54 @@
+
+<div class="col-md-8 col-sm-8 col-xs-12">
+    <gs-loading show-loader="!vm.articlesLoaded">
+        <div class="mainFullBlock">
+            <div class="gCardTitle">
+                <h4 ng-if="!vm.metaTag">{{::vm.typeName}} News </h4>
+                <h4 ng-if="vm.metaTag">Result for : {{::vm.typeName}} </h4>
+            </div>
+            <div class="gCard">
+                <div class="categoryBlock" ng-if="::(vm.recentNews.length == 0)">
+                  <h3 class="text-center">No Article found.</h3>
+                </div>            
+                <div class="categoryBlock" dir-paginate="article in ::vm.recentNews | itemsPerPage : vm.pageSize" total-items="{{::vm.totalCount}}"
+                    current-page="::vm.pagination.current">
+                    <figure>
+                        <a class="list-cover-image" ui-sref="root.mainSidebar.articleDetails({articleId:article.articleId, categorySlug: article.slug ,articleUrl: article.articleUrl })"><img src="{{::article.baseUrl}}/{{::article.articleImage}}" err-src="{{errorImagePath}}"></a>
+                    </figure>
+                    <div class="categoryContent">
+                        <a ui-sref="root.mainSidebar.articleDetails({articleId:article.articleId, categorySlug: article.slug ,articleUrl: article.articleUrl })">
+                            <h2>{{::article.heading}}</h2>
+                        </a>
+                        <p> {{::article.publishScheduleTime | date:"yyyy MMMM dd 'at' hh:mm a"}}</p>
+                        <!-- <a class="moreAnchoreBlock" ui-sref="root.mainSidebar.articleDetails({articleId:article.articleId, categorySlug: article.slug ,articleUrl: article.articleUrl })">More</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="gCardTitle mt1">
+                <h4>{{::vm.typeName}} News <span ng-if="::(vm.articles.length > 0 && vm.categoryListType !=='all')">for {{::vm.articles[0].publishScheduleTime | date:"MMMM, yyyy"}}</span> </h4>
+            </div>
+            <div class="gCard pagination-grid">
+                <div class="row">
+                    <div class="col-md-7 col-sm-6 col-xs-12">
+                        <dir-pagination-controls max-size='6' boundary-links="true" on-page-change="::vm.pageChanged({date:vm.article.date,pageIndex:newPageNumber})"></dir-pagination-controls>
+                    </div>
+                    <div class="col-md-5 col-sm-6 col-xs-12">
+                        <p class="input-group datepicker">
+                            <input type="text" name="" class="form-control  date-picker" readonly="readonly" uib-datepicker-popup="yyyy-MM-dd" ng-model="vm.article.date"
+                                datepicker-options="vm.dateOption" ng-required="true" close-text="Close" popup-placement="bottom" is-open="vm.openDate.opened"
+                                placeholder="Select date" ng-change="vm.pageChanged({date:vm.article.date,pageIndex:1})" required/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.openDate()"><span class="glyphicon glyphicon-calendar"></span></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Bottom Advertise Start-->
+                <div page-type="{{::vm.pageType}}" bottom-advertise></div>
+                <!-- Bottom Advertise End -->
+            </div>
+        </div>
+    </gs-loading>
+</div>

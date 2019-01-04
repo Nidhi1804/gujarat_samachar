@@ -1,0 +1,40 @@
+<div class="col-md-8 col-sm-8 col-xs-12" ng-class="{'fadeIn' : vm.articlesLoaded}">
+	<div class="gCard">
+        <ul class="rss">
+        	<li>
+        		Top Stories
+                <div class="rss-block" ng-if="category.name != 'Gujarat'">
+                	<span>: </span><a href="{{vm.appBaseUrl}}/rss/top-stories" target="_blank">{{vm.appBaseUrl}}/rss/top-stories</a>
+                </div>
+        	</li>
+            <li ng-repeat="(key, category) in vm.mainCategories track by $index" ng-switch on="category.name" ng-if="category.name != 'Home'">
+                {{category.name}}
+                <div class="rss-block" ng-if="category.name != 'Gujarat'">
+                	<span>: </span><a href="{{vm.appBaseUrl}}/rss/category/{{category.slug}}" target="_blank">{{vm.appBaseUrl}}/rss/category/{{category.slug}}</a>
+                </div>
+                <ul ng-if="category.name == 'Gujarat'">
+                	<li ng-repeat="(key, city) in vm.cities track by $index"> {{city.name}}
+	                	<div class="rss-block">
+		                	<span>: </span><a href="{{vm.appBaseUrl}}/rss/city/{{city.slug}}" target="_blank">{{vm.appBaseUrl}}/rss/city/{{city.slug}}</a>
+		                </div>
+                	</li>
+                </ul>
+                <ul ng-if="category.name == 'Vaividhya'">
+                	<li ng-repeat="(key, category) in ::vm.vaividhyaLinks track by $index">
+                        {{category.name}}
+	                	<div class="rss-block">
+		                	<span>: </span><a href="{{vm.appBaseUrl}}/rss/category/{{category.slug}}" target="_blank">{{vm.appBaseUrl}}/rss/category/{{category.slug}}</a>
+		                </div>
+                	</li>
+                </ul>
+                <ul ng-if="category.name == 'Magazines'">
+                	<li ng-repeat="(key, magazine) in vm.magazines">{{magazine.name}}
+	                	<div class="rss-block">
+		                	<span>: </span><a href="{{vm.appBaseUrl}}/rss/magazine/{{magazine.slug}}" target="_blank">{{vm.appBaseUrl}}/rss/magazine/{{magazine.slug}}</a>
+		                </div>
+                	</li>
+                </ul>
+            </li>
+        </ul>
+	</div>
+</div>

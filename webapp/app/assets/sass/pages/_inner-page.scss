@@ -1,0 +1,50 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+.right-blog{
+	li{
+		width: 50% !important;
+		margin:5px 0 0 0 !important;
+	}
+	
+}
+.whiteBlockSliderBlock{
+	p{
+		@include rem(margin, 15px 0 0 0);
+		line-height: 22px;
+	}
+	button.btn.btn-more {
+	    float: right;
+	    background: $red;
+	    color: $white;
+	} 
+}
+
+.white-block-gallery{
+	overflow: hidden;
+	ul{
+		@include rem(margin,0);
+		@include rem(padding,0 15px 15px 15px);
+		display: inline-block;
+		list-style: none;
+		width: 100%;
+		li{
+			width:100%;
+			float: left;
+			@include rem(margin,15px 0 0px 0);
+			&:before{
+				 content: "";
+				 float: left;
+				 background: url(../images/left-arrow-icon.png) left top no-repeat;
+    			 height: 10px;
+    			 width: 10px;
+    			 @include rem(margin,4px 0 0px 0);
+    			}
+			a{
+				display: inline-block;
+				width: 90%; 
+			}
+
+		}
+	}
+}

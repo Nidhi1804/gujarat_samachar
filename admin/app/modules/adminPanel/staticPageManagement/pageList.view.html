@@ -1,0 +1,50 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption medium-icons">
+			<i class="fa icon-notebook"></i>
+			CMS Page List
+		</div>
+	</div>
+	<div class="portlet-body">
+		<div class="form-group">
+			<div id="alert_notification"></div>
+		</div>
+		<div id="ajax_data">			
+			<div class="table-scrollable" ng-if="vm.isPageLoaded">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>							
+							<th>#</th>
+							<th>Title</th>
+							<th>Meta Title</th>
+							<th nowrap="nowrap">Action</th>
+						</tr>
+					</thead>
+					<tbody id="sortable-row">
+						<tr ng-if="vm.pageList.length == 0">
+							<td class="text-center" colspan="4">No data found.</td>
+						</tr>						
+						<tr ng-repeat="page in vm.pageList" ng-if="page.title != 'Site Map'">
+							<td>{{ $index + 1 }} </td>
+							<td class="black_text" ng-bind-template="{{page.title}}"></td>
+							<td class="black_text" ng-bind-template="{{page.metaTitle}}"></td>
+							<td nowrap="nowrap">  
+								<!-- Active / Inactive  -->
+								<!-- <a ng-if="!page.isActive" href="javascript:void(0)" title="Active" class="btn btn-icon-only red" ng-click="vm.changeStatus(page._id, 1)">
+									<i class="fa fa-ban"></i>
+								</a>
+								<a href="javascript:void(0)" ng-if="page.isActive" title="Inactive" class="btn btn-icon-only blue" ng-click="vm.changeStatus(page._id, 0)"><i class="fa fa-check"></i>
+								</a> -->							
+								
+								<!-- Edit Article -->
+								<a ui-sref="root.editPage({pageId : page._id})" title="Edit" class="btn btn-icon-only blue" >
+									<i class="fa fa-edit"></i>
+								</a>							
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

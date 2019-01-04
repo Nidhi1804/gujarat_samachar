@@ -1,0 +1,59 @@
+<mobile-adv mobile-ad-data="vm.mobileAd" sort="Above Photo Gallery List Box"></mobile-adv>
+<!-- middle content end -->
+<div class="col-md-8 col-sm-8 col-xs-12">
+    <gs-loading show-loader="!vm.galleriesLoaded">
+        <div class="gCard" ng-if="vm.galleries.length == 0">
+            <div class="row no-gutters">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h3 class="text-center">No Photo Gallery found.</h3>
+                </div>
+            </div>
+        </div>
+        <div class="mainFullBlock" window-resize>
+            <!-- windowResize directive used to get innerWidth of window -->
+            <div dir-paginate="gallery in vm.galleries| itemsPerPage : vm.documentsPerPage" total-items="{{vm.totalCount}}" current-page="vm.pagination.current">
+                <div class="full-width--block mb2" ng-repeat="(key,value) in gallery track by $index" ng-if="value.length > 0">
+                    <div class="gCardTitle">
+                        <h4>Photos of the Day for Date : {{key}}</h4>
+                        <div class="gCardControls" ng-class="{
+                            'hidden': width <= 480 && value.length <= 1,
+                            'xs-hidden': width > 480 && width < 1024  && value.length <= 2,
+                            'md-hidden': width >= 1024 && value.length <= 3
+                            }">
+                            <button id="arrowBtn" class="gallery-icon-prev" ng-click="vm.previousSlide($event, $parent.$parent.$index)">
+                            </button>
+                            <button id="arrowBtn" class="gallery-icon-next" ng-click="vm.nextSlide($event, $parent.$parent.$index)">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="gCard">
+                        <div class="mainFullBlock">
+                            <slick class="row" settings="gallery['galleryConfig']" ng-if="vm.galleryConfig1Loaded" dots="false" slides-to-show="3" slides-to-scroll="1">
+                                <div class="col-md-4" ng-repeat="data in value track by $index">
+                                    <div class="galleryBlock">
+                                        <a rel="gallery_group" title="{{data.title}}" href="{{vm.baseUrl}}/{{data.image}}" fancyboxable="vm.photoGalleryConfig">
+                                        <img alt="" src="{{data.baseUrl}}/{{data.image}}" err-src="{{errorImagePath}}"/>
+                                    <p>{{data.title | limitTo:65}}<span ng-if="data.title.length > 65">...</span></p></a>
+                                        <fancybox box-for="[rel=gallery_group]" options="vm.photoGalleryGroup"></fancybox>
+                                    </div>
+                                </div>
+                            </slick>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gCard" ng-if="vm.totalCount > 10">
+            <div class="row">
+                <div class="text-center">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <dir-pagination-controls max-size='6' boundary-links="true" on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Advertise Start-->
+        <div page-type="photo-gallery" bottom-advertise></div>
+        <!-- Bottom Advertise End -->
+    </gs-loading>
+</div>

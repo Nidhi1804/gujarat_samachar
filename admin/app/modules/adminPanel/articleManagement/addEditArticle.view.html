@@ -1,0 +1,386 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa fa-gift"></i>{{vm.typeTitle}} Article
+		</div>
+		<div class="actions">
+			<div class="btn-group">
+				<a title="Back" href="javascript:;" onclick="history.go(-1)" class="btn btn-circle red-sunglo">Back</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form class="form-horizontal" name="vm.addArticleForm" novalidate="novalidate" role="form" ng-if="vm.isArticleLoaded" accessible-form>
+			<div class="form-body">
+				<div class="row">
+					<!-- Heading -->
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label col-md-2 no-top-padding">Heading <span class="required" aria-required="true">*</span><br/>(Min. 20 characters)</label>
+
+							<div class="col-md-10">
+								<div id="headLine">
+								 	<h2>{{vm.article.heading}}</h2>
+								</div>	
+								<input type="text" placeholder="Heading" class="form-control" name="heading" ng-model="vm.article.heading" ng-minlength="20" ng-maxlength="250"
+								 required="" ng-change="validateHeadLine()" ng-blur="validateHeadLine()">
+								 <span class="text-danger" ng-if="vm.invalidLimit">You have exceed the heading length limit!
+								</span>
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.heading.$error.required">Heading is required.
+									</span>
+									<span class="text-danger" ng-if="vm.addArticleForm.heading.$error.minlength">Please enter at least 20 characters.
+									</span>
+									<span class="text-danger" ng-if="vm.addArticleForm.heading.$error.maxlength">The text entered exceeds the maximum length of 250 characters.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Sub Heading One -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="no-top-padding control-label col-md-4">Sub Heading One
+							<br/>(Min. 20 characters)</label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Sub Heading One" class="form-control" name="subHeadingOne" ng-minlength="20" ng-model="vm.article.subHeadingOne">
+								<span class="text-danger" ng-if="vm.addArticleForm.subHeadingOne.$error.minlength">Please enter at least 20 characters.
+								</span>
+							</div>
+						</div>
+					</div>
+					<!-- Sub Heading Two -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label no-top-padding col-md-4">Sub Heading Two<br/>(Min. 20 characters)</label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Sub Heading Two" class="form-control" ng-minlength="20" ng-model="vm.article.subHeadingTwo"
+								 name="subHeadingTwo">
+								<span class="text-danger" ng-if="vm.addArticleForm.subHeadingTwo.$error.minlength">Please enter at least 20 characters.
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<span class="help-block"></span>
+				<div class="row">
+					<!-- Short Description -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label no-top-padding col-md-4">
+							Short Description<br/>(Min. 50 characters)
+							</label>
+							<div class="col-md-8">
+								<textarea class="form-control" rows="2" ng-minlength="50" name="description" ng-model="vm.article.description"></textarea>
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.description.$error.minlength">Please enter at least 50 characters.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<!-- Magazines -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="single-prepend-text" class="control-label col-md-4">Magazines</label>
+							<div class="col-md-8">
+								<select ng-model="vm.article.magazine" class="chosen-select form-control" data-placeholder-text-single="'Select Magazine'"
+								 chosen name="magazines" ng-options="magazine._id as magazine.name for magazine in vm.magazines">
+									<option></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Cities -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="single-prepend-text" class="control-label col-md-4">Cities</label>
+							<div class="col-md-8">
+								<select ng-model="vm.article.city" class="chosen-select form-control" data-placeholder-text-single="'Select City'" chosen
+								 name="city" ng-options="city._id as city.name for city in vm.cities">
+									<option></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Sections -->
+					<div class="col-md-6" ng-if="vm.sectionList.length > 0">
+						<div class="form-group">
+							<label for="single-prepend-text" class="control-label col-md-4">Section</label>
+							<div class="col-md-8">
+								<select ng-model="vm.article.section" class="chosen-select form-control" data-placeholder-text-single="'Select Section'"
+								 chosen name="section" ng-options="section._id as section.title for section in vm.sectionList">
+									<option></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Main Category -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="single-prepend-text" class="control-label col-md-4">Categories<span class="required" aria-required="true" ng-if="!vm.article.magazine">*</span></label>
+							<div class="col-md-8">
+								<select ng-model="vm.parentId" class="chosen-select form-control" data-placeholder-text-single="'Select Category'" chosen
+								 ng-required="!vm.article.magazine" ng-change="vm.getSubCategory(vm.parentId, true)" name="category" ng-options="category._id as category.name for category in vm.mainCategoryList">
+									<option></option>
+								</select>
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted && !vm.article.magazine">
+									<span class="text-danger" ng-if="vm.addArticleForm.category.$error.required"> Please select at least one category
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- List of sub-categories -->
+					<div class="col-md-6" ng-repeat="category in vm.subCategoryList" ng-include="'subCategoryRenderer.html'" ng-if="category.list.length > 0">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1">
+						<label class="control-label">Content<span class="required" aria-required="true">*</span></label>
+					</div>
+					<div class="col-md-11">
+						<summernote config="vm.options" height = "200" name="content" ng-model="vm.article.content" ng-required="true" editable="editable" editor="editor" on-paste="snPaste(evt)"></summernote>
+						<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+							<span class="text-danger" ng-if="vm.addArticleForm.content.$error.required">Content is required.
+							</span>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- Meta Title (English) -->
+						<div class="form-group">
+							<label class="control-label  col-md-4">Meta Title (English) <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Meta Title" class="form-control" ng-model="vm.article.metaTitle" name="metaTitle" required="">
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.metaTitle.$error.required">Meta Title is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!-- Meta Descriptions -->
+						<div class="form-group">
+							<label class="control-label  col-md-4">Meta Descriptions <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<textarea class="form-control" rows="1" ng-model="vm.article.metaDescriptions" name="metaDescriptions" required=""></textarea>
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.metaDescriptions.$error.required">Meta Descriptions is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Meta Keywords -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label  col-md-4">Meta Keywords<span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<tags-input min-length="2" ng-model="vm.article.metaKeywords" on-tag-added="vm.addTag($tag, $query)" placeholder="Add a keywords"
+								 display-property="name">
+									<auto-complete min-length="1" source="vm.getMetaTags($query)"></auto-complete>
+								</tags-input>
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.metaKeywords.$error.required">Meta Keywords is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!-- Meta tag -->
+						<div class="form-group">
+							<label class="control-label  col-md-4">Meta tag</label>
+							<div class="col-md-8">
+								<tags-input min-length="2" ng-model="vm.article.metaTag" on-tag-added="vm.addTag($tag, $query)" placeholder="Add a meta tag"
+								 display-property="name">
+									<auto-complete min-length="1" source="vm.getMetaTags($query)"></auto-complete>
+								</tags-input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- source  -->
+						<div class="form-group">
+							<label class="control-label  col-md-4">Source <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="text" placeholder="Name of Source" class="form-control" name="source" ng-model="vm.article.source" required="">
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.source.$error.required">Source is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!-- Image -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Image </label>
+							<div class="col-md-8">
+								<label 
+								class="upload-label nopad" 
+								ng-click="vm.openAddModal('article')"  
+								>
+									<i class="fa fa-upload" aria-hidden="true"  uib-tooltip="Upload Image"></i> Upload Image
+								</label>
+								<div ng-if="vm.article.articleImage" style="width:122px">
+									<img 
+									class="img-responsive image-hover"
+									ng-if="vm.serverUrl === false" 
+									data="{{imageHover}}"
+									ng-src="{{vm.showArticleImage}}" 
+									>
+									<img class="img-responsive image-hover" ng-if="vm.serverUrl === true" ng-src="{{vm.baseUrl}}{{vm.article.articleImage}}" required="">
+									<a ng-click="vm.removethisImage()"><img class="remove-img" src="assets/images/remove.png"/></a>
+								</div>
+								<div>
+									<!-- <span ng-if="vm.addArticleForm.$submitted">
+										<span class="text-danger" ng-if="!vm.article.articleImage ">
+											Please article upload image.
+										</span>
+									</span> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- Reporters Name -->
+						<div class="form-group">
+							<label class="control-label  col-md-4">Reporter's Name <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<select ng-model="vm.article.reporter" class="chosen-select form-control" data-placeholder-text-single="'Select Reporter Name'"
+								 chosen required name="reporter" ng-options="reporter._id as reporter.fullName for reporter in vm.reporterList">
+									<option></option>
+								</select>
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.reporter.$error.required"> Please select at least one Reporter Name
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label col-md-4">Publish</label>
+							<div class="col-md-8">
+								<input ng-model="vm.article.publishArticle" type="checkbox" class="make-switch" data-size="small" bs-switch>
+							</div>
+						</div>
+						<div class="form-group show-hide-animation" ng-show="!vm.article.publishArticle" id="schedule_date_div">
+							<label class="control-label col-md-4">Schedule Time <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<input type="datetime" class="form-control" date-time format="YYYY-MM-DD HH:mm" ng-model="vm.article.publishScheduleTime"
+								 view="date" auto-close="true" readonly="readonly" name="publishScheduleTime" ng-required="!vm.article.publishArticle"><br/>
+								<span ng-if="vm.addArticleForm.$invalid && vm.addArticleForm.$submitted">
+									<span class="text-danger" ng-if="vm.addArticleForm.publishScheduleTime.$error.required">Schedule Time is required.
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-if="vm.articleId">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label col-md-4">Breaking News</label>
+							<div class="col-md-8">
+								<input ng-model="vm.article.isBreakingNews" type="checkbox" class="make-switch" data-size="small" bs-switch>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6" ng-if="vm.article.isBreakingNews === true">
+
+						<!-- Image -->
+						<div class="form-group">
+							<label class="control-label col-md-4">Poster Image <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<label class="upload-label nopad" ng-click="vm.openAddModal('poster')">
+									<i class="fa fa-upload" aria-hidden="true"  uib-tooltip="Upload Image"></i> Upload Image
+								</label>
+
+								<div ng-if="vm.article.posterImage" style="width:122px">
+									<img class="img-responsive" ng-src="{{vm.article.posterImage}}">
+								</div>
+								<div>
+									<span ng-if="vm.addArticleForm.$submitted">
+										<span class="text-danger" ng-if="!vm.article.posterImage">
+											Please poster upload image.
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<!-- Switch for Section Flags -->
+				<div class="table-responsive">
+					<legend>Section Flags</legend>
+					<table class="table table-striped table-hover" width="100%">
+						<thead>
+							<tr>
+								<th ng-repeat="(key, value) in vm.sectionFlags">{{value.name}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td ng-repeat="(key, section) in vm.sectionFlags">
+									<input ng-model="section.status" type="checkbox" name="sectionFlag" class="make-switch" ng-change="vm.updateSelection(key)"
+									 data-size="small" bs-switch>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="form-actions right">
+					<a class="btn default" ui-sref="root.articleList.id({pageId:1})">Cancel</a>
+					<button ng-disabled="vm.disable" ng-if="!vm.articleId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveArticle(vm.addArticleForm.$valid,true)">
+						<i class="fa fa-check"></i>Save & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="!vm.articleId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveArticle(vm.addArticleForm.$valid,false)">
+						<i class="fa fa-check"></i>Save
+					</button>
+					<button ng-disabled="vm.disable" ng-if="vm.articleId" class="btn green" id="save_btn" type="submit" ng-click="vm.saveArticle(vm.addArticleForm.$valid,true)">
+						<i class="fa fa-check"></i>Update & Add New
+					</button>
+					<button ng-disabled="vm.disable" ng-if="vm.articleId" class="btn blue" id="save_btn" type="submit" ng-click="vm.saveArticle(vm.addArticleForm.$valid,false)">
+						<i class="fa fa-check"></i>Update
+					</button>
+				</div>
+			</div>
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>
+
+<!-- Sub Category View -->
+<script type="text/ng-template" id="subCategoryRenderer.html">
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="subCategory">{{ category.label }}</label>
+		<div class="col-md-8">
+			<select ng-model="vm.models[$index]" class="chosen-select form-control" data-placeholder-text-single="'Select Category'"
+			 chosen id="subCategory" name="subCategory" ng-change="vm.getSubCategory(vm.models[$index], false, $index)" ng-options="cat._id as cat.name for cat in category.list">
+				<option value="">Select sub category<option>
+			</select>
+		</div>
+		<div>
+</script>
+<!-- Image View -->
+
+

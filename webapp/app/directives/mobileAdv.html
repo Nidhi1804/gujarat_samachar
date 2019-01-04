@@ -1,0 +1,18 @@
+<div class="row">    
+    <!-- Advertise Bottom End -->    
+    <div class="col-xs-12 col-md-12"  ng-repeat="(key, mobileAd) in mobileAdData |   filter: { position: sort}">
+        <div class="mobileAdvertisementSection">
+            <!-- If Ad Type Google Code -->
+            <div ng-if="(mobileAd.fileType == 'Google Code')" google-ad html="mobileAd.description"></div>
+
+            <!-- If Ad Type Image -->
+            <div ng-if="(mobileAd.fileType == 'Image')">
+              <img ng-if="!mobileAd.adLink" ng-src="{{mobileAd.imageUrl}}"/>
+              <a href="{{mobileAd.adLink}}" target="_blank" ng-if="mobileAd.adLink">
+                <img ng-src="{{mobileAd.imageUrl}}"/>
+              </a>
+            </div>
+        </div>
+    </div>
+    <!-- Advertise Bottom End -->
+</div>  

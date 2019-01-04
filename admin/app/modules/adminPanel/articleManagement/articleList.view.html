@@ -1,0 +1,194 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa icon-puzzle"></i> Articles List &nbsp;&nbsp;&nbsp;&nbsp;Total Records: {{vm.totalArticles}}
+		</div>
+		<div class="tools"> </div>
+		<div class="actions">
+			<div class="btn-group">
+				<a ui-sref="root.addArticle" class="btn btn-circle default" type="button">Create Article</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<form ng-submit="vm.searchArticle()">
+			<div class="row">
+				<div class="col-md-3" ng-if="vm.reporterList.length != 0">
+					<!-- Reporters Name -->
+					<div class="form-group">
+						<select ng-model="vm.reporter" class="chosen-select form-control" data-placeholder-text-single="'Select Reporter Name'" chosen
+						 name="reporter" ng-options="reporter._id as reporter.fullName for reporter in vm.reporterList">
+							<option>
+								<option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<!-- City -->
+						<select ng-model="vm.city" class="chosen-select form-control" data-placeholder-text-single="'Select City'" chosen name="city"
+						 ng-options="city._id as city.name for city in vm.cities">
+							<option></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<!-- Search By Heading -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" placeholder="Search by Heading" class="form-control" ng-model="vm.searchText" name="searchText">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<button title="Search" id="search" class="btn blue" type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+								<button title="Reset" ng-click="vm.resetFilter()" id="search" class="btn red" type="button">
+									<i class="fa fa-refresh"></i>
+								</button>
+								<!-- Delete selected articles -->
+								<confirm-modal name="{{(vm.deleteIdList.length > 1) ? 'articles' : 'article'}}" type="delete selected" type="delete selected"
+								 id="{{vm.deleteIdList}}" on-confirm="vm.deleteSelectedArticles(id)" /></confirm-modal>
+
+								<!-- Inactive selected advertise -->
+								<confirm-modal name="{{(vm.deleteIdList.length > 1) ? 'articles' : 'article'}}" type="inactive selected" id="{{vm.deleteIdList}}"
+								 on-confirm="vm.activeSelectedArticles(id, status)" /></confirm-modal>
+
+								<!-- Activate selected advertise -->
+								<confirm-modal name="{{(vm.deleteIdList.length > 1) ? 'articles' : 'article'}}" type="activate selected" id="{{vm.deleteIdList}}"
+								 on-confirm="vm.activeSelectedArticles(id, status)" /></confirm-modal>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<!--Main Category -->
+						<select ng-model="vm.category" class="chosen-select form-control" data-placeholder-text-single="'Select Category'" chosen
+						 ng-change="vm.getSubCategory(vm.category,true)" name="category" ng-options="category._id as category.name for category in vm.mainCategoryList">
+							<option>
+								<option>
+						</select>
+					</div>
+				</div>
+				<!-- List of sub-categories -->
+				<div class="col-md-3" ng-repeat="category in vm.subCategoryList" ng-include="'subCategoryRenderer.html'" ng-if="category.list.length > 0">
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<!-- magazine -->
+						<select ng-model="vm.magazine" class="chosen-select form-control" data-placeholder-text-single="'Select Magazine'" chosen
+						 name="magazines" ng-options="magazine._id as magazine.name for magazine in vm.magazines">
+							<option></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3" ng-if="vm.sections.length > 0">
+					<div class="form-group">
+						<!-- Sections -->
+						<select ng-model="vm.section" class="chosen-select form-control" data-placeholder-text-single="'Select section'" chosen name="section"
+						 ng-options="section._id as section.title for section in vm.sections">
+							<option></option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<div id="ajax_data" ng-if="vm.isArticleLoaded">
+			<div class="table-scrollable">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>
+								<label class="checkbox-inline">
+									<input icheck type="checkbox" ng-change="vm.checkAllBox()" ng-model="vm.selectAll" required="">
+								</label>
+							</th>
+							<th>Image</th>
+							<th>Heading</th>
+							<th>Reporter Name</th>
+							<th>Category</th>
+							<th>Schedule Time</th>
+							<th>Last Modified Time</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="sortable-row">
+						<tr ng-if="vm.articleList.length == 0">
+							<td class="text-center" colspan="5">No data found.</td>
+						</tr>
+						<tr dir-paginate="article in vm.articleList | itemsPerPage : vm.articlesPerPage" total-items="vm.totalArticles" current-page="vm.pagination.current">
+							<td>
+								<label class="checkbox-inline">
+									<input icheck type="checkbox" value="{{article._id}}" ng-model="article.isChecked" ng-change="vm.toggleCheckBox(article._id, article.isChecked)"
+									 required="">
+								</label>
+							</td>
+							<td>
+								<img width="80" ng-src="{{article.baseUrl}}/{{article.articleImage}}" err-src="{{errorImagePath}}">
+							</td>
+							<td ng-if="article.magazineInfo.length == 0" data="{{article}}">
+								<a class="black_text" ng-bind-html="article.heading | highlight:vm.searchText" href="{{vm.webAppBaseUrl}}/news/{{article.categoryInfo[0].slug}}/{{article.articleUrl}}"
+								 target="_blank"></a>
+							</td>
+							<td ng-if="article.magazineInfo.length > 0">
+								<a class="black_text" ng-bind-html="article.heading | highlight:vm.searchText" href="{{vm.webAppBaseUrl}}/news/{{article.magazineInfo[0].slug}}/{{article.articleUrl}}"
+								 target="_blank"></a>
+							</td>
+							<td nowrap="nowrap" ng-bind-template="{{user.firstName}} {{user.lastName}}" ng-repeat="user in article.userInfo"></td>
+							<td nowrap="nowrap" ng-if="article.userInfo.length === 0"> </td>
+							<td nowrap="nowrap" ng-if="article.categoryInfo.length > 0">{{article.categoryInfo[0].name}}</td>
+							<td nowrap="nowrap" ng-if="article.categoryInfo.length === 0"> </td>
+							<td nowrap="nowrap" ng-bind-template="{{ article.publishScheduleTime | date :
+                        	'yyyy-MM-dd H:mm' }} "></td>
+							<td nowrap="nowrap" ng-bind-template="{{ article.lastModifiedAt | date : 'yyyy-MM-dd H:mm' }}"></td>
+							<td nowrap="nowrap" align="left">
+
+								<!-- Active Article confirm  -->
+								<confirm-modal ng-if="!article.isActive" name="article" type="activate" id="{{article._id}}" on-confirm="vm.changeStatus(id, status)"
+								/></confirm-modal>
+
+								<!-- Inactive Article confirm  -->
+								<confirm-modal ng-if="article.isActive" name="article" type="Inactive" id="{{article._id}}" on-confirm="vm.changeStatus(id, status)"
+								/></confirm-modal>
+
+
+								<!-- Edit Article -->
+								<a ui-sref="root.editArticle({articleId : article._id})" uib-tooltip="Edit" title="Edit" class="btn btn-icon-only blue">
+									<i class="fa fa-edit"></i>
+								</a>
+
+								<!-- Delete Single Article -->
+								<confirm-modal name="article" type="delete" id="{{article._id}}" on-confirm="vm.deleteSingleArticle(id)" /></confirm-modal>
+
+								<a socialshare class="ripplelink facebook-icon btn btn-facebook" socialshare-provider="facebook" socialshare-url="{{article.shareUrl}}"
+								 uib-tooltip="Facebook Share">
+									<i class="fa fa-facebook" aria-hidden="true"></i>
+								</a>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<dir-pagination-controls max-size='5' on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Sub Category View -->
+<script type="text/ng-template" id="subCategoryRenderer.html">
+	<div class="form-group">
+			<select ng-model="vm.models[$index]" class="chosen-select form-control" data-placeholder-text-single="'Select sub category'"
+			 chosen id="subCategory" name="subCategory" ng-change="vm.getSubCategory(vm.models[$index], false, $index)" ng-options="cat._id as cat.name for cat in category.list">
+				<option><option>
+			</select>
+		<div>
+</script>

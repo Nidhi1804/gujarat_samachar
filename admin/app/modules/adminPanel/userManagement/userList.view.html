@@ -1,0 +1,123 @@
+<div class="portlet box blue">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="icon-user"></i>User List
+		</div>
+		<div class="tools"></div>
+		<div class="actions">
+			<div class="btn-group">
+				<a ui-sref="root.addUser" id="add_user" class="btn btn-circle default" type="button">Add User</a>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+		<form ng-submit="vm.searchUser()">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group no_check_error">
+						<select ng-model="vm.group" class="chosen-select form-control" data-placeholder-text-single="'Select a user group'" chosen
+						 required name="userGroup" ng-options="group.name as group.name for group in vm.userGroup">
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<input type="text" placeholder="Search By Email" class="form-control" ng-model="vm.searchText" name="searchText">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<!-- <div class="col-md-3"> -->
+						<!-- <div class="form-group"> -->
+							<button title="Search" ng-click="vm.searchUser()" id="search" class="btn blue" type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+							<button title="Reset" ng-click="vm.resetFilter()" id="search" class="btn red" type="button">
+			                    <i class="fa fa-refresh"></i>
+			                </button>
+						<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-8"> -->
+						<!-- Delete selected user -->
+						<confirm-modal name="{{(vm.deleteIdList.length > 1) ? 'users' : 'user'}}" type="delete selected" id="{{vm.deleteIdList}}"
+						 on-confirm="vm.deleteSelectedUsers(id)" /></confirm-modal>
+						<!-- Inactive selected user -->
+						<confirm-modal name="{{(vm.deleteIdList.length > 1) ? 'users' : 'user'}}" type="inactive selected" id="{{vm.deleteIdList}}"
+						 on-confirm="vm.changeStatus(status)" /></confirm-modal>
+
+						<!-- Activate selected user -->
+						<confirm-modal name="{{(vm.deleteIdList.length > 1) ? 'users' : 'user'}}" type="activate selected" id="{{vm.deleteIdList}}"
+						 on-confirm="vm.changeStatus(status)" /></confirm-modal>
+					<!-- </div> -->
+				</div>
+			</div>
+		</form>
+		<div id="ajax_data" ng-if="vm.isUsersLoaded">
+			<div class="table-scrollable">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th> # </th>
+							<th>
+								<label class="checkbox-inline"> 
+								<input 
+									icheck 
+									type="checkbox" 
+									ng-change="vm.checkAllBox()"
+									ng-model="vm.selectAll" required="">
+							</label>
+							</th>
+							<th> First Name </th>
+							<th> Last Name </th>
+							<th> Email </th>
+							<th> Mobile Number </th>
+							<th> Designation </th>
+							<th> Action </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-if="vm.userList.length == 0">
+							<td class="text-center" colspan="5">No data found.</td>
+						</tr>
+						<tr dir-paginate="user in vm.userList | itemsPerPage : vm.itemPerPage" total-items="vm.totalItem" current-page="vm.pagination.current">
+							<td>{{ (vm.itemPerPage * (vm.pagination.current-1)) + $index+1}} </td>
+							<td>
+								<label class="checkbox-inline">
+								<input 
+									icheck 
+									type="checkbox"
+									value="{{user._id}}"
+									ng-model="user.isChecked"
+									ng-change="vm.toggleCheckBox(user._id, user.isChecked)"
+									required="">
+							</label>
+							</td>
+							<td ng-bind-template="{{ user.firstName}}"></td>
+							<td ng-bind-template="{{ user.lastName}}"></td>
+							<td ng-bind-template="{{ user.email}}"></td>
+							<td ng-bind-template="{{ user.mobileNo}}"></td>
+							<td ng-bind-template="{{ user.userGroup}}"></td>
+							<td>
+								<!-- Active slide Show confirm  -->
+								<confirm-modal ng-if="!user.isActive && vm.loggedInUserId !== user._id" name="user" type="activate" id="{{user._id}}" on-confirm="vm.singleUserChangeStatus(id,status)"
+								/></confirm-modal>
+
+								<!-- Inactive slide Show confirm  -->
+								<confirm-modal ng-if="user.isActive && vm.loggedInUserId !== user._id" name="user" type="Inactive" id="{{user._id}}" on-confirm="vm.singleUserChangeStatus(id, status)"
+								/></confirm-modal>
+
+								<a title="Edit" class="btn btn-icon-only blue" ui-sref="root.editUser({userId:user._id})"><i class="fa fa-edit"></i></a>
+
+								<confirm-modal name="user" type="delete" id="{{user._id}}" ng-if="vm.loggedInUserId !== user._id" on-confirm="vm.deleteSingleUser(id)" /></confirm-modal>
+								<a title="Change Password" ng-click="vm.changePassword(user._id)" class="btn btn-icon-only blue"><i class="fa fa-unlock-alt"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<dir-pagination-controls max-size='5' on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>

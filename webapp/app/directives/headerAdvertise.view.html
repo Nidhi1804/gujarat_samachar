@@ -1,0 +1,20 @@
+<div class="advertisementSection" ng-if="vm.headerAd">
+    <!-- Google AdSense Start -->
+    <div ng-if="vm.headerAd.fileType == 'Google Code' && vm.headerAd.description1 !== ''" google-ad html="vm.headerAd.description1"></div>
+    <div ng-if="vm.headerAd.fileType == 'Google Code' && vm.headerAd.description2 !== ''" google-ad html="vm.headerAd.description2"></div>
+    <!-- Google AdSense End -->
+    
+    <!-- If Ad Type Image -->
+    <div ng-if="vm.headerAd.fileType == 'Image'">
+      <!-- Ad Image 1 -->
+      <img ng-if="!vm.headerAd.adLink1 && vm.headerAd.image1Url" ng-src="{{vm.headerAd.image1Url}}" />
+      <a href="{{vm.headerAd.adLink1}}" target="_blank" ng-if="vm.headerAd.adLink1 && vm.headerAd.image1Url">
+        <img ng-src="{{vm.headerAd.image1Url}}"/>
+      </a>
+      <!-- Ad Image 2 -->
+      <img ng-if="!vm.headerAd.adLink2 && vm.headerAd.image2Url" ng-src="{{vm.headerAd.image2Url}}" />
+      <a href="{{vm.headerAd.adLink2}}" target="_blank" ng-if="vm.headerAd.adLink2 && vm.headerAd.image2Url">
+        <img ng-src="{{vm.headerAd.image2Url}}"/>
+      </a>
+    </div>
+</div>

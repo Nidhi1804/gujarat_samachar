@@ -1,0 +1,147 @@
+<div class="tab-content">
+	<div id="tab_2" class="tab-pane active">
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa icon-diamond"></i> {{vm.typeTitle}} Category
+				</div>
+				<div class="tools"></div>
+				<div class="actions">
+					<div class="btn-group">
+						<a title="Back" ui-sref="root.categoryList" class="btn btn-circle red-sunglo">Back</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="portlet-body">
+				<div class="form-group">
+					<form class="form-horizontal" name="vm.addMainCatFrm" role="form" novalidate>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">Main Category <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-4">
+								<input type="text" value="" name="name" ng-model="vm.category.name" placeholder="Enter Main Category" id="name" class="form-control"
+								 required="">
+								<span ng-if="vm.addMainCatFrm.$invalid && vm.addMainCatFrm.$submitted">
+									<span class="text-danger" ng-if="vm.addMainCatFrm.name.$error.required">Main Category Name is required.
+									</span>
+								</span>
+								<!-- API Error message -->
+								<span ng-if="vm.noDataText">
+									<span class="text-danger">{{vm.noDataText}}
+									</span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">Category Type <span class="required" aria-required="true">*</span></label>
+							<div class="col-md-8">
+								<div class="radio-list">
+									<label class="radio-inline"> 
+										<input 
+											icheck 
+											type="radio" 
+											name="type"
+											value="article" 
+											ng-model="vm.category.type" required=""> Article
+									</label>
+									<label class="radio-inline"> 
+										<input 
+											icheck 
+											type="radio" 
+											name="type"
+											value="video"
+											ng-model="vm.category.type" required> Video Gallery
+									</label>
+									<label class="radio-inline"> 
+										<input 
+											icheck 
+											type="radio" 
+											name="type"
+											value="photo"
+											ng-model="vm.category.type" required> Photo Gallery
+									</label><br/>
+									<span ng-if="vm.addMainCatFrm.$invalid && vm.addMainCatFrm.$submitted">
+										<span class="text-danger" ng-if="vm.addMainCatFrm.type.$error.required">Category type is required.
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+                            <label class="control-label col-md-2">Icon<span class="required" aria-required="true">*</span></label>
+                            <div class="col-md-10">
+                                <label for="image-upload" class="upload-label nopad control-label">
+                                    <input 
+                                        id="image-upload"
+                                        type="file"
+                                        class="file-upload hidden" 
+                                        ngf-select 
+                                        ng-model="vm.category.icon" 
+                                        name="icon"
+                                        ngf-pattern="'image/*'"
+    									ngf-accept="'image/*'" 
+    									ngf-max-size="15KB"
+    									ngf-max-height="300"
+    									ngf-max-width="300"
+                                        required>
+                                    <i class="fa fa-upload" aria-hidden="true"></i>Upload Icon</label>
+                                    <div ng-if="vm.category.icon" style="width:122px">
+                                        <img class="img-responsive" ngf-src="vm.category.icon" class="thumb">
+                                        <a ng-click="vm.removethisIcon()"><img class="ad-remove-img" src="assets/images/remove.png"/></a><br/>
+                                    </div>
+                                <span ng-if="vm.addMainCatFrm.$invalid &&vm.addMainCatFrm.$submitted"><br>
+                                    <span class="text-danger" ng-if="vm.addMainCatFrm.icon.$error.required">Please upload icon.
+                                    </span>
+                                </span>
+                                <span class="text-danger" ng-if="vm.addMainCatFrm.icon.$error.maxHeight">Please upload image upto 300px.
+                                </span>
+                                <span class="text-danger" ng-if="vm.addMainCatFrm.icon.$error.maxWidth">Please upload image upto 300px.
+                                </span>
+                                <span class="text-danger" ng-if="vm.addMainCatFrm.icon.$error.maxSize">Please upload image upto 15KB.
+                                </span>
+                            </div>
+                        </div>
+						<!-- <div class="form-group" ng-if="vm.category.type == 'article'">
+							<label class="col-md-2 control-label" for="name">List Type</label>
+							<div class="col-md-8">
+								<div class="radio-list">
+									<label class="radio-inline"> 
+										<input 
+											icheck 
+											type="radio" 
+											name="listType"
+											value="byCaendar" 
+											ng-model="vm.category.listType" required=""> By Calendar
+									</label>
+									<label class="radio-inline"> 
+										<input 
+											icheck 
+											type="radio" 
+											name="listType"
+											value="all"
+											ng-model="vm.category.listType" required> All
+									</label><br/>
+									<span ng-if="vm.addMainCatFrm.$invalid && vm.addMainCatFrm.$submitted">
+										<span class="text-danger" ng-if="vm.addMainCatFrm.listType.$error.required">List type is required.
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> -->
+						<hr>
+						<div class="form-group">
+							<div class="col-md-offset-2 col-md-10">
+								<a class="btn default" ui-sref="root.categoryList">Cancel</a>
+								<button ng-if="!vm.categoryId" ng-click="vm.addMainCategory(vm.addMainCatFrm.$valid,true)" class="btn green" id="save" type="submit">Save & Add New</button>
+								<button ng-if="!vm.categoryId" ng-click="vm.addMainCategory(vm.addMainCatFrm.$valid,false)" class="btn blue" id="save" type="submit">Save</button>
+								<button ng-if="vm.categoryId" ng-click="vm.addMainCategory(vm.addMainCatFrm.$valid,true)" class="btn green" type="submit">Update & Add New</button>
+								<button ng-if="vm.categoryId" ng-click="vm.addMainCategory(vm.addMainCatFrm.$valid,false)" class="btn blue" type="submit">Update</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

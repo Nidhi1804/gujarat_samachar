@@ -1,0 +1,44 @@
+<!-- Single Delete Icon -->
+<a ng-if="vm.type == 'delete'" uib-tooltip="Delete" href="javascript:void(0)" title="Delete" class="btn btn-icon-only purple"
+ ng-click="vm.onAction()">
+	<i class="fa fa-trash"></i>
+</a>
+
+<!-- Multiple Delete -->
+<div class="del-all-action" ng-if="vm.type == 'delete selected'">
+	<button type="button" ng-disabled="vm.id.length == 2" class="btn btn-danger" ng-click="vm.onAction()" uib-tooltip="Delete checked"><i class="fa fa-trash"></i>
+	</button>
+	<span ng-if="vm.showDelErr" class="text-danger custom-error">Please select {{vm.name}}</span>
+</div>
+
+<!-- Multiple Active -->
+<div class="del-all-action" ng-if="vm.type == 'activate selected'">
+	<button type="button" ng-disabled="vm.id.length == 2" class="btn btn-icon-only blue" ng-click="vm.onAction()" uib-tooltip="Activate checked">
+		<i class="fa fa-check"></i>
+	</button>
+	<span ng-if="vm.showDelErr" class="text-danger custom-error">Please select at least one {{vm.name}}</span>
+</div>
+
+<!-- Multiple Inactive -->
+<div class="del-all-action" ng-if="vm.type == 'inactive selected'">
+	<button type="button" ng-disabled="vm.id.length == 2" class="btn btn-icon-only red" ng-click="vm.onAction()" uib-tooltip="Inactive checked">
+		<i class="fa fa-ban"></i>
+	</button>
+	<span ng-if="vm.showDelErr" class="text-danger custom-error">Please select at least one {{vm.name}}</span>
+</div>
+
+<!-- Inactive Slide Show -->
+<a ng-if="vm.type == 'activate'" uib-tooltip="Active" href="javascript:void(0)" title="{{vm.type}}" class="btn btn-icon-only red"
+ ng-click="vm.onAction()">
+	<i class="fa fa-ban"></i>
+</a>
+
+<!-- Active Slide Show -->
+<a ng-if="vm.type == 'Inactive'" uib-tooltip="Inactive" href="javascript:void(0)" title="{{vm.type}}" class="btn btn-icon-only blue"
+ ng-click="vm.onAction()">
+	<i class="fa fa-check"></i>
+</a>
+<!-- Switch -->
+<div class="del-all-action" ng-if="vm.type == 'allow all' || vm.type == 'diciable all'" ng-init="vm.getAllowIpStatus()">
+	<input ng-model="vm.allowAllIp" type="checkbox" class="make-switch" ng-change="vm.onIPAction()" data-size="small" bs-switch>
+</div>

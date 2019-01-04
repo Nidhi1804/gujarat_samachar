@@ -1,0 +1,64 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="vm.closeModal()">×</button>
+	<h3 class="modal-title">Upload Image</h3>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<!-- UPLOAD IMAGE AND CROP SECTION :BEIGN -->
+		<div class="col-md-12">
+			<div class="drag-drop-section" nv-file-drop="" uploader="vm.fileUploader">
+				<!-- DROP BOX :BEGIN -->
+				<div class="drop-box">
+					<div class="file-drop-zone margin-bottom-20" nv-file-over="" uploader="vm.fileUploader" filters="{'clearQueueFilter', 'imageTypeFilter','imageSizeFilter'}">
+						<p>Drag and drop image here, <br>or click the upload icon<br>(Allowed file types: jpeg, jpg, and png)</p>
+						<label for="file-upload" class="upload-label">
+							<input id="file-upload" class="file-upload hidden" type="file" name="" value="" placeholder="" nv-file-select uploader="vm.fileUploader"> <!-- onchange="angular.element(this).scope().uploadFile(this.files[0])"> -->
+							<i class="fa fa-upload" aria-hidden="true"></i>
+						</label>
+					</div>
+				</div>
+				<div style="text-align: center;">
+					<span class="text-danger" ng-if="vm.requireFileError">
+					Please upload image.<br/>
+					</span>
+					<span class="text-danger" ng-if="vm.imageTypeErr">Allowed file extensions are: jpg, jpeg, png & gif.<br/>
+					</span>
+					<span class="text-danger" ng-if="vm.imageSizerr">
+					Attachment size exceeds the allowable limit. Please upload file up to 3mb size.
+					</span>
+				</div>
+				<!-- DROP BOX :END -->
+			</div>
+			<div class="upload-crop-section">
+				<div class="crop-box">
+					<label class="label">Uploaded image and crop preview</label>
+					<div class="image-view-box no-padding">
+						<div class="background" style="overflow: hidden;width:938px;height:337px;border-radius:5px">
+							<!-- Aspect ratio:  
+								Article Image : 1.55 (Width: 1400, Height: 900)
+								Poster Image  : 2.39 (Width: 1170, Height: 490)  -->
+							<ui-cropper ng-if="vm.imageType == 'poster' " image="vm.uploadedImage" change-on-fly="false" area-type="rectangle" aspect-ratio="2.39" result-image="vm.croppedImage"
+							 result-image-size="'max'"></ui-cropper>
+
+							<ui-cropper ng-if="vm.imageType !== 'poster' " image="vm.uploadedImage" change-on-fly="false" area-type="rectangle" aspect-ratio="1.55" result-image="vm.croppedImage"
+							 result-image-size="'max'"></ui-cropper>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- UPLOAD IMAGE AND CROP SECTION :END -->
+	</div>
+	<!-- BUTTON ACTION :BEGIN -->
+	<div class="popup-btn">
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<button type="submit" class="btn btn-default" ng-click="vm.closeModal()">Cancel</button>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<button type="button" class="btn btn-default pull-right" ng-click="vm.setImage()">Upload Image</button>
+			</div>
+		</div>
+	</div>
+	<!-- BUTTON ACTION :END -->
+</div>
